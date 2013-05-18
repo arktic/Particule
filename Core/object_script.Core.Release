@@ -1,0 +1,12 @@
+INPUT(
+./release\RandomNumberGenerator.o
+./release\Object.o
+./release\LF_String.o
+./release\GlWindow.o
+./release\GlFramework.o
+./release\particule.o
+./release\main.o
+./release\mainwindow.o
+./release\app.o
+./release\moc_mainwindow.o
+);
