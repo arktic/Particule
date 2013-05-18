@@ -1,4 +1,3 @@
-
 Particule::Particule() : lifeTime(), age(), size(), position(), velocity() {
 }
 

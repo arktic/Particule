@@ -1,4 +1,4 @@
-/* Cette classe repésente une particule */
+/* Cette classe représente une particule */
 
 class Particule {
 protected:
