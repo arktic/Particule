@@ -1,7 +1,7 @@
 class Particule {
 protected:
-	int lifeTime;
-	int age;
+	float lifeTime;
+	float age;
 	int size;
 	vec3 position;
 	vec3 speed;
@@ -11,10 +11,10 @@ public:
 
 	void Render();
 	bool isALive();
-	int getAge() const;
-	void setAge(int age);
-	int getLifeTime() const;
-	void setLifeTime(int lifeTime);
+	float getAge() const;
+	void setAge(float age);
+	float getLifeTime() const;
+	void setLifeTime(float lifeTime);
 	vec3 getPosition() const;
 	void setPosition(vec3 position);
 	int getSize() const;

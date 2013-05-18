@@ -1,16 +1,16 @@
-int Particule::getAge() const {
+float Particule::getAge() const {
 	return age;
 }
 
-void Particule::setAge(int age) {
+void Particule::setAge(float age) {
 	this->age = age;
 }
 
-int Particule::getLifeTime() const {
+float Particule::getLifeTime() const {
 	return lifeTime;
 }
 
-void Particule::setLifeTime(int lifeTime) {
+void Particule::setLifeTime(float lifeTime) {
 	this->lifeTime = lifeTime;
 }
 
