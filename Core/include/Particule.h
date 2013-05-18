@@ -1,4 +1,9 @@
-/* Cette classe représente une particule */
+#ifndef _PARTICULE_H_
+#define _PARTICULE_H_
+
+#include "Vectors.h"
+
+/* Cette classe repésente une particule */
 
 class Particule {
 protected:
@@ -8,11 +13,11 @@ protected:
 	float age;
 	//taille de la particule
 	int size;
-	vec3 position;
-	vec3 velocity;
+	Vec3 position;
+	Vec3 velocity;
 public:
 	Particule();
-	Particule(float lifeTime, int size, vec3 pos, vec3 velocity);
+	Particule(float lifeTime, int size, Vec3 pos, Vec3 velocity);
 
 	void Render();
 	
@@ -25,10 +30,12 @@ public:
 	void setAge(float age);
 	float getLifeTime() const;
 	void setLifeTime(float lifeTime);
-	vec3 getPosition() const;
-	void setPosition(vec3 position);
+	Vec3 getPosition() const;
+	void setPosition(Vec3 position);
 	int getSize() const;
 	void setSize(int size);
-	vec3 getVelocity() const;
-	void setVelocity(vec3 velocity);
+	Vec3 getVelocity() const;
+	void setVelocity(Vec3 velocity);
 };
+
+#endif
