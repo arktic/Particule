@@ -53,6 +53,7 @@ private:
 	/* 	liste des particules actuellement vivantes, donc les seules dont on doit
 		effectuer le rendu */
 	vector<Particule*> alive;
+    vector<Particule*> dead;
 
 public:
     //ParticuleGenerateur();
