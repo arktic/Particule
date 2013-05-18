@@ -15,9 +15,9 @@ SOURCES += ../Common/RandomNumberGenerator.cpp \
     ../Common/LF_String.cpp \
     ../Common/GlWindow.cpp \
     ../Common/GlFramework.cpp \
-    src/particule.cpp \
-	src/main.cpp \
-	src/app.cpp
+    src/Particule.cpp \
+	src/Main.cpp \
+	src/App.cpp
 
 HEADERS  += ../Common/Vectors.h \
     ../Common/Types.h \
@@ -28,8 +28,8 @@ HEADERS  += ../Common/Vectors.h \
     ../Common/GlWindow.h \
     ../Common/GlFramework.h \
     ../Common/AbstractFramework.h \
-    include/particule.h \
-	include/app.h
+    include/Particule.h \
+	include/App.h
 
 
 
