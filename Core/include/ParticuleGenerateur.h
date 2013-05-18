@@ -55,7 +55,7 @@ private:
 	vector<Particule*> alive;
 
 public:
-	ParticuleGenerateur();
+    //ParticuleGenerateur();
 	ParticuleGenerateur(float _radius, Vec3i _center, int _nbItem, float _lifeTimeMin, float _lifeTimeMax, float _sizeMin, float _sizeMax);
 	~ParticuleGenerateur();
 
