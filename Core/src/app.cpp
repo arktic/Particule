@@ -9,6 +9,7 @@ const GLfloat g_AngleSpeed = 10.0f;
 
 #include <iostream>
 
+#include "ParticuleGenerateur.h"
 using namespace std;
 
 
@@ -68,7 +69,12 @@ App::initializeObjects()
 
     // Chargement des shaders
     createShader( "Shaders/color" );
-
+    gen = new ParticuleGenerateur(GEN_FRAMETIME,GEN_ITEMPERFRAME,
+                                  GEN_RADIUS,GEN_CENTER,
+                                  GEN_NBPARTICLE,
+                                  GEN_LIFETIME_MIN,GEN_LIFETIME_MAX,
+                                  GEN_SIZE_MIN,  GEN_SIZE_MAX,
+                                  GEN_VELOCITY_MIN, GEN_VELOCITY_MAX);
     return true;
 }
 
@@ -76,6 +82,7 @@ App::initializeObjects()
 void
 App::render()
 {
+    gen->update();
     // Initialisation de la cam�ra
         lookAt( 0, 10, 30, 0, 0, 0 );
         glPointSize(50);
@@ -154,4 +161,9 @@ App::keyPressEvent( QKeyEvent* event )
             angle1 = angle2 = 0.0f;
             break;
     }
+}
+
+
+App::~App() {
+    delete gen;
 }

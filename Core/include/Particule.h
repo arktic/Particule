@@ -10,7 +10,7 @@ protected:
 	// durée de vie de cette particule. i.e. âge maximum avant sa mort
 	float lifeTime;
 	// âge de la particule
-	float age;
+    int age;
 	//taille de la particule
 	int size;
 	Vec3 position;
@@ -23,11 +23,11 @@ public:
 	
 	/* Renvoie vrai si cette particule est en vie 
 		(i.e. que son âge n'a pas encore atteint son lifeTime) */
-	bool isALive();
+    bool isAlive();
 
 	/* getters & setters */
-	float getAge() const;
-	void setAge(float age);
+    int getAge() const;
+    void setAge(int age);
 	float getLifeTime() const;
 	void setLifeTime(float lifeTime);
 	Vec3 getPosition() const;
@@ -36,6 +36,9 @@ public:
 	void setSize(int size);
 	Vec3 getVelocity() const;
 	void setVelocity(Vec3 velocity);
+    void live(int elapsedTime);
+
+    void set(float lifeTime, int size, Vec3 pos, Vec3 velocity, int _age= 0);
 };
 
 #endif

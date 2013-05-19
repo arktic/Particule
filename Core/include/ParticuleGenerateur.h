@@ -21,45 +21,64 @@ using namespace std;
 	La forme de ce générateur est par défault un cercle dans le plan XoY */
 class ParticuleGenerateur {
 private:
+    // temps depuis le début de la génération
+    float lastFrameTime;
+
+    // une frame correspond à une tentative de génération de nbItemPerFrame particules
+    float frameTime;
+    int nbItemPerFrame;
+
 	/* rayon du cercle sur lequel sont génerées les particules*/
 	float radius;
 	
 	/* position du centre du cercle */
-	Vec3i center;
+    Vec3 center;
 	
 	/* nombre de particules de ce générateur. Les particules 
 	sont réutilisées après leurs mort afin que l'on ai toujours 
 	le même nombre de particules */
-	int nbItem;
+    int nbItem;
 
 	/* nombre de particules vivante actuellement. */
 	int nbAlive;
 
 	/* durée de vie minium des particules générées */
-	float lifeTimeMin;
+    float lifeTimeMin;
 
 	/* durée de vie maximum des particules générées */
-	float lifeTimeMax;
+    float lifeTimeMax;
+
+    /* norme minimale du vecteur vitesse des particules générées */
+    float velocityMin;
+
+    /* norme maximale du vecteur vitesse des particules générées */
+    float velocityMax;
+
 
 	/* taille minimum des particules générées */
-	float sizeMin;
+    float sizeMin;
 
 	/* taille maximum des particules générées */
-	float sizeMax;
-
-	/* liste des particules de ce générateur, vivantes ou mortes */
-	vector<Particule> particles;
+    float sizeMax;
 
 	/* 	liste des particules actuellement vivantes, donc les seules dont on doit
 		effectuer le rendu */
 	vector<Particule*> alive;
     vector<Particule*> dead;
 
+    Vec3 getRandomPosition();
+    Vec3 getRandomVelocity();
+    float getRandomLifeTime();
+    float getRandomSize();
+
 public:
-    //ParticuleGenerateur();
-	ParticuleGenerateur(float _radius, Vec3i _center, int _nbItem, float _lifeTimeMin, float _lifeTimeMax, float _sizeMin, float _sizeMax);
+  //  ParticuleGenerateur();
+    ParticuleGenerateur(float _frameTime, int _nbItemPerFrame, float _radius,
+                        Vec3 _center, int _nbItem, float _lifeTimeMin, float _lifeTimeMax,
+                        float _sizeMin, float _sizeMax, float _velocityMin, float _velocityMax);
 	~ParticuleGenerateur();
 
+    void update();
 };
 
 

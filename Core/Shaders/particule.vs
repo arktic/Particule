@@ -22,7 +22,7 @@ void main() {
 	vec3 np; // nouvelle position
 
 	// calcul de la nouvelle position
-	np = p + v*t ; 
+	np = p + v*t ; // WARNING NEED TEMPS DEBUT 
 	np.y -= g*t*t/2 ;
 
 	// cette nouvelle position est la position de notre particule
@@ -30,4 +30,4 @@ void main() {
 
 	// couleur inchangée
 	fColor = color ;
-}
+} 

@@ -14,11 +14,11 @@ lifeTime(LifeTime), age(), size(Size), position(pos), velocity(Velocity)
 }
 
 
-float Particule::getAge() const {
+int Particule::getAge() const {
 	return age;
 }
 
-void Particule::setAge(float age) {
+void Particule::setAge(int age) {
 	this->age = age;
 }
 
@@ -54,9 +54,22 @@ void Particule::setVelocity(Vec3 velocity) {
 	this->velocity = velocity;
 }
 
-bool Particule::isALive() {
-	return age >= lifeTime;
+bool Particule::isAlive() {
+    return age <= lifeTime;
 }
 
+
+void Particule::set(float lifeTime, int size, Vec3 pos, Vec3 velocity, int _age) {
+    setLifeTime(lifeTime);
+    setSize(size);
+    setPosition(pos);
+    setVelocity(velocity);
+    age=_age;
+}
+
+
+void Particule::live(int elapsedTime) {
+    setAge(getAge() + elapsedTime);
+}
 
 

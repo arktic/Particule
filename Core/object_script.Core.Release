@@ -4,9 +4,9 @@ INPUT(
 ./release\LF_String.o
 ./release\GlWindow.o
 ./release\GlFramework.o
-./release\particule.o
-./release\main.o
-./release\mainwindow.o
-./release\app.o
-./release\moc_mainwindow.o
+./release\Particule.o
+./release\Main.o
+./release\App.o
+./release\ParticuleGenerateur.o
+./release\utils.o
 );

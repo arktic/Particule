@@ -4,9 +4,9 @@ INPUT(
 ./debug\LF_String.o
 ./debug\GlWindow.o
 ./debug\GlFramework.o
-./debug\particule.o
-./debug\main.o
-./debug\mainwindow.o
-./debug\app.o
-./debug\moc_mainwindow.o
+./debug\Particule.o
+./debug\Main.o
+./debug\App.o
+./debug\ParticuleGenerateur.o
+./debug\utils.o
 );
