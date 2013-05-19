@@ -1,0 +1,4 @@
+[ ] gestion camera
+[ ] point sprites
+[ ] ameliorer perf : tableau de couleur géré par le processus dans
+        update du générateur? Permettrait de supprimer le passage de age, agesRatio, et j'en passe !
