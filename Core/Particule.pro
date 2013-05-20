@@ -19,7 +19,9 @@ SOURCES += ../Common/RandomNumberGenerator.cpp \
 	src/Main.cpp \
 	src/App.cpp \
     src/ParticuleGenerateur.cpp \
-    src/utils.cpp
+    src/utils.cpp \
+    src/fire.cpp \
+    src/camera.cpp
 
 HEADERS  += ../Common/Vectors.h \
     ../Common/Types.h \
@@ -33,7 +35,9 @@ HEADERS  += ../Common/Vectors.h \
     include/Particule.h \
 	include/App.h \
     include/ParticuleGenerateur.h \
-    include/utils.h
+    include/utils.h \
+    include/fire.h \
+    include/camera.h
 
 
 INCLUDEPATH = ../Common/ src ../glew-mingw/include include
