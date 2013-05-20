@@ -5,6 +5,7 @@
 #include <vector>
 #include "Vectors.h"
 #include "Particule.h"
+#include <GL/glew.h>
 
 #define DEFAULT_RADIUS 100
 #define DEFAULT_CENTER Vec3i(0,0,0)
@@ -54,6 +55,8 @@ private:
     /* norme maximale du vecteur vitesse des particules générées */
     float velocityMax;
 
+    /* tab des vitesses composantes distinctes */
+    float* velocity;
 
 	/* taille minimum des particules générées */
     float sizeMin;
@@ -66,19 +69,34 @@ private:
 	vector<Particule*> alive;
     vector<Particule*> dead;
 
+    /* tableau des vertices passé à la cg  (composantes par composantes à la suite)*/
+    GLfloat* vertices;
+    GLfloat* agesRatio;
+    GLfloat* ages;
+    GLfloat* colors;
+    GLint*  sizes;
+
     Vec3 getRandomPosition();
     Vec3 getRandomVelocity();
     float getRandomLifeTime();
     float getRandomSize();
 
 public:
-  //  ParticuleGenerateur();
     ParticuleGenerateur(float _frameTime, int _nbItemPerFrame, float _radius,
                         Vec3 _center, int _nbItem, float _lifeTimeMin, float _lifeTimeMax,
                         float _sizeMin, float _sizeMax, float _velocityMin, float _velocityMax);
 	~ParticuleGenerateur();
 
     void update();
+    GLfloat* getVertices();
+    GLfloat* getVelocity();
+    GLfloat* getColors();
+    GLfloat* getAgesRatio();
+    GLfloat* getAges();
+    GLfloat getRadius();
+    GLint* getSizes();
+    Vec3 getCenter();
+    int getNbAlive();
 };
 
 

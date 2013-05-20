@@ -12,9 +12,10 @@ void time_ms(int64_t* tms)
 
 
 int getBoundedRandom(int min, int max) {
-    return (rand() / (double)RAND_MAX * (max - min)) + min;
+    return (((float)rand()) / (double)RAND_MAX * (max - min)) + min;
 }
 
 float getBoundedRandom(float min, float max) {
-    return (rand() / (double)RAND_MAX * (max - min)) + min;
+    return (((float)rand()) / (double)RAND_MAX * (max - min)) + min;
 }
+

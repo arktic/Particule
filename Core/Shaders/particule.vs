@@ -1,33 +1,54 @@
-// position initiale de cette particule. Transmis par le programme principal
-in vec3 position ;
+// matrice MVP
+uniform mat4 MVP;
+uniform vec3 center; // position du foyer
+uniform float radius; // rayon du foyer
+//uniform float radius; // position du foyer
 
-// vitesse de cette particule
-in vec3 velocity ;
+// position initiale de cette particule. Transmis par le programme principal
+in vec3 position;
+
+// vitesse de cette particul
+in vec3 velocity;
 
 // couleur de cette particule
-in vec3 color ;
+in vec3 color;
 
-// matrice MVP
-uniform mat4 MVP ;
+//taille du point
+in int size;
 
-// temps depuis le début de la simulation
-uniform float t ;
+// temps depuis le dut de la simulation
+in float t;
 
-// gravité
-const float g = 9.8f ;
-out vec3 fColor ; // interpolé et transmis au fragment shader
+in float ageRatio;
 
+// gravit
+const float g = 9.8f;
+
+/*
+const vec3 jaune = vec3(255,255,0);
+const vec3 orange = vec3(255,165,0);
+const vec3 rouge = vec3(255,0,0);
+*/
+out vec3 fColor;  // interpol et transmis au fragment shader
 
 void main() {
 	vec3 np; // nouvelle position
-
+	gl_PointSize = size;
+	
+	//jaune - orange pour distance au centre
+	/*vec3 difference = position - center;
+	
+	float distance = length(difference);
+	if(distance < 0)
+		distance = - distance;
+	*/
 	// calcul de la nouvelle position
-	np = p + v*t ; // WARNING NEED TEMPS DEBUT 
-	np.y -= g*t*t/2 ;
-
+	np = position + 0.001*t * velocity; // WARNING NEED TEMPS DEBUT 
+	//np.y -= (g * t * t * 0.000001) /2;
+	
 	// cette nouvelle position est la position de notre particule
-	gl_Position = vec4(np, 1.0f) ;
-
-	// couleur inchangée
-	fColor = color ;
-} 
+	gl_Position = MVP * vec4( np, 1.0f );
+	
+	// couleur inchang�e
+	fColor = vec3(255, 1-ageRatio*0.5 , 0 );
+}

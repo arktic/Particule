@@ -129,6 +129,7 @@ GlFramework::init()
 //        QMessageBox::critical(this, trUtf8("Erreur"), trUtf8("Echec de l'initialization de GLEW: %1").arg(reinterpret_cast<const char *>(glewGetErrorString(error))));
 //        exit(-1);
     }
+    return true;
 }
 
 
@@ -270,7 +271,7 @@ GlFramework::useShader( const char* shader_name )
         {
             if (m_CurrentShader != id)
             {
-                std::cout << "Use shader: " << id << std::endl;
+              //  std::cout << "Use shader: " << id << std::endl;
                 m_CurrentShader = id;
                 glUseProgram( m_Shader[id] );
             }

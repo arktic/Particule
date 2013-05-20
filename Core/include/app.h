@@ -1,21 +1,23 @@
 #ifndef APP_h
 #define APP_h
 
-#define GEN_FRAMETIME 100
-#define GEN_ITEMPERFRAME 5
-#define GEN_NBPARTICLE 1
+#define GEN_FRAMETIME 33
+#define GEN_ITEMPERFRAME 400
+#define GEN_NBPARTICLE 10000
 
-#define GEN_LIFETIME_MIN 2000
-#define GEN_LIFETIME_MAX 4000
+#define GEN_LIFETIME_MIN 1000
+#define GEN_LIFETIME_MAX 3000
 
-#define GEN_SIZE_MIN 20
-#define GEN_SIZE_MAX 30
+#define GEN_SIZE_MIN 0
+#define GEN_SIZE_MAX 5
 
-#define GEN_VELOCITY_MIN 10
-#define GEN_VELOCITY_MAX 50
+#define GEN_VELOCITY_MIN 1
+#define GEN_VELOCITY_MAX 3
 
-#define GEN_RADIUS 30
+#define GEN_RADIUS 4
 #define GEN_CENTER Vec3(0,0,0)
+
+#define GEN_POINT_SIZE 6
 
 
 #include "GlWindow.h"
@@ -25,7 +27,10 @@ class App : public GlWindow
 {
     private:
     ParticuleGenerateur* gen;
+    float fps;
+    int64_t lastTimeFps;
 
+    void printFps();
 	public:
 		App();
 
