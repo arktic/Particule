@@ -39,7 +39,9 @@ class App : public GlWindow
     int64_t lastTimeFps;
 
     Camera* cam;
+
     int textureID;
+    Vec2 oldMouse;
 
     void printFps();
 
