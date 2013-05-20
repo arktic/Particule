@@ -1,4 +1,3 @@
-#version 140
 
 // couleurs in & out
 out vec4 fragColor;

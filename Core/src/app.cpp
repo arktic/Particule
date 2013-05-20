@@ -60,6 +60,7 @@ App::initializeObjects()
 {
     // Fond gris
     cam = new Camera(20,20,0,0,0,0,0,1,0);
+
     oldMouse.x = 0;
     oldMouse.y = 0;
     glClearColor( 0.f, 0.f, 0.f, 1.0f );
@@ -77,6 +78,7 @@ App::initializeObjects()
                     GEN_LIFETIME_MIN,GEN_LIFETIME_MAX,
                     GEN_SIZE_MIN,  GEN_SIZE_MAX,
                     GEN_VELOCITY_MIN, GEN_VELOCITY_MAX);
+    createShader( "Shaders/color");
     createShader( fire->getShaderName() );
     textureID = createTexture(GEN_TEXTURE_FIRE);
 
@@ -99,7 +101,7 @@ App::render()
         //rotate( angle1, 0, 1, 0 );
         //rotate( angle2, 1, 0, 0 );
         computeAncillaryMatrices();
-
+        // repere shit
         useShader( "color" );
         GLint var_id = glGetUniformLocation( getCurrentShaderId(), "MVP" );
         GLint position = glGetAttribLocation( getCurrentShaderId(), "position" );
@@ -109,7 +111,6 @@ App::render()
         glEnableVertexAttribArray( position );
         glEnableVertexAttribArray( color );
                 // drawing repere
-
                 glVertexAttribPointer( position, 3, GL_FLOAT, GL_FALSE, 0, g_repere);
                 glVertexAttribPointer( color, 3, GL_FLOAT, GL_FALSE, 0, g_repereColor);
                 glDrawArrays (GL_LINES, 0 , 6);
@@ -117,14 +118,11 @@ App::render()
          glDisableVertexAttribArray( position );
          glDisableVertexAttribArray( color );
 
-        // drawing particules
+        // particules
          glEnable(GL_POINT_SPRITE);
          glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
-
-
-        glEnable(GL_TEXTURE_2D);
+         glEnable(GL_TEXTURE_2D);
         useShader( "fire" );
-
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D,textureID);
 
@@ -132,26 +130,22 @@ App::render()
         glUniform1i(glGetUniformLocation(0, "texId"),0);
 
         // setting de la position de la caméra dans le shader et du viewport width
-        GLint eyePosition = glGetUniformLocation( getCurrentShaderId(), "eyePosition" );
-
         Vec3 camPos = cam->getPosition();
-        glUniform3f(eyePosition, camPos.x, camPos.y, camPos.z);
-
         GLint viewport[4];
         glGetIntegerv(GL_VIEWPORT, viewport);
-        GLint viewportWidth = glGetUniformLocation( getCurrentShaderId(), "viewportWidth" );
-        glUniform1f(viewportWidth,viewport[2] );
+        Vec3 center = fire->getCenter();
 
-
-        var_id = glGetUniformLocation( getCurrentShaderId(), "MVP" );
-        transmitMVP( var_id );
-
+        GLint mvp = glGetUniformLocation( getCurrentShaderId(), "MVP" );
         GLint c = glGetUniformLocation(getCurrentShaderId(), "center" );
         GLint radius = glGetUniformLocation(getCurrentShaderId(), "radius" );
-        glUniform1f( radius, fire->getRadius());
+        GLint eyePosition = glGetUniformLocation( getCurrentShaderId(), "eyePosition" );
+        GLint viewportWidth = glGetUniformLocation( getCurrentShaderId(), "viewportWidth" );
 
-        Vec3 center = fire->getCenter();
-        glUniform3f(	c, center.x, center.y, center.z );
+        transmitMVP( mvp );
+        glUniform3f(eyePosition, camPos.x, camPos.y, camPos.z);
+        glUniform1f(viewportWidth,viewport[2] );
+        glUniform1f( radius, fire->getRadius());
+        glUniform3f(c, center.x, center.y, center.z );
 
 
         GLint t = glGetAttribLocation( getCurrentShaderId(), "t" );
@@ -165,20 +159,22 @@ App::render()
         glEnableVertexAttribArray( velocity );
         glEnableVertexAttribArray( position );
         glEnableVertexAttribArray( ageRatio );
-      //  glEnableVertexAttribArray( color );
+        //glEnableVertexAttribArray( color );
         glEnableVertexAttribArray( size );
 
-        glVertexAttribPointer( t, 1, GL_FLOAT, GL_FALSE, 0, gen->getAges() );
-        glVertexAttribPointer( velocity, 3, GL_FLOAT, GL_FALSE, 0, gen->getVelocity() );
-        glVertexAttribPointer( position, 3, GL_FLOAT, GL_FALSE, 0, gen->getVertices() );
-       // glVertexAttribPointer( color, 4, GL_FLOAT, GL_FALSE, 0, gen->getColors() );
-        glVertexAttribPointer( size, 1, GL_FLOAT, GL_FALSE, 0, gen->getSizes() );
-        glVertexAttribPointer( ageRatio, 1, GL_FLOAT, GL_FALSE, 0, gen->getAgesRatio() );
+
+        glVertexAttribPointer( t, 1, GL_FLOAT, GL_FALSE, 0, fire->getAges() );
+        glVertexAttribPointer( velocity, 3, GL_FLOAT, GL_FALSE, 0, fire->getVelocity() );
+        glVertexAttribPointer( position, 3, GL_FLOAT, GL_FALSE, 0, fire->getVertices() );
+        //glVertexAttribPointer( color, 4, GL_FLOAT, GL_FALSE, 0, fire->getColors() );
+        glVertexAttribPointer( size, 1, GL_FLOAT, GL_FALSE, 0, fire->getSizes() );
+        glVertexAttribPointer( ageRatio, 1, GL_FLOAT, GL_FALSE, 0, fire->getAgesRatio() );
+
 
             glDrawArrays( GL_POINTS, 0, fire->getNbAlive() );
 
         glDisableVertexAttribArray( position );
-      //  glDisableVertexAttribArray( color );
+//        glDisableVertexAttribArray( color );
         glDisableVertexAttribArray( velocity );
         glDisableVertexAttribArray( t );
         glDisableVertexAttribArray( size );
@@ -186,10 +182,11 @@ App::render()
 
         //unbind de la texture
         glBindTexture(GL_TEXTURE_2D,0);
+        glDisable(GL_POINT_SPRITE);
+        glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
+        glDisable(GL_TEXTURE_2D);
     popMatrix();
-    glDisable(GL_POINT_SPRITE);
-    glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
-    glDisable(GL_TEXTURE_2D);
+
     // affichage des fps
     printFps();
 }
@@ -197,7 +194,6 @@ App::render()
 
 void
 App::mouseMoveEvent(QMouseEvent *event){
-    //Vec2 offset( - this->width()*0.5 , event->y() - this->height()*0.5);
     cam->orienter(event->x()-oldMouse.x ,event->y()-oldMouse.y);
     oldMouse.x = event->x();
     oldMouse.y = event->y();

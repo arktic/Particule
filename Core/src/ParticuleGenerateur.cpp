@@ -12,7 +12,7 @@
 #include "GlFramework.h"
 #include "GlWindow.h"
 #include <GL/glew.h>
-
+using namespace std;
 
 
 ParticuleGenerateur::ParticuleGenerateur
@@ -80,17 +80,11 @@ void ParticuleGenerateur::update() {
     time_ms(&tMs);
     int elapsedTime = tMs - lastFrameTime;
     if( elapsedTime >  frameTime) {
-        //std::cout << "FT: " << frameTime << "--eslpasedTIme:  "<< elapsedTime << std::endl;
         updateParticle(elapsedTime);
-       // std::cout << "elapsedTime: " << elapsedTime <<std::endl;
         addParticle();
 
         lastFrameTime = tMs;
     }
-
-
-
-    return;
 }
 
 
@@ -121,7 +115,7 @@ float ParticuleGenerateur::getRandomSize() {
 
 void ParticuleGenerateur::fillCGA(int &i,vector<Particule*>::iterator &it){
     Vec3 pos = (*it)->getPosition();
-    vertices[3*i]   = pos.x;
+    vertices[3*i  ]   = pos.x;
     vertices[3*i+1] = pos.y;
     vertices[3*i+2] = pos.z;
 
@@ -134,6 +128,21 @@ void ParticuleGenerateur::fillCGA(int &i,vector<Particule*>::iterator &it){
     agesRatio[i] = (*it)->getAge()/((*it)->getLifeTime());
     ages[i] = (*it)->getAge();
     sizes[i] = (float)(*it)->getSize();
+//    cout << "--------- "<< endl;
+//    cout << " velocity[0]:" << velocity[3*i  ] <<
+//            " velocity[1]:" << velocity[3*i+1] <<
+//            " velocity[2]:" << velocity[3*i+2] <<
+//    endl;
+
+//    cout << " vertices[0]:" << vertices[3*i  ] <<
+//            " vertices[1]:" << vertices[3*i+1] <<
+//            " vertices[2]:" << vertices[3*i+2] <<
+//    endl;
+//    cout << " sizes: " << sizes[i] << endl;
+//    cout << " ages:  " << ages[i] << endl;
+//    cout << " agesRatio " << agesRatio[i] << endl;
+//    cout << "--------- "<< endl;
+
 }
 
 
