@@ -23,7 +23,7 @@ public:
     Camera(float positionX, float positionY, float positionZ, float targetX, float targetY, float targetZ, float VaxeX, float VaxeY, float VaxeZ);
     ~Camera();
 
-    void update();
+    void setTarget();
     void orienter(int xRel, int yRel);
     void moveForward(float speed);
     void moveBackward(float speed);
