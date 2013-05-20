@@ -38,7 +38,7 @@ ParticuleGenerateur::ParticuleGenerateur
     shaderName = _shaderName;
     vertices = new GLfloat[3*nbItem];
     velocity = new GLfloat[3*nbItem];
-    colors = new GLfloat[3*nbItem];
+    colors = new GLfloat[4*nbItem];
     ages = new GLfloat[nbItem];
     agesRatio = new GLfloat[nbItem];
     sizes = new GLfloat[nbItem];
@@ -46,9 +46,10 @@ ParticuleGenerateur::ParticuleGenerateur
     for(int i =0 ; i <nbItem ; i++){
         Particule* pt = new Particule();
         dead.push_back(pt);
-        colors[3*i + 0] = 1;
-        colors[3*i +1 ] = 1;
-        colors[3*i +2 ] = 1;
+        colors[3*i] = 1;//((float)rand())/RAND_MAX;
+        colors[3*i +1 ] = 1;// ((float)rand())/RAND_MAX;
+        colors[3*i +2 ] = 1;// ((float)rand())/RAND_MAX;
+        colors[3*i +3 ] = 1;
         ages[i] = 0;
         agesRatio[i] = 0;
         sizes[i] = 0;

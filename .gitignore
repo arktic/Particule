@@ -14,3 +14,13 @@
 *.user
 *.1pre1
 *.0898310
+
+Makefile
+Makefile.Debug
+Makefile.Release
+
+Particule.pro.user.4eb275c
+
+*.exe
+
+build-Particule-test-Debug

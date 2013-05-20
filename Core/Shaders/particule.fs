@@ -1,10 +1,15 @@
 #version 140
 
-
-in vec3 fColor;
+// couleurs in & out
+in vec4 fColor;
 out vec4 fragColor;
+
+// mapping de texture
+uniform sampler2D texId;
+
+
 
 void main()
 {
-  fragColor = vec4( fColor, 1.0f );
+  fragColor = texture(texId, gl_PointCoord);
 }

@@ -61,11 +61,13 @@ App::initializeObjects()
     // Fond gris
     cam = new Camera(20,20,0,0,0,0,0,1,0);
     glClearColor( 0.f, 0.f, 0.f, 1.0f );
-    glEnable( GL_DEPTH_TEST );
+
+    glDepthMask( GL_FALSE );            // Disable depth writes
+    glEnable(GL_BLEND);                 // Enable Blending
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+
 
     fps = 0;
-    // Chargement des shaders
-    createShader( "Shaders/color" );
 
     fire = new Fire("Shaders/fire",GEN_FRAMETIME,GEN_ITEMPERFRAME,
                     GEN_RADIUS,GEN_CENTER,
@@ -74,6 +76,8 @@ App::initializeObjects()
                     GEN_SIZE_MIN,  GEN_SIZE_MAX,
                     GEN_VELOCITY_MIN, GEN_VELOCITY_MAX);
     createShader( fire->getShaderName() );
+    textureID = createTexture(GEN_TEXTURE_FIRE);
+
     return true;
 }
 
@@ -113,7 +117,25 @@ App::render()
         // drawing particules
          glEnable(GL_POINT_SPRITE);
          glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
-        useShader( "fire" );
+         useShader( "fire" );
+         glEnable(GL_TEXTURE_2D);
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D,textureID);
+
+        // textureID initialization
+        glUniform1i(glGetUniformLocation(0, "texId"),0);
+
+        // setting de la position de la caméra dans le shader et du viewport width
+        GLint eyePosition = glGetUniformLocation( getCurrentShaderId(), "eyePosition" );
+        glUniform3f(eyePosition, 0, 0, 0);
+//TODO
+        GLint viewport[4];
+        glGetIntegerv(GL_VIEWPORT, viewport);
+        GLint viewportWidth = glGetUniformLocation( getCurrentShaderId(), "viewportWidth" );
+        glUniform1f(viewportWidth,viewport[2] );
+
+
         var_id = glGetUniformLocation( getCurrentShaderId(), "MVP" );
         transmitMVP( var_id );
 
@@ -124,38 +146,43 @@ App::render()
         Vec3 center = fire->getCenter();
         glUniform3f(	c, center.x, center.y, center.z );
 
+
         GLint t = glGetAttribLocation( getCurrentShaderId(), "t" );
         GLint velocity = glGetAttribLocation( getCurrentShaderId(), "velocity" );
         GLint ageRatio = glGetAttribLocation( getCurrentShaderId(), "ageRatio" );
         position = glGetAttribLocation( getCurrentShaderId(), "position" );
-        color = glGetAttribLocation( getCurrentShaderId(), "color" );
+        //color = glGetAttribLocation( getCurrentShaderId(), "color" );
         GLint size = glGetAttribLocation( getCurrentShaderId(), "size" );
 
         glEnableVertexAttribArray( t );
         glEnableVertexAttribArray( velocity );
         glEnableVertexAttribArray( position );
         glEnableVertexAttribArray( ageRatio );
-        glEnableVertexAttribArray( color );
+      //  glEnableVertexAttribArray( color );
         glEnableVertexAttribArray( size );
 
-        glVertexAttribPointer( t, 1, GL_FLOAT, GL_FALSE, 0, fire->getAges() );
-        glVertexAttribPointer( velocity, 3, GL_FLOAT, GL_FALSE, 0, fire->getVelocity() );
-        glVertexAttribPointer( position, 3, GL_FLOAT, GL_FALSE, 0, fire->getVertices() );
-        glVertexAttribPointer( color, 3, GL_FLOAT, GL_FALSE, 0, fire->getColors() );
-        glVertexAttribPointer( size, 1, GL_FLOAT, GL_FALSE, 0, fire->getSizes() );
-        glVertexAttribPointer( ageRatio, 1, GL_FLOAT, GL_FALSE, 0, fire->getAgesRatio() );
+        glVertexAttribPointer( t, 1, GL_FLOAT, GL_FALSE, 0, gen->getAges() );
+        glVertexAttribPointer( velocity, 3, GL_FLOAT, GL_FALSE, 0, gen->getVelocity() );
+        glVertexAttribPointer( position, 3, GL_FLOAT, GL_FALSE, 0, gen->getVertices() );
+       // glVertexAttribPointer( color, 4, GL_FLOAT, GL_FALSE, 0, gen->getColors() );
+        glVertexAttribPointer( size, 1, GL_FLOAT, GL_FALSE, 0, gen->getSizes() );
+        glVertexAttribPointer( ageRatio, 1, GL_FLOAT, GL_FALSE, 0, gen->getAgesRatio() );
 
-                glDrawArrays( GL_POINTS, 0, fire->getNbAlive() );
+            glDrawArrays( GL_POINTS, 0, fire->getNbAlive() );
 
         glDisableVertexAttribArray( position );
-        glDisableVertexAttribArray( color );
+      //  glDisableVertexAttribArray( color );
         glDisableVertexAttribArray( velocity );
         glDisableVertexAttribArray( t );
         glDisableVertexAttribArray( size );
         glDisableVertexAttribArray( ageRatio );
+
+        //unbind de la texture
+        glBindTexture(GL_TEXTURE_2D,0);
     popMatrix();
     glDisable(GL_POINT_SPRITE);
     glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
+    glDisable(GL_TEXTURE_2D);
     // affichage des fps
     printFps();
 }
