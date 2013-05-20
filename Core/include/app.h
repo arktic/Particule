@@ -34,6 +34,7 @@ class App : public GlWindow
     float fps;
     int64_t lastTimeFps;
     Camera* cam;
+    Vec2 oldMouse;
 
     void printFps();
 	public:

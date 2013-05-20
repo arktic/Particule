@@ -60,6 +60,8 @@ App::initializeObjects()
 {
     // Fond gris
     cam = new Camera(20,20,0,0,0,0,0,1,0);
+    oldMouse.x = 0;
+    oldMouse.y = 0;
     glClearColor( 0.f, 0.f, 0.f, 1.0f );
     glEnable( GL_DEPTH_TEST );
 
@@ -163,8 +165,10 @@ App::render()
 
 void
 App::mouseMoveEvent(QMouseEvent *event){
-    Vec2 offset(event->x() - this->width()*0.5 , event->y() - this->height()*0.5);
-    cam->orienter(offset.x,offset.y);
+    //Vec2 offset( - this->width()*0.5 , event->y() - this->height()*0.5);
+    cam->orienter(event->x()-oldMouse.x ,event->y()-oldMouse.y);
+    oldMouse.x = event->x();
+    oldMouse.y = event->y();
 }
 
 void
