@@ -79,7 +79,6 @@ App::render()
     gen->update();
     // Initialisation de la caméra
         lookAt( 0, 10, 30, 0, 0, 0 );
-        glPointSize(GEN_POINT_SIZE);
 
     // Rendu des objets
     pushMatrix();
@@ -105,6 +104,8 @@ App::render()
          glDisableVertexAttribArray( color );
 
         // drawing particules
+         glEnable(GL_POINT_SPRITE);
+         glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
         useShader( "particule" );
         var_id = glGetUniformLocation( getCurrentShaderId(), "MVP" );
         transmitMVP( var_id );
@@ -134,7 +135,7 @@ App::render()
         glVertexAttribPointer( velocity, 3, GL_FLOAT, GL_FALSE, 0, gen->getVelocity() );
         glVertexAttribPointer( position, 3, GL_FLOAT, GL_FALSE, 0, gen->getVertices() );
         glVertexAttribPointer( color, 3, GL_FLOAT, GL_FALSE, 0, gen->getColors() );
-        glVertexAttribPointer( size, 1, GL_INT, GL_FALSE, 0, gen->getSizes() );
+        glVertexAttribPointer( size, 1, GL_FLOAT, GL_FALSE, 0, gen->getSizes() );
         glVertexAttribPointer( ageRatio, 1, GL_FLOAT, GL_FALSE, 0, gen->getAgesRatio() );
 
                 glDrawArrays( GL_POINTS, 0, gen->getNbAlive() );
@@ -146,7 +147,8 @@ App::render()
         glDisableVertexAttribArray( size );
         glDisableVertexAttribArray( ageRatio );
     popMatrix();
-
+    glDisable(GL_POINT_SPRITE);
+    glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
     // affichage des fps
     printFps();
 }

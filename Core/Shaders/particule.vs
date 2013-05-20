@@ -14,7 +14,7 @@ in vec3 velocity;
 in vec3 color;
 
 //taille du point
-in int size;
+in float size;
 
 // temps depuis le dut de la simulation
 in float t;
@@ -49,6 +49,6 @@ void main() {
 	// cette nouvelle position est la position de notre particule
 	gl_Position = MVP * vec4( np, 1.0f );
 	
-	// couleur inchangée
+	// couleur "feu"
 	fColor = vec3(255, 1-ageRatio*0.5 , 0 );
 }

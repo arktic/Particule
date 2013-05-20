@@ -40,7 +40,7 @@ ParticuleGenerateur::ParticuleGenerateur
     colors = new GLfloat[3*nbItem];
     ages = new GLfloat[nbItem];
     agesRatio = new GLfloat[nbItem];
-    sizes = new GLint[nbItem];
+    sizes = new GLfloat[nbItem];
 
     for(int i =0 ; i <nbItem ; i++){
         Particule* pt = new Particule();
@@ -103,7 +103,7 @@ void ParticuleGenerateur::update() {
 
                 agesRatio[i] = (*it)->getAge()/((*it)->getLifeTime());
                 ages[i] = (*it)->getAge();
-                sizes[i] = (*it)->getSize();
+                sizes[i] = (float)(*it)->getSize();
             }
             i++;
         }
@@ -117,8 +117,8 @@ void ParticuleGenerateur::update() {
             Vec3 c_to_pos = center-pos;
             float lifeTime = getRandomLifeTime();
             float dcenter = c_to_pos.length();
-            if(dcenter > 0.4*radius && dcenter > 1)
-                lifeTime = lifeTime* (radius/dcenter)*0.6;
+            if(dcenter > 0.35*radius && dcenter > 1)
+                lifeTime = lifeTime* (radius/dcenter)*0.65;
             pt->set(lifeTime,getRandomSize(),pos , getRandomVelocity(),0); // age is set to 0 by default
             alive.push_back(pt);
             nbAlive++;
@@ -157,7 +157,7 @@ float ParticuleGenerateur::getRandomLifeTime() {
 }
 
 float ParticuleGenerateur::getRandomSize() {
-    return getBoundedRandom(sizeMin,sizeMax);
+    return getBoundedRandom((float)sizeMin,(float)sizeMax);
 }
 
 
@@ -184,7 +184,7 @@ GLfloat* ParticuleGenerateur::getAges(){
     return ages;
 }
 
-GLint* ParticuleGenerateur::getSizes(){
+GLfloat* ParticuleGenerateur::getSizes(){
     return sizes;
 }
 

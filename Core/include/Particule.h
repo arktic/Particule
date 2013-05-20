@@ -32,7 +32,7 @@ public:
 	void setLifeTime(float lifeTime);
 	Vec3 getPosition() const;
 	void setPosition(Vec3 position);
-	int getSize() const;
+    float getSize() const;
 	void setSize(int size);
 	Vec3 getVelocity() const;
 	void setVelocity(Vec3 velocity);

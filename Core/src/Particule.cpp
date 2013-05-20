@@ -38,8 +38,8 @@ void Particule::setPosition(Vec3 position) {
 	this->position = position;
 }
 
-int Particule::getSize() const {
-	return size;
+float Particule::getSize() const {
+    return (float) size;
 }
 
 void Particule::setSize(int size) {

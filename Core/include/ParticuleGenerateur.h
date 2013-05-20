@@ -74,7 +74,7 @@ private:
     GLfloat* agesRatio;
     GLfloat* ages;
     GLfloat* colors;
-    GLint*  sizes;
+    GLfloat*  sizes;
 
     Vec3 getRandomPosition();
     Vec3 getRandomVelocity();
@@ -94,7 +94,7 @@ public:
     GLfloat* getAgesRatio();
     GLfloat* getAges();
     GLfloat getRadius();
-    GLint* getSizes();
+    GLfloat* getSizes();
     Vec3 getCenter();
     int getNbAlive();
 };
