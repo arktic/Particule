@@ -16,7 +16,7 @@
 
 
 ParticuleGenerateur::ParticuleGenerateur
-( float _frameTime, int _nbItemPerFrame, float _radius     ,  Vec3 _center , int _nbItem  , float _lifeTimeMin,
+( char* _shaderName, float _frameTime, int _nbItemPerFrame, float _radius     ,  Vec3 _center , int _nbItem  , float _lifeTimeMin,
    float _lifeTimeMax,  float _sizeMin, float _sizeMax, float _velocityMin, float _velocityMax
  ):
         lastFrameTime(0),
@@ -35,6 +35,7 @@ ParticuleGenerateur::ParticuleGenerateur
         alive(),
         dead()
 {
+    shaderName = _shaderName;
     vertices = new GLfloat[3*nbItem];
     velocity = new GLfloat[3*nbItem];
     colors = new GLfloat[3*nbItem];
@@ -45,9 +46,9 @@ ParticuleGenerateur::ParticuleGenerateur
     for(int i =0 ; i <nbItem ; i++){
         Particule* pt = new Particule();
         dead.push_back(pt);
-        colors[3*i] = 1;//((float)rand())/RAND_MAX;
-        colors[3*i +1 ] = 1;// ((float)rand())/RAND_MAX;
-        colors[3*i +2 ] = 1;// ((float)rand())/RAND_MAX;
+        colors[3*i + 0] = 1;
+        colors[3*i +1 ] = 1;
+        colors[3*i +2 ] = 1;
         ages[i] = 0;
         agesRatio[i] = 0;
         sizes[i] = 0;
@@ -79,52 +80,9 @@ void ParticuleGenerateur::update() {
     int elapsedTime = tMs - lastFrameTime;
     if( elapsedTime >  frameTime) {
         //std::cout << "FT: " << frameTime << "--eslpasedTIme:  "<< elapsedTime << std::endl;
-        int i=0;
-        for(vector<Particule*>::iterator it = alive.begin(); it  < alive.end(); ++it) {
-            (*it)->live(elapsedTime);
-            //std::cout << "age of " << i << ": " << (*it)->getAge() << "  max: " << (*it)->getLifeTime() << std::endl;
-            if(!(*it)->isAlive()) {
-                dead.push_back(*it);
-                alive.erase(it);
-                nbAlive--;
-            }
-            else {
-                Vec3 pos = (*it)->getPosition();
-                vertices[3*i]   = pos.x;
-                vertices[3*i+1] = pos.y;
-                vertices[3*i+2] = pos.z;
-             //   std::cout << "adding  " << i << ": " << pos.x << "," << pos.y << "," << pos.z << std::endl;
-
-                pos = (*it)->getVelocity();
-
-                velocity[3*i]   = pos.x;
-                velocity[3*i+1] = pos.y;
-                velocity[3*i+2] = pos.z;
-
-                agesRatio[i] = (*it)->getAge()/((*it)->getLifeTime());
-                ages[i] = (*it)->getAge();
-                sizes[i] = (float)(*it)->getSize();
-            }
-            i++;
-        }
-
+        updateParticle(elapsedTime);
        // std::cout << "elapsedTime: " << elapsedTime <<std::endl;
-        int nbPtcBroughtBackToLife = 0;
-        while(dead.size() > 0 && nbPtcBroughtBackToLife < nbItemPerFrame) {
-            Particule* pt = dead.back();
-            dead.pop_back();
-            Vec3 pos = getRandomPosition();
-            Vec3 c_to_pos = center-pos;
-            float lifeTime = getRandomLifeTime();
-            float dcenter = c_to_pos.length();
-            if(dcenter > 0.35*radius && dcenter > 1)
-                lifeTime = lifeTime* (radius/dcenter)*0.65;
-            pt->set(lifeTime,getRandomSize(),pos , getRandomVelocity(),0); // age is set to 0 by default
-            alive.push_back(pt);
-            nbAlive++;
-
-            nbPtcBroughtBackToLife++;
-        }
+        addParticle();
 
         lastFrameTime = tMs;
     }
@@ -160,38 +118,53 @@ float ParticuleGenerateur::getRandomSize() {
     return getBoundedRandom((float)sizeMin,(float)sizeMax);
 }
 
+void ParticuleGenerateur::fillCGA(int &i,vector<Particule*>::iterator &it){
+    Vec3 pos = (*it)->getPosition();
+    vertices[3*i]   = pos.x;
+    vertices[3*i+1] = pos.y;
+    vertices[3*i+2] = pos.z;
 
-GLfloat* ParticuleGenerateur::getVertices(){
-    return vertices;
+    pos = (*it)->getVelocity();
+
+    velocity[3*i]   = pos.x;
+    velocity[3*i+1] = pos.y;
+    velocity[3*i+2] = pos.z;
+
+    agesRatio[i] = (*it)->getAge()/((*it)->getLifeTime());
+    ages[i] = (*it)->getAge();
+    sizes[i] = (float)(*it)->getSize();
 }
 
-int ParticuleGenerateur::getNbAlive(){
-    return nbAlive;
-}
-GLfloat* ParticuleGenerateur::getVelocity(){
-    return velocity;
+
+void ParticuleGenerateur::fillRandomParticule(Particule* pt){
+    pt->set(getRandomLifeTime(),getRandomSize(),getRandomPosition(),getRandomVelocity(),0);
 }
 
-GLfloat* ParticuleGenerateur::getColors(){
-    return colors;
+void ParticuleGenerateur::addParticle(){
+    int nbPtcBroughtBackToLife = 0;
+    while(dead.size() > 0 && nbPtcBroughtBackToLife < nbItemPerFrame) {
+        Particule* pt = dead.back();
+        dead.pop_back();
+        fillRandomParticule(pt);
+        alive.push_back(pt);
+        nbAlive++;
+        nbPtcBroughtBackToLife++;
+    }
 }
 
-GLfloat* ParticuleGenerateur::getAgesRatio(){
-    return agesRatio;
-}
-
-GLfloat* ParticuleGenerateur::getAges(){
-    return ages;
-}
-
-GLfloat* ParticuleGenerateur::getSizes(){
-    return sizes;
-}
-
-Vec3 ParticuleGenerateur::getCenter(){
-    return center;
-}
-
-GLfloat ParticuleGenerateur::getRadius() {
-    return radius;
+void ParticuleGenerateur::updateParticle(int &elapsedTime){
+    int i=0;
+    for(vector<Particule*>::iterator it = alive.begin(); it  < alive.end(); ++it) {
+        (*it)->live(elapsedTime);
+        //std::cout << "age of " << i << ": " << (*it)->getAge() << "  max: " << (*it)->getLifeTime() << std::endl;
+        if(!(*it)->isAlive()) {
+            dead.push_back(*it);
+            alive.erase(it);
+            nbAlive--;
+        }
+        else {
+            fillCGA(i,it);
+        }
+        i++;
+    }
 }

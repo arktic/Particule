@@ -9,4 +9,6 @@ INPUT(
 ./debug\App.o
 ./debug\ParticuleGenerateur.o
 ./debug\utils.o
+./debug\fire.o
+./debug\camera.o
 );

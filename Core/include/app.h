@@ -1,6 +1,8 @@
 #ifndef APP_h
 #define APP_h
 
+#define CAM_SPEED 0.5
+
 #define GEN_FRAMETIME 33
 #define GEN_ITEMPERFRAME 1000
 #define GEN_NBPARTICLE 40000
@@ -22,13 +24,16 @@
 
 #include "GlWindow.h"
 #include "ParticuleGenerateur.h"
-
+#include "fire.h"
+#include "camera.h"
 class App : public GlWindow
 {
     private:
     ParticuleGenerateur* gen;
+    Fire* fire;
     float fps;
     int64_t lastTimeFps;
+    Camera* cam;
 
     void printFps();
 	public:
@@ -45,7 +50,7 @@ class App : public GlWindow
 		void render();
 
         virtual ~App();
-
+        void mouseMoveEvent(QMouseEvent *);
 		void keyPressEvent(QKeyEvent *);
 };
 

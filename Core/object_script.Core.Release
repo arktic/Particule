@@ -9,4 +9,6 @@ INPUT(
 ./release\App.o
 ./release\ParticuleGenerateur.o
 ./release\utils.o
+./release\fire.o
+./release\camera.o
 );

@@ -22,81 +22,102 @@ using namespace std;
 	La forme de ce générateur est par défault un cercle dans le plan XoY */
 class ParticuleGenerateur {
 private:
+    char*       shaderName;
     // temps depuis le début de la génération
-    float lastFrameTime;
+    float       lastFrameTime;
 
     // une frame correspond à une tentative de génération de nbItemPerFrame particules
-    float frameTime;
-    int nbItemPerFrame;
+    float       frameTime;
+    int         nbItemPerFrame;
 
 	/* rayon du cercle sur lequel sont génerées les particules*/
-	float radius;
+    float        radius;
 	
 	/* position du centre du cercle */
-    Vec3 center;
+    Vec3        center;
 	
 	/* nombre de particules de ce générateur. Les particules 
 	sont réutilisées après leurs mort afin que l'on ai toujours 
 	le même nombre de particules */
-    int nbItem;
+    int         nbItem;
 
 	/* nombre de particules vivante actuellement. */
-	int nbAlive;
+    int         nbAlive;
 
 	/* durée de vie minium des particules générées */
-    float lifeTimeMin;
+    float       lifeTimeMin;
 
 	/* durée de vie maximum des particules générées */
-    float lifeTimeMax;
+    float       lifeTimeMax;
 
     /* norme minimale du vecteur vitesse des particules générées */
-    float velocityMin;
+    float       velocityMin;
 
     /* norme maximale du vecteur vitesse des particules générées */
-    float velocityMax;
+    float       velocityMax;
 
     /* tab des vitesses composantes distinctes */
-    float* velocity;
+    float*      velocity;
 
 	/* taille minimum des particules générées */
-    float sizeMin;
+    float       sizeMin;
 
 	/* taille maximum des particules générées */
-    float sizeMax;
+    float       sizeMax;
 
+    void addParticle(void);
+    void updateParticle(int &elapsedTime);
+    virtual void fillRandomParticule(Particule* pt);
+    virtual void fillCGA(int &i, vector<Particule*>::iterator &it);
+protected:
 	/* 	liste des particules actuellement vivantes, donc les seules dont on doit
 		effectuer le rendu */
-	vector<Particule*> alive;
+    vector<Particule*> alive;
     vector<Particule*> dead;
 
     /* tableau des vertices passé à la cg  (composantes par composantes à la suite)*/
-    GLfloat* vertices;
-    GLfloat* agesRatio;
-    GLfloat* ages;
-    GLfloat* colors;
-    GLfloat*  sizes;
+    GLfloat*    vertices;
+    GLfloat*    agesRatio;
+    GLfloat*    ages;
+    GLfloat*    colors;
+    GLfloat*    sizes;
 
-    Vec3 getRandomPosition();
-    Vec3 getRandomVelocity();
-    float getRandomLifeTime();
-    float getRandomSize();
+    Vec3        getRandomPosition();
+    Vec3        getRandomVelocity();
+    float       getRandomLifeTime();
+    float       getRandomSize();
 
 public:
-    ParticuleGenerateur(float _frameTime, int _nbItemPerFrame, float _radius,
-                        Vec3 _center, int _nbItem, float _lifeTimeMin, float _lifeTimeMax,
-                        float _sizeMin, float _sizeMax, float _velocityMin, float _velocityMax);
+    ParticuleGenerateur
+        (
+            char* _shaderName   , float _frameTime  , int _nbItemPerFrame   , float _radius         ,
+            Vec3 _center        , int _nbItem       , float _lifeTimeMin    , float _lifeTimeMax    ,
+            float _sizeMin      , float _sizeMax    , float _velocityMin    , float _velocityMax
+        );
 	~ParticuleGenerateur();
 
+
     void update();
-    GLfloat* getVertices();
-    GLfloat* getVelocity();
-    GLfloat* getColors();
-    GLfloat* getAgesRatio();
-    GLfloat* getAges();
-    GLfloat getRadius();
-    GLfloat* getSizes();
-    Vec3 getCenter();
-    int getNbAlive();
+    GLfloat*    getVertices()         { return vertices           ;}
+    GLfloat*    getVelocity()         { return velocity           ;}
+    GLfloat*    getColors()           { return colors             ;}
+    GLfloat*    getAgesRatio()        { return agesRatio          ;}
+    GLfloat*    getAges()             { return ages               ;}
+    GLfloat*    getSizes()            { return sizes              ;}
+
+    GLfloat     getRadius()           { return radius             ;}
+    Vec3        getCenter()           { return center             ;}
+    char*       getShaderName()       { return shaderName         ;}
+    int         getNbItemPerFrame()   { return nbItemPerFrame     ;}
+    int         getNbAlive()          { return nbAlive            ;}
+    int         getNbItem()           { return nbItem             ;}
+    float       getFrameTime()        { return frameTime          ;}
+    float       getLifeTimeMin()      { return lifeTimeMin        ;}
+    float       getLifeTimeMax()      { return lifeTimeMax        ;}
+    float       getVelocityMin()      { return lifeTimeMin        ;}
+    float       getVelocityMax()      { return lifeTimeMax        ;}
+    float       getSizeMin()          { return sizeMin            ;}
+    float       getSizeMax()          { return sizeMax            ;}
 };
 
 
