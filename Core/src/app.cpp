@@ -91,6 +91,7 @@ App::render()
                 cam->getTarget().x, cam->getTarget().y, cam->getTarget().z,
                 cam->getVaxe().x, cam->getVaxe().y, cam->getVaxe().z );
 
+
     // Rendu des objets
     pushMatrix();
         //rotate( angle1, 0, 1, 0 );
@@ -117,8 +118,10 @@ App::render()
         // drawing particules
          glEnable(GL_POINT_SPRITE);
          glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
-         useShader( "fire" );
-         glEnable(GL_TEXTURE_2D);
+
+
+        glEnable(GL_TEXTURE_2D);
+        useShader( "fire" );
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D,textureID);
@@ -128,8 +131,10 @@ App::render()
 
         // setting de la position de la caméra dans le shader et du viewport width
         GLint eyePosition = glGetUniformLocation( getCurrentShaderId(), "eyePosition" );
-        glUniform3f(eyePosition, 0, 0, 0);
-//TODO
+
+        Vec3 camPos = cam->getPosition();
+        glUniform3f(eyePosition, camPos.x, camPos.y, camPos.z);
+
         GLint viewport[4];
         glGetIntegerv(GL_VIEWPORT, viewport);
         GLint viewportWidth = glGetUniformLocation( getCurrentShaderId(), "viewportWidth" );

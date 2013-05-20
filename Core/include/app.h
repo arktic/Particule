@@ -37,8 +37,10 @@ class App : public GlWindow
     Fire* fire;
     float fps;
     int64_t lastTimeFps;
+
     Camera* cam;
     int textureID;
+
     void printFps();
 
 	public:

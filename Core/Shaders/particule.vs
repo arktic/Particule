@@ -11,7 +11,7 @@ in vec3 position;
 in vec3 velocity;
 
 // couleur de cette particule
-in vec3 color;
+//in vec4 color;
 
 //taille du point
 in float size;
@@ -19,31 +19,26 @@ in float size;
 // temps depuis le dut de la simulation
 in float t;
 
+// position de la camera
+uniform vec3 eyePosition;
+
+// taille du viewport
+uniform float viewportWidth;
+
 in float ageRatio;
 
 // gravit
 const float g = 9.8f;
 
-/*
-const vec3 jaune = vec3(255,255,0);
-const vec3 orange = vec3(255,165,0);
-const vec3 rouge = vec3(255,0,0);
-*/
-out vec3 fColor;  // interpol et transmis au fragment shader
+
+out vec4 fColor;  // interpol et transmis au fragment shader
 
 void main() {
 	vec3 np; // nouvelle position
-	gl_PointSize = size;
+	gl_PointSize = size *0.2* viewportWidth / length(eyePosition);
 	
-	//jaune - orange pour distance au centre
-	/*vec3 difference = position - center;
-	
-	float distance = length(difference);
-	if(distance < 0)
-		distance = - distance;
-	*/
 	// calcul de la nouvelle position
-	np = position + 0.001*t * velocity; // WARNING NEED TEMPS DEBUT 
+	np = position + 0.001*t * velocity;
 	//np.y -= (g * t * t * 0.000001) /2;
 	
 	// cette nouvelle position est la position de notre particule
@@ -51,4 +46,5 @@ void main() {
 	
 	// couleur inchangée
 	fColor = color;
+
 }
