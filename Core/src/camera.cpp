@@ -10,8 +10,7 @@ Camera::Camera(float positionX, float positionY, float positionZ, float targetX,
                phi(0.0), theta(0.0), orientation(), Vaxe(axeX, axeY, axeZ), deplacementLateral(),
                position(positionX, positionY, positionZ), target(targetX, targetY, targetZ)
 {
-    orientation = target - position;
-    orientation.normalize();
+    setTarget();
 
     deplacementLateral = Vaxe.crossProduct(orientation);
     deplacementLateral.normalize();
@@ -115,4 +114,61 @@ void Camera::moveRightSide(float speed)
 {
     position = position - deplacementLateral * speed;
     target = position + orientation;
+}
+
+
+void Camera::setTarget()
+{
+    // Calcul du vecteur orientation
+
+    orientation = target - position;
+    orientation.normalize();
+
+
+    // Si l'axe vertical est l'axe X
+
+    if(Vaxe.x == 1.0)
+    {
+        // Calcul des angles
+
+        phi = asin(orientation.x);
+        theta = acos(orientation.y / cos(phi));
+
+        if(orientation.y < 0)
+            theta *= -1;
+    }
+
+
+    // Si c'est l'axe Y
+
+    else if(Vaxe.y == 1.0)
+    {
+        // Calcul des angles
+
+        phi = asin(orientation.y);
+        theta = acos(orientation.z / cos(phi));
+
+        if(orientation.z < 0)
+            theta *= -1;
+    }
+
+
+    // Sinon c'est l'axe Z
+
+    else
+    {
+        // Calcul des angles
+
+        phi = asin(orientation.x);
+        theta = acos(orientation.z / cos(phi));
+
+        if(orientation.z < 0)
+            theta *= -1;
+    }
+
+
+    // Conversion en degrés
+
+    phi = phi * 180 / M_PI;
+    theta = theta * 180 / M_PI;
 }
