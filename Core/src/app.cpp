@@ -62,7 +62,7 @@ GLuint g_planInd[] =
 
 App::App()
 {
-    setWindowTitle(trUtf8("IN55-App"));
+    setWindowTitle(trUtf8("IN55 Générateur de particules"));
     time_ms(&lastTimeFps);
 }
 
