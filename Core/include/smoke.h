@@ -39,7 +39,7 @@ private:
     void fillRandomParticule(Particule* pt);
     Vec3 getRandomCenteredPosition();
 public:
-    Smoke(char* _shaderName, float _frameTime, float _radius,
+    Smoke(char* _shaderName, char* _textureName, float _frameTime, float _radius,
                Vec3 _center, int _nbItem, float _lifeTimeMin, float _lifeTimeMax,
                float _sizeMin, float _sizeMax, float _velocityMin, float _velocityMax,
                float _sizeMaxCoef, int itemPerFrameMax,int itemPerFrameMin, int _updateNbItemTimer,

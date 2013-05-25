@@ -4,14 +4,14 @@
 #include "utils.h"
 
 Smoke::Smoke
-    (char* _shaderName   , float _frameTime  , float _radius,
+    (char* _shaderName   , char* _textureName,  float _frameTime  , float _radius,
         Vec3 _center        , int _nbItem       , float _lifeTimeMin    , float _lifeTimeMax,
         float _sizeMin      , float _sizeMax    , float _velocityMin    , float _velocityMax,
         float _sizeMaxCoef
     , int _itemPerFrameMax, int _itemPerFrameMin, int _updateNbItemTimer, int _nbItemPerFrame   ):
     ParticuleGenerateur
         (
-            _shaderName     ,_frameTime     , _nbItemPerFrame       , _radius,
+            _shaderName     , _textureName , _frameTime     , _nbItemPerFrame       , _radius,
             _center         ,_nbItem        , _lifeTimeMin          , _lifeTimeMax,
             _sizeMin        ,_sizeMax       , _velocityMin          , _velocityMax
         )

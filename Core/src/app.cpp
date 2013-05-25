@@ -81,7 +81,7 @@ App::initializeObjects()
 
 
     fps = 0;
-    smoke = new Smoke("Shaders/smoke",SMOKE_FRAMETIME,
+    smoke = new Smoke("Shaders/smoke",SMOKE_TEXTURE,SMOKE_FRAMETIME,
                       SMOKE_RADIUS,SMOKE_CENTER,
                       SMOKE_NBPARTICLE,
                       SMOKE_LIFETIME_MIN,SMOKE_LIFETIME_MAX,
@@ -100,9 +100,9 @@ App::initializeObjects()
     //createShader( "Shaders/plan");
     createShader( fire->getShaderName() );
     createShader( smoke->getShaderName() );
-    smoke_textureID = createTexture(SMOKE_TEXTURE);
+    smoke_textureID = createTexture(smoke->getTextureName());
     cout << "texture"<< smoke_textureID<<endl;
-    textureID = createTexture(GEN_TEXTURE_FIRE);
+    textureID = createTexture(fire->getTextureName());
 
     return true;
 }
@@ -183,7 +183,7 @@ App::render()
             glEnable(GL_DEPTH_TEST);
           glEnable(GL_BLEND);
           glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-         useShader( "smoke" );
+         useShader( smoke->getShaderName() );
          glActiveTexture(GL_TEXTURE0);
          glBindTexture(GL_TEXTURE_2D,smoke_textureID);
 
@@ -253,7 +253,7 @@ App::render()
          glEnable(GL_TEXTURE_2D);
          glEnable(GL_BLEND);
          glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-        useShader( "fire" );
+        useShader( fire->getShaderName() );
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D,textureID);
 

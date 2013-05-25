@@ -35,7 +35,7 @@ void main() {
 	
 	// cette nouvelle position est la position de notre particule
 	gl_Position = MVP * vec4( np, 1.0f );
-	alpha = (1-3*ageRatio);
+	alpha = (1-2*ageRatio);
 
 	// couleur inchangée
 	//fColor = color;
