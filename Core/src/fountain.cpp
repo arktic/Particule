@@ -1,6 +1,7 @@
 
 #include "fountain.h"
 #include "utils.h"
+#include "App.h"
 
 Fountain::Fountain(
     char* _shaderName   , char* _textureName, int64_t _frameTime  , int _nbItemPerFrame   , float _radius,
@@ -23,6 +24,27 @@ Fountain::getRandomVelocity() {
     return Vec3(direction)* getBoundedRandom(velocityMin, velocityMax);
 }
 
+void
+Fountain::load(App *app){
+    if(!loaded) {
+        if(shaderName != null)
+            app->createShader(shaderName);
+        if(textureName != null)
+            textureID = app->createTexture(textureName);
+        loaded  = true;
+    }
+}
 
+void
+Fountain::unload(App *app){
+    if(loaded) {
+        if(textureName != null)
+            app->deleteTexture(textureID);
+        loaded = false;
+    }
+}
 
+void
+Fountain::render(App *app){
 
+}
