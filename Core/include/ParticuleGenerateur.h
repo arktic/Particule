@@ -118,6 +118,20 @@ public:
     float       getVelocityMax()      { return lifeTimeMax        ;}
     float       getSizeMin()          { return sizeMin            ;}
     float       getSizeMax()          { return sizeMax            ;}
+
+    void        setRadius(GLfloat radius_)              { radius = radius_                  ;}
+    void        setCenter(Vec3 center_)                 { center = center_                  ;}
+    void        setNbItemPerFrame(int nbItemPerFrame_)  { nbItemPerFrame = nbItemPerFrame_  ;}
+    void        setNbItem(int nbParticule)              { nbItem = nbParticule              ;}
+    void        setFrameTime(int frameTime_)            { frameTime = frameTime_            ;}
+    void        setLifeTimeMin(float lifeTimeMin_)      { lifeTimeMin = lifeTimeMin_        ;}
+    void        setLifeTimeMax(float lifeTimeMax_)      { lifeTimeMax = lifeTimeMax_        ;}
+    void        setVelocityMin(float velocityMin_)      { velocityMin = velocityMin_        ;}
+    void        setVelocityMax(float velocityMax_)      { velocityMax = velocityMax_        ;}
+    void        setSizeMin(float sizeMin_)              { sizeMin = sizeMin_                ;}
+    void        setSizeMax(float sizeMax_)              {  sizeMax = sizeMax_               ;}
+
+
 };
 
 
