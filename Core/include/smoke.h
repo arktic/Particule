@@ -18,8 +18,8 @@
 #define SMOKE_CENTER Vec3(0,0,0)
 #define SMOKE_SIZE_COEF 3
 
-#define SMOKE_FRAME_MIN 1
-#define SMOKE_FRAME_MAX 6
+#define SMOKE_FRAME_MIN 10
+#define SMOKE_FRAME_MAX 60
 #define SMOKE_TEXTURE "Texture/tex2d_smoke.png"
 
 

@@ -13,6 +13,9 @@ const GLfloat g_AngleSpeed = 10.0f;
 #include "ParticuleGenerateur.h"
 #include "fire.h"
 #include "smoke.h"
+#include "fountain.h"
+
+
 using namespace std;
 
 
@@ -96,10 +99,20 @@ App::initializeObjects()
                     GEN_SIZE_MIN,  GEN_SIZE_MAX,
                     GEN_VELOCITY_MIN, GEN_VELOCITY_MAX);
 
+    fountain = new Fountain("Shaders/fountain",NULL,FOUNTAIN_FRAMETIME,FOUNTAIN_ITEMPERFRAME,
+                    FOUNTAIN_RADIUS,FOUNTAIN_CENTER,
+                    FOUNTAIN_NBPARTICLE,
+                    FOUNTAIN_LIFETIME_MIN,FOUNTAIN_LIFETIME_MAX,
+                    FOUNTAIN_SIZE_MIN,  FOUNTAIN_SIZE_MAX,
+                    FOUNTAIN_VELOCITY_MIN, FOUNTAIN_VELOCITY_MAX, FOUNTAIN_DIRECTION);
+
+
     createShader( "Shaders/color");
     //createShader( "Shaders/plan");
     createShader( fire->getShaderName() );
     createShader( smoke->getShaderName() );
+    createShader( fountain->getShaderName() );
+
     smoke_textureID = createTexture(smoke->getTextureName());
     cout << "texture"<< smoke_textureID<<endl;
     textureID = createTexture(fire->getTextureName());
@@ -113,6 +126,7 @@ App::render()
 {
     fire->update();
     smoke->update();
+    fountain->update();
     // Initialisation de la caméra
         lookAt( cam->getPosition().x, cam->getPosition().y, cam->getPosition().z,
                 cam->getTarget().x, cam->getTarget().y, cam->getTarget().z,
@@ -182,7 +196,7 @@ App::render()
           glEnable(GL_TEXTURE_2D);
             glEnable(GL_DEPTH_TEST);
           glEnable(GL_BLEND);
-          glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+          glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
          useShader( smoke->getShaderName() );
          glActiveTexture(GL_TEXTURE0);
          glBindTexture(GL_TEXTURE_2D,smoke_textureID);
@@ -231,7 +245,7 @@ App::render()
          glVertexAttribPointer( ageRatio, 1, GL_FLOAT, GL_FALSE, 0, smoke->getAgesRatio() );
 
 
-             glDrawArrays( GL_POINTS, 0, smoke->getNbAlive() );
+            // glDrawArrays( GL_POINTS, 0, smoke->getNbAlive() );
 
          glDisableVertexAttribArray( position );
          glDisableVertexAttribArray( velocity );
@@ -248,6 +262,8 @@ App::render()
 
 
         /*--------------- fire ---------- */
+
+         {
          glEnable(GL_POINT_SPRITE);
          glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
          glEnable(GL_TEXTURE_2D);
@@ -299,7 +315,7 @@ App::render()
         glVertexAttribPointer( ageRatio, 1, GL_FLOAT, GL_FALSE, 0, fire->getAgesRatio() );
 
 
-         glDrawArrays( GL_POINTS, 0, fire->getNbAlive() );
+         //glDrawArrays( GL_POINTS, 0, fire->getNbAlive() );
 
         glDisableVertexAttribArray( position );
         glDisableVertexAttribArray( velocity );
@@ -313,6 +329,67 @@ App::render()
         glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
         glDisable(GL_TEXTURE_2D);
         glDisable(GL_DEPTH_TEST);
+}
+
+
+
+        /*--------------- fountain ---------- */
+        {
+        glEnable(GL_POINT_SPRITE);
+        glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
+        glDisable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+        useShader( fountain->getShaderName() );
+
+        // setting de la position de la caméra dans le shader et du viewport width
+        Vec3 camPos = cam->getPosition();
+        GLint viewport[4];
+        glGetIntegerv(GL_VIEWPORT, viewport);
+        Vec3 center = fountain->getCenter();
+
+        GLint mvp = glGetUniformLocation( getCurrentShaderId(), "MVP" );
+        /*GLint c = glGetUniformLocation(getCurrentShaderId(), "center" );
+        GLint radius = glGetUniformLocation(getCurrentShaderId(), "radius" );
+        */GLint eyePosition = glGetUniformLocation( getCurrentShaderId(), "eyePosition" );
+        GLint viewportWidth = glGetUniformLocation( getCurrentShaderId(), "viewportWidth" );
+
+        transmitMVP( mvp );
+        glUniform3f(eyePosition, camPos.x, camPos.y, camPos.z);
+        glUniform1f(viewportWidth,viewport[2] );
+
+
+        GLint t = glGetAttribLocation( getCurrentShaderId(), "t" );
+        GLint velocity = glGetAttribLocation( getCurrentShaderId(), "velocity" );
+        position = glGetAttribLocation( getCurrentShaderId(), "position" );
+        GLint size = glGetAttribLocation( getCurrentShaderId(), "size" );
+
+        glEnableVertexAttribArray( t );
+        glEnableVertexAttribArray( velocity );
+        glEnableVertexAttribArray( position );
+        glEnableVertexAttribArray( size );
+
+
+        glVertexAttribPointer( t, 1, GL_FLOAT, GL_FALSE, 0, fountain->getAges() );
+        glVertexAttribPointer( velocity, 3, GL_FLOAT, GL_FALSE, 0, fountain->getVelocity() );
+        glVertexAttribPointer( position, 3, GL_FLOAT, GL_FALSE, 0, fountain->getVertices() );
+        glVertexAttribPointer( size, 1, GL_FLOAT, GL_FALSE, 0, fountain->getSizes() );
+
+
+         glDrawArrays( GL_POINTS, 0, fountain->getNbAlive() );
+
+        glDisableVertexAttribArray( position );
+        glDisableVertexAttribArray( velocity );
+        glDisableVertexAttribArray( t );
+        glDisableVertexAttribArray( size );
+        glDisable(GL_BLEND);
+        glDisable(GL_POINT_SPRITE);
+        glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
+        glDisable(GL_DEPTH_TEST);
+
+        }
+
+
+
 
     popMatrix();
 

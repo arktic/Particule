@@ -85,10 +85,10 @@ protected:
     GLfloat*    colors;
     GLfloat*    sizes;
 
-    Vec3        getRandomPosition();
-    Vec3        getRandomVelocity();
-    float       getRandomLifeTime();
-    float       getRandomSize();
+    virtual Vec3        getRandomPosition();
+    virtual Vec3        getRandomVelocity();
+    virtual float       getRandomLifeTime();
+    virtual float       getRandomSize();
 
 public:
     ParticuleGenerateur
