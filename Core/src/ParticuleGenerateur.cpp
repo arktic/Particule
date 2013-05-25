@@ -16,7 +16,7 @@ using namespace std;
 
 
 ParticuleGenerateur::ParticuleGenerateur
-( char* _shaderName, int64_t _frameTime, int _nbItemPerFrame, float _radius     ,  Vec3 _center , int _nbItem  , float _lifeTimeMin,
+( char* _shaderName, char* _textureName, int64_t _frameTime, int _nbItemPerFrame, float _radius     ,  Vec3 _center , int _nbItem  , float _lifeTimeMin,
    float _lifeTimeMax,  float _sizeMin, float _sizeMax, float _velocityMin, float _velocityMax
  ):
         lastFrameTime(0),
@@ -36,6 +36,7 @@ ParticuleGenerateur::ParticuleGenerateur
         dead()
 {
     shaderName = _shaderName;
+    textureName = _textureName;
     vertices = new GLfloat[3*nbItem];
     velocity = new GLfloat[3*nbItem];
     colors = new GLfloat[4*nbItem];

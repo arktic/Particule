@@ -23,8 +23,6 @@
 
 #define GEN_POINT_SIZE 2
 
-#define GEN_TEXTURE_FIRE "Texture/tex2d_fire4-2.png"
-
 
 #include "GlWindow.h"
 #include "ParticuleGenerateur.h"

@@ -23,6 +23,7 @@ using namespace std;
 class ParticuleGenerateur {
 private:
     char*       shaderName;
+    char*       textureName;
     // temps depuis le début de la génération
     int64_t       lastFrameTime;
 
@@ -90,7 +91,7 @@ protected:
 public:
     ParticuleGenerateur
         (
-            char* _shaderName   , int64_t _frameTime  , int _nbItemPerFrame   , float _radius         ,
+            char* _shaderName   , char* _textureName, int64_t _frameTime  , int _nbItemPerFrame   , float _radius ,
             Vec3 _center        , int _nbItem       , float _lifeTimeMin    , float _lifeTimeMax    ,
             float _sizeMin      , float _sizeMax    , float _velocityMin    , float _velocityMax
         );
@@ -108,6 +109,7 @@ public:
     GLfloat     getRadius()           { return radius             ;}
     Vec3        getCenter()           { return center             ;}
     char*       getShaderName()       { return shaderName         ;}
+    char*       getTextureName()       { return textureName         ;}
     int         getNbItemPerFrame()   { return nbItemPerFrame     ;}
     int         getNbAlive()          { return nbAlive            ;}
     int         getNbItem()           { return nbItem             ;}

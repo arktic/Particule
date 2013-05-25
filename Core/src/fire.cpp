@@ -3,13 +3,13 @@
 
 Fire::Fire
     (
-        char* _shaderName   , float _frameTime  , int _nbItemPerFrame   , float _radius,
+        char* _shaderName   , char* _textureName, float _frameTime  , int _nbItemPerFrame   , float _radius,
         Vec3 _center        , int _nbItem       , float _lifeTimeMin    , float _lifeTimeMax,
         float _sizeMin      , float _sizeMax    , float _velocityMin    , float _velocityMax
     ):
     ParticuleGenerateur
         (
-            _shaderName     ,_frameTime     , _nbItemPerFrame       , _radius,
+            _shaderName     , _textureName, _frameTime     , _nbItemPerFrame       , _radius,
             _center         ,_nbItem        , _lifeTimeMin          , _lifeTimeMax,
             _sizeMin        ,_sizeMax       , _velocityMin          , _velocityMax
         )

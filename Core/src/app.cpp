@@ -81,7 +81,7 @@ App::initializeObjects()
 
     fps = 0;
 
-    fire = new Fire("Shaders/fire",GEN_FRAMETIME,GEN_ITEMPERFRAME,
+    fire = new Fire("Shaders/fire","Texture/tex2d_fire4-2.png",GEN_FRAMETIME,GEN_ITEMPERFRAME,
                     GEN_RADIUS,GEN_CENTER,
                     GEN_NBPARTICLE,
                     GEN_LIFETIME_MIN,GEN_LIFETIME_MAX,
@@ -90,7 +90,7 @@ App::initializeObjects()
     createShader( "Shaders/color");
     createShader( "Shaders/plan");
     createShader( fire->getShaderName() );
-    textureID = createTexture(GEN_TEXTURE_FIRE);
+    textureID = createTexture(fire->getTextureName());
 
     return true;
 }
