@@ -3,37 +3,28 @@
 
 #define CAM_SPEED 0.5
 
-#define GEN_FRAMETIME 33
-#define GEN_ITEMPERFRAME 1000
-#define GEN_NBPARTICLE 10000
-
-#define GEN_LIFETIME_MIN 1000
-#define GEN_LIFETIME_MAX 3000
-
-#define GEN_SIZE_MIN 2
-#define GEN_SIZE_MAX 4
-
-#define GEN_VELOCITY_MIN 1
-#define GEN_VELOCITY_MAX 3
-
-#define GEN_RADIUS 4
-#define GEN_CENTER Vec3(0,0,0)
-
-
 #include "GlWindow.h"
 #include "ParticuleGenerateur.h"
 #include "fire.h"
 #include "smoke.h"
 #include "camera.h"
 #include "fountain.h"
+#include "repere.h"
+#include "plan.h"
+
+class Fire;
+class Fountain;
+class Smoke;
+class Repere;
+class Plan;
 
 class App : public GlWindow
 {
     private:
-    ParticuleGenerateur* gen;
+    Repere* repere;
+    Plan* plan;
     Fire* fire;
     Smoke* smoke;
-
     Fountain* fountain;
 
     float fps;
@@ -49,7 +40,7 @@ class App : public GlWindow
 
 	public:
 		App();
-
+        Camera* getCamera() { return cam; }
 		/*!
 		*\brief Initialization des objets.
 		*/

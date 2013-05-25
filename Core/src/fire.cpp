@@ -16,6 +16,7 @@ Fire::Fire
 {
     ageAtenuationFactor = 0.65;
     ageAtenuationLimit = 0.35;
+
 }
 
 void Fire::fillRandomParticule(Particule* pt) {
@@ -32,4 +33,99 @@ void Fire::fillRandomParticule(Particule* pt) {
 void Fire::setAtenuation(float _ageAtenuationFactor, float _ageAtenuationLimit ){
     ageAtenuationFactor = _ageAtenuationFactor;
     ageAtenuationLimit = _ageAtenuationLimit;
+}
+
+void Fire::render(App *app)
+{
+    glEnable(GL_POINT_SPRITE);
+    glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+
+
+    app->useShader( getShaderName() );
+    shaderID = app->getCurrentShaderId();
+
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D,textureID);
+
+    // textureID initialization
+    glUniform1i(glGetUniformLocation(0, "texId"),0);
+
+    // setting de la position de la caméra dans le shader et du viewport width
+    Vec3 camPos = app->getCamera()->getPosition();
+    GLint viewport[4];
+    glGetIntegerv(GL_VIEWPORT, viewport);
+
+    GLint mvp = glGetUniformLocation( shaderID, "MVP" );
+    GLint c = glGetUniformLocation(shaderID, "center" );
+    GLint radius = glGetUniformLocation(shaderID, "radius" );
+    GLint eyePosition = glGetUniformLocation( shaderID, "eyePosition" );
+    GLint viewportWidth = glGetUniformLocation( shaderID, "viewportWidth" );
+
+    app->transmitMVP( mvp );
+    glUniform3f(eyePosition, camPos.x, camPos.y, camPos.z);
+    glUniform1f(viewportWidth,viewport[2] );
+    glUniform1f( radius, getRadius());
+    glUniform3f(c, center.x, center.y, center.z );
+
+
+    GLint t = glGetAttribLocation( shaderID, "t" );
+    GLint velocity = glGetAttribLocation( shaderID, "velocity" );
+    GLint ageRatio = glGetAttribLocation( shaderID, "ageRatio" );
+    GLint position = glGetAttribLocation( shaderID, "position" );
+    GLint size = glGetAttribLocation( shaderID, "size" );
+
+    glEnableVertexAttribArray( t );
+    glEnableVertexAttribArray( velocity );
+    glEnableVertexAttribArray( position );
+    glEnableVertexAttribArray( ageRatio );
+    glEnableVertexAttribArray( size );
+
+
+    glVertexAttribPointer( t, 1, GL_FLOAT, GL_FALSE, 0, ages );
+    glVertexAttribPointer( velocity, 3, GL_FLOAT, GL_FALSE, 0, this->velocity );
+    glVertexAttribPointer( position, 3, GL_FLOAT, GL_FALSE, 0, vertices );
+    glVertexAttribPointer( size, 1, GL_FLOAT, GL_FALSE, 0, sizes );
+    glVertexAttribPointer( ageRatio, 1, GL_FLOAT, GL_FALSE, 0, agesRatio );
+
+    glDrawArrays( GL_POINTS, 0, nbAlive );
+
+    glDisableVertexAttribArray( position );
+    glDisableVertexAttribArray( velocity );
+    glDisableVertexAttribArray( t );
+    glDisableVertexAttribArray( size );
+    glDisableVertexAttribArray( ageRatio );
+
+    //unbind de la texture
+    glBindTexture(GL_TEXTURE_2D,0);
+    glDisable(GL_POINT_SPRITE);
+    glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
+    glDisable(GL_TEXTURE_2D);
+    glDisable(GL_DEPTH_TEST);
+    glDisable(GL_BLEND);
+}
+
+void Fire::load(App *app) {
+    if(!loaded) {
+        if(textureName != NULL)
+            textureID = app->createTexture(textureName);
+        if(shaderName != NULL)
+            app->createShader( shaderName );
+        loaded = true;
+    }
+}
+
+void Fire::unload(App *app) {
+    if(loaded) {
+        if(textureName != NULL)
+            app->deleteTexture(textureID);
+        loaded = false;
+    }
+}
+
+Fire::~Fire(){
+
 }

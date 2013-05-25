@@ -24,10 +24,15 @@
 
 
 #include "ParticuleGenerateur.h"
+#include "App.h"
+
+class App;
 class Smoke : public ParticuleGenerateur
 {
 private:
-     /*void fillRandomParticule(Particule* pt);*/
+    GLuint shaderID;
+    GLuint textureID;
+
     float sizeMaxCoef;
     int itemPerFrameMax;
     int itemPerFrameMin;
@@ -50,6 +55,12 @@ public:
     void setSizeMaxCoef(float coef) { sizeMaxCoef = coef; }
     int getRandomItemPerFrame();
 
+    void load(App* app);
+    void unload(App* app);
+    void render(App *app);
+
 };
+
+
 
 #endif // SMOKE_H

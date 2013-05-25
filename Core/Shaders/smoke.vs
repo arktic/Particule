@@ -1,7 +1,5 @@
 // matrice MVP
 uniform mat4 MVP;
-uniform vec3 center; // position du foyer
-uniform float radius; // rayon du foyer
 uniform vec3 eyePosition; // position de la camera
 uniform float viewportWidth; // taille du viewport
 uniform float sizeCoef;

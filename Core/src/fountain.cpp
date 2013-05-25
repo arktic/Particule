@@ -27,9 +27,9 @@ Fountain::getRandomVelocity() {
 void
 Fountain::load(App *app){
     if(!loaded) {
-        if(shaderName != null)
+        if(shaderName != NULL)
             app->createShader(shaderName);
-        if(textureName != null)
+        if(textureName != NULL)
             textureID = app->createTexture(textureName);
         loaded  = true;
     }
@@ -38,7 +38,7 @@ Fountain::load(App *app){
 void
 Fountain::unload(App *app){
     if(loaded) {
-        if(textureName != null)
+        if(textureName != NULL)
             app->deleteTexture(textureID);
         loaded = false;
     }
@@ -46,5 +46,52 @@ Fountain::unload(App *app){
 
 void
 Fountain::render(App *app){
+    glEnable(GL_POINT_SPRITE);
+    glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
+    glDisable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+    app->useShader( shaderName );
+    shaderID = app->getCurrentShaderId();
+    // setting de la position de la caméra dans le shader et du viewport width
+    Vec3 camPos = app->getCamera()->getPosition();
+    GLint viewport[4];
+    glGetIntegerv(GL_VIEWPORT, viewport);
+
+    GLint mvp = glGetUniformLocation( shaderID, "MVP" );
+    GLint eyePosition = glGetUniformLocation( shaderID, "eyePosition" );
+    GLint viewportWidth = glGetUniformLocation( shaderID, "viewportWidth" );
+
+    app->transmitMVP( mvp );
+    glUniform3f(eyePosition, camPos.x, camPos.y, camPos.z);
+    glUniform1f(viewportWidth,viewport[2] );
+
+
+    GLint t = glGetAttribLocation( shaderID, "t" );
+    GLint velocity = glGetAttribLocation( shaderID, "velocity" );
+    GLint position = glGetAttribLocation( shaderID, "position" );
+    GLint size = glGetAttribLocation( shaderID, "size" );
+
+    glEnableVertexAttribArray( t );
+    glEnableVertexAttribArray( velocity );
+    glEnableVertexAttribArray( position );
+    glEnableVertexAttribArray( size );
+
+
+    glVertexAttribPointer( t, 1, GL_FLOAT, GL_FALSE, 0, ages );
+    glVertexAttribPointer( velocity, 3, GL_FLOAT, GL_FALSE, 0, this->velocity );
+    glVertexAttribPointer( position, 3, GL_FLOAT, GL_FALSE, 0, vertices );
+    glVertexAttribPointer( size, 1, GL_FLOAT, GL_FALSE, 0, sizes );
+
+
+    glDrawArrays( GL_POINTS, 0, nbAlive );
+
+    glDisableVertexAttribArray( position );
+    glDisableVertexAttribArray( velocity );
+    glDisableVertexAttribArray( t );
+    glDisableVertexAttribArray( size );
+
+    glDisable(GL_POINT_SPRITE);
+    glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
+    glDisable(GL_DEPTH_TEST);
 
 }
