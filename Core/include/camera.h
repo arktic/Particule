@@ -34,6 +34,12 @@ public:
     Vec3 getTarget(){return target; }
     Vec3 getVaxe() {return Vaxe;}
 
+/*
+
+camera
+scene de rendu
+reglage via qT
+*/
 
 };
 

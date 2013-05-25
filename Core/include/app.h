@@ -30,6 +30,7 @@
 #include "ParticuleGenerateur.h"
 #include "fire.h"
 #include "camera.h"
+
 class App : public GlWindow
 {
     private:

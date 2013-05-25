@@ -16,7 +16,7 @@ using namespace std;
 
 
 ParticuleGenerateur::ParticuleGenerateur
-( char* _shaderName, float _frameTime, int _nbItemPerFrame, float _radius     ,  Vec3 _center , int _nbItem  , float _lifeTimeMin,
+( char* _shaderName, int64_t _frameTime, int _nbItemPerFrame, float _radius     ,  Vec3 _center , int _nbItem  , float _lifeTimeMin,
    float _lifeTimeMax,  float _sizeMin, float _sizeMax, float _velocityMin, float _velocityMax
  ):
         lastFrameTime(0),
@@ -42,6 +42,8 @@ ParticuleGenerateur::ParticuleGenerateur
     ages = new GLfloat[nbItem];
     agesRatio = new GLfloat[nbItem];
     sizes = new GLfloat[nbItem];
+
+    time_ms(&lastFrameTime);
 
     for(int i =0 ; i <nbItem ; i++){
         Particule* pt = new Particule();
@@ -79,6 +81,7 @@ void ParticuleGenerateur::update() {
     int64_t tMs;
     time_ms(&tMs);
     int elapsedTime = tMs - lastFrameTime;
+
     if( elapsedTime >  frameTime) {
         updateParticle(elapsedTime);
         addParticle();
@@ -128,21 +131,6 @@ void ParticuleGenerateur::fillCGA(int &i,vector<Particule*>::iterator &it){
     agesRatio[i] = (*it)->getAge()/((*it)->getLifeTime());
     ages[i] = (*it)->getAge();
     sizes[i] = (float)(*it)->getSize();
-//    cout << "--------- "<< endl;
-//    cout << " velocity[0]:" << velocity[3*i  ] <<
-//            " velocity[1]:" << velocity[3*i+1] <<
-//            " velocity[2]:" << velocity[3*i+2] <<
-//    endl;
-
-//    cout << " vertices[0]:" << vertices[3*i  ] <<
-//            " vertices[1]:" << vertices[3*i+1] <<
-//            " vertices[2]:" << vertices[3*i+2] <<
-//    endl;
-//    cout << " sizes: " << sizes[i] << endl;
-//    cout << " ages:  " << ages[i] << endl;
-//    cout << " agesRatio " << agesRatio[i] << endl;
-//    cout << "--------- "<< endl;
-
 }
 
 
@@ -166,7 +154,7 @@ void ParticuleGenerateur::updateParticle(int &elapsedTime){
     int i=0;
     for(vector<Particule*>::iterator it = alive.begin(); it  < alive.end(); ++it) {
         (*it)->live(elapsedTime);
-        //std::cout << "age of " << i << ": " << (*it)->getAge() << "  max: " << (*it)->getLifeTime() << std::endl;
+
         if(!(*it)->isAlive()) {
             dead.push_back(*it);
             alive.erase(it);

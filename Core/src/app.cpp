@@ -34,17 +34,29 @@ GLfloat g_repereColor[]=
     0,1,0,
     0,1,0,
     0,0,1,
-    0,0,1
+    0,0,1,
 };
 
-GLfloat g_TabColors[]=
+/*----------- plan ------------ */
+GLfloat g_plan[]=
 {
-        1,1,1,
-        1,1,1,
-        1,1,1,
-        1,1,1,
-        1,1,1,
-        1,1,1
+    -20,0,20
+    ,-20,0,-20
+     ,20,0,-20
+    ,20,0,20
+};
+
+GLfloat g_planColor[]=
+{
+    1,0,0,
+    1,0,0,
+    0,1,0,
+    0,1,0,
+};
+
+GLuint g_planInd[] =
+{
+    0,1,3,2,2
 };
 
 
@@ -58,16 +70,13 @@ App::App()
 bool
 App::initializeObjects()
 {
-    // Fond gris
     cam = new Camera(20,20,0,0,0,0,0,1,0);
 
     oldMouse.x = 0;
     oldMouse.y = 0;
-    glClearColor( 0.f, 0.f, 0.f, 1.0f );
+    glClearColor( 0.2f, 0.2f, 0.2f, 1.0f );
 
-    glDepthMask( GL_FALSE );            // Disable depth writes
-    glEnable(GL_BLEND);                 // Enable Blending
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+
 
 
     fps = 0;
@@ -79,6 +88,7 @@ App::initializeObjects()
                     GEN_SIZE_MIN,  GEN_SIZE_MAX,
                     GEN_VELOCITY_MIN, GEN_VELOCITY_MAX);
     createShader( "Shaders/color");
+    createShader( "Shaders/plan");
     createShader( fire->getShaderName() );
     textureID = createTexture(GEN_TEXTURE_FIRE);
 
@@ -101,11 +111,21 @@ App::render()
         //rotate( angle1, 0, 1, 0 );
         //rotate( angle2, 1, 0, 0 );
         computeAncillaryMatrices();
+
+        GLint var_id, position,  color;
+
+
+
+         glDepthMask( GL_FALSE );            // Disable depth writes
+         glEnable(GL_BLEND);                 // Enable Blending
+         glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+
+
         // repere shit
         useShader( "color" );
-        GLint var_id = glGetUniformLocation( getCurrentShaderId(), "MVP" );
-        GLint position = glGetAttribLocation( getCurrentShaderId(), "position" );
-        GLint color = glGetAttribLocation( getCurrentShaderId(), "color" );
+        var_id = glGetUniformLocation( getCurrentShaderId(), "MVP" );
+        position = glGetAttribLocation( getCurrentShaderId(), "position" );
+        color = glGetAttribLocation( getCurrentShaderId(), "color" );
 
         transmitMVP( var_id );
         glEnableVertexAttribArray( position );
@@ -118,7 +138,15 @@ App::render()
          glDisableVertexAttribArray( position );
          glDisableVertexAttribArray( color );
 
-        // particules
+
+         /*------------- PLAN ------------*/
+         //useShader( "plan" );
+
+
+
+
+
+        /*--------------- particules ---------- */
          glEnable(GL_POINT_SPRITE);
          glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
          glEnable(GL_TEXTURE_2D);
@@ -179,6 +207,29 @@ App::render()
         glDisableVertexAttribArray( t );
         glDisableVertexAttribArray( size );
         glDisableVertexAttribArray( ageRatio );
+
+   //     glDepthMask( GL_TRUE );
+ //glDisable(GL_BLEND);
+ glBlendFunc(GL_ZERO,GL_ONE);
+        useShader("Shaders/plan");
+        var_id = glGetUniformLocation( getCurrentShaderId(), "MVP" );
+        position = glGetAttribLocation( getCurrentShaderId(), "position" );
+        color = glGetAttribLocation( getCurrentShaderId(), "color" );
+        transmitMVP( var_id );
+
+
+
+                // drawing plan
+                glVertexAttribPointer( position, 3, GL_FLOAT, GL_FALSE, 0, g_plan);
+                glVertexAttribPointer( color, 3, GL_FLOAT, GL_FALSE, 0, g_planColor);
+                glEnableVertexAttribArray( position );
+                glEnableVertexAttribArray( color );
+                glVertexPointer(3,GL_FLOAT,0,g_plan);
+                glDrawElements(GL_TRIANGLE_STRIP,5, GL_UNSIGNED_INT,g_planInd);
+
+         glDisableVertexAttribArray( position );
+         glDisableVertexAttribArray( color );
+
 
         //unbind de la texture
         glBindTexture(GL_TEXTURE_2D,0);

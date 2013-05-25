@@ -24,10 +24,10 @@ class ParticuleGenerateur {
 private:
     char*       shaderName;
     // temps depuis le début de la génération
-    float       lastFrameTime;
+    int64_t       lastFrameTime;
 
     // une frame correspond à une tentative de génération de nbItemPerFrame particules
-    float       frameTime;
+    int64_t       frameTime;
     int         nbItemPerFrame;
 
 	/* rayon du cercle sur lequel sont génerées les particules*/
@@ -90,7 +90,7 @@ protected:
 public:
     ParticuleGenerateur
         (
-            char* _shaderName   , float _frameTime  , int _nbItemPerFrame   , float _radius         ,
+            char* _shaderName   , int64_t _frameTime  , int _nbItemPerFrame   , float _radius         ,
             Vec3 _center        , int _nbItem       , float _lifeTimeMin    , float _lifeTimeMax    ,
             float _sizeMin      , float _sizeMax    , float _velocityMin    , float _velocityMax
         );
