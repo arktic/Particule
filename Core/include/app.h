@@ -59,6 +59,7 @@ class App : public GlWindow
 
         virtual ~App();
         void mouseMoveEvent(QMouseEvent *);
+        void mousePressEvent(QMouseEvent *);
 		void keyPressEvent(QKeyEvent *);
 };
 

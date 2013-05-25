@@ -250,6 +250,11 @@ App::mouseMoveEvent(QMouseEvent *event){
     oldMouse.y = event->y();
 }
 
+void App::mousePressEvent(QMouseEvent * event) {
+    oldMouse.x = event->x();
+    oldMouse.y = event->y();
+}
+
 void
 App::keyPressEvent( QKeyEvent* event )
 {
