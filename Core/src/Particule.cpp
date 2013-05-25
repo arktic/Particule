@@ -59,11 +59,11 @@ bool Particule::isAlive() {
 }
 
 
-void Particule::set(float lifeTime, int size, Vec3 pos, Vec3 velocity, int _age) {
-    setLifeTime(lifeTime);
-    setSize(size);
-    setPosition(pos);
-    setVelocity(velocity);
+void Particule::set(float _lifeTime, int _size, Vec3 _pos, Vec3 _velocity, int _age) {
+    setLifeTime(_lifeTime);
+    setSize(_size);
+    setPosition(_pos);
+    setVelocity(_velocity);
     age=_age;
 }
 

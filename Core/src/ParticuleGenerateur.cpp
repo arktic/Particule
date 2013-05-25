@@ -43,6 +43,7 @@ ParticuleGenerateur::ParticuleGenerateur
     agesRatio = new GLfloat[nbItem];
     sizes = new GLfloat[nbItem];
 
+    elapsedTime = 0;
     time_ms(&lastFrameTime);
 
     for(int i =0 ; i <nbItem ; i++){
@@ -80,7 +81,7 @@ void ParticuleGenerateur::update() {
 
     int64_t tMs;
     time_ms(&tMs);
-    int elapsedTime = tMs - lastFrameTime;
+    elapsedTime = tMs - lastFrameTime;
 
     if( elapsedTime >  frameTime) {
         updateParticle(elapsedTime);

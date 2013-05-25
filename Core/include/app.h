@@ -19,16 +19,13 @@
 #define GEN_RADIUS 4
 #define GEN_CENTER Vec3(0,0,0)
 
-
-
-#define GEN_POINT_SIZE 2
-
 #define GEN_TEXTURE_FIRE "Texture/tex2d_fire4-2.png"
 
 
 #include "GlWindow.h"
 #include "ParticuleGenerateur.h"
 #include "fire.h"
+#include "smoke.h"
 #include "camera.h"
 
 class App : public GlWindow
@@ -36,12 +33,14 @@ class App : public GlWindow
     private:
     ParticuleGenerateur* gen;
     Fire* fire;
+    Smoke* smoke;
     float fps;
     int64_t lastTimeFps;
 
     Camera* cam;
 
     int textureID;
+    int smoke_textureID;
     Vec2 oldMouse;
 
     void printFps();

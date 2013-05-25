@@ -12,6 +12,7 @@ const GLfloat g_AngleSpeed = 10.0f;
 
 #include "ParticuleGenerateur.h"
 #include "fire.h"
+#include "smoke.h"
 using namespace std;
 
 
@@ -80,6 +81,13 @@ App::initializeObjects()
 
 
     fps = 0;
+    smoke = new Smoke("Shaders/smoke",SMOKE_FRAMETIME,
+                      SMOKE_RADIUS,SMOKE_CENTER,
+                      SMOKE_NBPARTICLE,
+                      SMOKE_LIFETIME_MIN,SMOKE_LIFETIME_MAX,
+                      SMOKE_SIZE_MIN,  SMOKE_SIZE_MAX,
+                      SMOKE_VELOCITY_MIN, SMOKE_VELOCITY_MAX,SMOKE_SIZE_COEF,
+                      SMOKE_FRAME_MIN, SMOKE_FRAME_MAX, SMOKE_GENTIME);
 
     fire = new Fire("Shaders/fire",GEN_FRAMETIME,GEN_ITEMPERFRAME,
                     GEN_RADIUS,GEN_CENTER,
@@ -87,9 +95,13 @@ App::initializeObjects()
                     GEN_LIFETIME_MIN,GEN_LIFETIME_MAX,
                     GEN_SIZE_MIN,  GEN_SIZE_MAX,
                     GEN_VELOCITY_MIN, GEN_VELOCITY_MAX);
+
     createShader( "Shaders/color");
-    createShader( "Shaders/plan");
+    //createShader( "Shaders/plan");
     createShader( fire->getShaderName() );
+    createShader( smoke->getShaderName() );
+    smoke_textureID = createTexture(SMOKE_TEXTURE);
+    cout << "texture"<< smoke_textureID<<endl;
     textureID = createTexture(GEN_TEXTURE_FIRE);
 
     return true;
@@ -100,6 +112,7 @@ void
 App::render()
 {
     fire->update();
+    smoke->update();
     // Initialisation de la caméra
         lookAt( cam->getPosition().x, cam->getPosition().y, cam->getPosition().z,
                 cam->getTarget().x, cam->getTarget().y, cam->getTarget().z,
@@ -140,16 +153,106 @@ App::render()
 
 
          /*------------- PLAN ------------*/
-         //useShader( "plan" );
+//         glBlendFunc(GL_ZERO,GL_ONE);
+//         useShader("Shaders/plan");
+//         var_id = glGetUniformLocation( getCurrentShaderId(), "MVP" );
+//         position = glGetAttribLocation( getCurrentShaderId(), "position" );
+//         color = glGetAttribLocation( getCurrentShaderId(), "color" );
+//         transmitMVP( var_id );
 
 
 
+//                 // drawing plan
+//                 glVertexAttribPointer( position, 3, GL_FLOAT, GL_FALSE, 0, g_plan);
+//                 glVertexAttribPointer( color, 3, GL_FLOAT, GL_FALSE, 0, g_planColor);
+//                 glEnableVertexAttribArray( position );
+//                 glEnableVertexAttribArray( color );
+//                 glVertexPointer(3,GL_FLOAT,0,g_plan);
+//                 glDrawElements(GL_TRIANGLE_STRIP,5, GL_UNSIGNED_INT,g_planInd);
+
+//          glDisableVertexAttribArray( position );
+//          glDisableVertexAttribArray( color );
+//          glDisable(GL_BLEND);
 
 
-        /*--------------- particules ---------- */
+        /*--------------- Smoke ---------- */
+          {
+          glEnable(GL_POINT_SPRITE);
+          glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
+          glEnable(GL_TEXTURE_2D);
+            glEnable(GL_DEPTH_TEST);
+          glEnable(GL_BLEND);
+          glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+         useShader( "smoke" );
+         glActiveTexture(GL_TEXTURE0);
+         glBindTexture(GL_TEXTURE_2D,smoke_textureID);
+
+         // textureID initialization
+         glUniform1i(glGetUniformLocation(0, "texId"),0);
+
+         // setting de la position de la caméra dans le shader et du viewport width
+         Vec3 camPos = cam->getPosition();
+         GLint viewport[4];
+         glGetIntegerv(GL_VIEWPORT, viewport);
+         Vec3 center = smoke->getCenter();
+
+         GLint mvp = glGetUniformLocation( getCurrentShaderId(), "MVP" );
+         GLint c = glGetUniformLocation(getCurrentShaderId(), "center" );
+         GLint radius = glGetUniformLocation(getCurrentShaderId(), "radius" );
+         GLint eyePosition = glGetUniformLocation( getCurrentShaderId(), "eyePosition" );
+         GLint viewportWidth = glGetUniformLocation( getCurrentShaderId(), "viewportWidth" );
+         GLint sizeCoef = glGetUniformLocation (getCurrentShaderId(), "sizeCoef");
+
+         transmitMVP( mvp );
+         glUniform3f(eyePosition, camPos.x, camPos.y, camPos.z);
+         glUniform1f(viewportWidth,viewport[2] );
+         glUniform1f( radius, smoke->getRadius());
+         glUniform3f(c, center.x, center.y, center.z );
+         glUniform1f( sizeCoef, smoke->getSizeMaxCoef());
+
+
+         GLint t = glGetAttribLocation( getCurrentShaderId(), "t" );
+         GLint velocity = glGetAttribLocation( getCurrentShaderId(), "velocity" );
+         GLint ageRatio = glGetAttribLocation( getCurrentShaderId(), "ageRatio" );
+         position = glGetAttribLocation( getCurrentShaderId(), "position" );
+         GLint size = glGetAttribLocation( getCurrentShaderId(), "size" );
+
+         glEnableVertexAttribArray( t );
+         glEnableVertexAttribArray( velocity );
+         glEnableVertexAttribArray( position );
+         glEnableVertexAttribArray( ageRatio );
+         glEnableVertexAttribArray( size );
+
+
+         glVertexAttribPointer( t, 1, GL_FLOAT, GL_FALSE, 0, smoke->getAges() );
+         glVertexAttribPointer( velocity, 3, GL_FLOAT, GL_FALSE, 0, smoke->getVelocity() );
+         glVertexAttribPointer( position, 3, GL_FLOAT, GL_FALSE, 0, smoke->getVertices() );
+         glVertexAttribPointer( size, 1, GL_FLOAT, GL_FALSE, 0, smoke->getSizes() );
+         glVertexAttribPointer( ageRatio, 1, GL_FLOAT, GL_FALSE, 0, smoke->getAgesRatio() );
+
+
+             glDrawArrays( GL_POINTS, 0, smoke->getNbAlive() );
+
+         glDisableVertexAttribArray( position );
+         glDisableVertexAttribArray( velocity );
+         glDisableVertexAttribArray( t );
+         glDisableVertexAttribArray( size );
+         glDisableVertexAttribArray( ageRatio );
+         glDisable(GL_BLEND);
+         //unbind de la texture
+         glBindTexture(GL_TEXTURE_2D,0);
+         glDisable(GL_POINT_SPRITE);
+         glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
+         glDisable(GL_TEXTURE_2D);
+          }
+
+
+        /*--------------- fire ---------- */
          glEnable(GL_POINT_SPRITE);
          glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
          glEnable(GL_TEXTURE_2D);
+         glEnable(GL_BLEND);
+         glBlendFunc(GL_SRC_ALPHA, GL_ONE);
         useShader( "fire" );
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D,textureID);
@@ -180,62 +283,37 @@ App::render()
         GLint velocity = glGetAttribLocation( getCurrentShaderId(), "velocity" );
         GLint ageRatio = glGetAttribLocation( getCurrentShaderId(), "ageRatio" );
         position = glGetAttribLocation( getCurrentShaderId(), "position" );
-        //color = glGetAttribLocation( getCurrentShaderId(), "color" );
         GLint size = glGetAttribLocation( getCurrentShaderId(), "size" );
 
         glEnableVertexAttribArray( t );
         glEnableVertexAttribArray( velocity );
         glEnableVertexAttribArray( position );
         glEnableVertexAttribArray( ageRatio );
-        //glEnableVertexAttribArray( color );
         glEnableVertexAttribArray( size );
 
 
         glVertexAttribPointer( t, 1, GL_FLOAT, GL_FALSE, 0, fire->getAges() );
         glVertexAttribPointer( velocity, 3, GL_FLOAT, GL_FALSE, 0, fire->getVelocity() );
         glVertexAttribPointer( position, 3, GL_FLOAT, GL_FALSE, 0, fire->getVertices() );
-        //glVertexAttribPointer( color, 4, GL_FLOAT, GL_FALSE, 0, fire->getColors() );
         glVertexAttribPointer( size, 1, GL_FLOAT, GL_FALSE, 0, fire->getSizes() );
         glVertexAttribPointer( ageRatio, 1, GL_FLOAT, GL_FALSE, 0, fire->getAgesRatio() );
 
 
-            glDrawArrays( GL_POINTS, 0, fire->getNbAlive() );
+         glDrawArrays( GL_POINTS, 0, fire->getNbAlive() );
 
         glDisableVertexAttribArray( position );
-//        glDisableVertexAttribArray( color );
         glDisableVertexAttribArray( velocity );
         glDisableVertexAttribArray( t );
         glDisableVertexAttribArray( size );
         glDisableVertexAttribArray( ageRatio );
-
-   //     glDepthMask( GL_TRUE );
- //glDisable(GL_BLEND);
- glBlendFunc(GL_ZERO,GL_ONE);
-        useShader("Shaders/plan");
-        var_id = glGetUniformLocation( getCurrentShaderId(), "MVP" );
-        position = glGetAttribLocation( getCurrentShaderId(), "position" );
-        color = glGetAttribLocation( getCurrentShaderId(), "color" );
-        transmitMVP( var_id );
-
-
-
-                // drawing plan
-                glVertexAttribPointer( position, 3, GL_FLOAT, GL_FALSE, 0, g_plan);
-                glVertexAttribPointer( color, 3, GL_FLOAT, GL_FALSE, 0, g_planColor);
-                glEnableVertexAttribArray( position );
-                glEnableVertexAttribArray( color );
-                glVertexPointer(3,GL_FLOAT,0,g_plan);
-                glDrawElements(GL_TRIANGLE_STRIP,5, GL_UNSIGNED_INT,g_planInd);
-
-         glDisableVertexAttribArray( position );
-         glDisableVertexAttribArray( color );
-
-
+        glDisable(GL_BLEND);
         //unbind de la texture
         glBindTexture(GL_TEXTURE_2D,0);
         glDisable(GL_POINT_SPRITE);
         glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
         glDisable(GL_TEXTURE_2D);
+        glDisable(GL_DEPTH_TEST);
+
     popMatrix();
 
     // affichage des fps

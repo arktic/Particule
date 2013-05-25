@@ -21,10 +21,12 @@ using namespace std;
 /* 	Cette classe permet de génerer des particules avec certaines propriétés.
 	La forme de ce générateur est par défault un cercle dans le plan XoY */
 class ParticuleGenerateur {
-private:
+protected:
     char*       shaderName;
     // temps depuis le début de la génération
     int64_t       lastFrameTime;
+
+    int elapsedTime;
 
     // une frame correspond à une tentative de génération de nbItemPerFrame particules
     int64_t       frameTime;
@@ -65,11 +67,11 @@ private:
 	/* taille maximum des particules générées */
     float       sizeMax;
 
-    void addParticle(void);
+    virtual void addParticle(void);
     void updateParticle(int &elapsedTime);
     virtual void fillRandomParticule(Particule* pt);
     virtual void fillCGA(int &i, vector<Particule*>::iterator &it);
-protected:
+
 	/* 	liste des particules actuellement vivantes, donc les seules dont on doit
 		effectuer le rendu */
     vector<Particule*> alive;

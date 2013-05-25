@@ -38,7 +38,7 @@ public:
 	void setVelocity(Vec3 velocity);
     void live(int elapsedTime);
 
-    void set(float lifeTime, int size, Vec3 pos, Vec3 velocity, int _age= 0);
+    void set(float _lifeTime, int _size, Vec3 _pos, Vec3 _velocity, int _age= 0);
 };
 
 #endif

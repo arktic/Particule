@@ -11,4 +11,5 @@ INPUT(
 ./debug\utils.o
 ./debug\fire.o
 ./debug\camera.o
+./debug\smoke.o
 );
