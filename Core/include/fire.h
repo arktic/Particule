@@ -13,7 +13,7 @@ private:
     /* détermine la limite de début de l'aténuation de l'age par rapport au centre du feu (en pourcentage) */
     float ageAtenuationLimit;
 public:
-    Fire(char* _shaderName, float _frameTime, int _nbItemPerFrame, float _radius,
+    Fire(char* _shaderName, char* _textureName, float _frameTime, int _nbItemPerFrame, float _radius,
                Vec3 _center, int _nbItem, float _lifeTimeMin, float _lifeTimeMax,
                float _sizeMin, float _sizeMax, float _velocityMin, float _velocityMax);
     void setAtenuation(float _ageAtenuationFactor, float _ageAtenuationLimit );

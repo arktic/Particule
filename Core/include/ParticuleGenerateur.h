@@ -23,6 +23,7 @@ using namespace std;
 class ParticuleGenerateur {
 protected:
     char*       shaderName;
+    char*       textureName;
     // temps depuis le début de la génération
     int64_t       lastFrameTime;
 
@@ -92,7 +93,7 @@ protected:
 public:
     ParticuleGenerateur
         (
-            char* _shaderName   , int64_t _frameTime  , int _nbItemPerFrame   , float _radius         ,
+            char* _shaderName   , char* _textureName, int64_t _frameTime  , int _nbItemPerFrame   , float _radius ,
             Vec3 _center        , int _nbItem       , float _lifeTimeMin    , float _lifeTimeMax    ,
             float _sizeMin      , float _sizeMax    , float _velocityMin    , float _velocityMax
         );
@@ -110,6 +111,7 @@ public:
     GLfloat     getRadius()           { return radius             ;}
     Vec3        getCenter()           { return center             ;}
     char*       getShaderName()       { return shaderName         ;}
+    char*       getTextureName()       { return textureName         ;}
     int         getNbItemPerFrame()   { return nbItemPerFrame     ;}
     int         getNbAlive()          { return nbAlive            ;}
     int         getNbItem()           { return nbItem             ;}
@@ -120,6 +122,20 @@ public:
     float       getVelocityMax()      { return lifeTimeMax        ;}
     float       getSizeMin()          { return sizeMin            ;}
     float       getSizeMax()          { return sizeMax            ;}
+
+    void        setRadius(GLfloat radius_)              { radius = radius_                  ;}
+    void        setCenter(Vec3 center_)                 { center = center_                  ;}
+    void        setNbItemPerFrame(int nbItemPerFrame_)  { nbItemPerFrame = nbItemPerFrame_  ;}
+    void        setNbItem(int nbParticule)              { nbItem = nbParticule              ;}
+    void        setFrameTime(int frameTime_)            { frameTime = frameTime_            ;}
+    void        setLifeTimeMin(float lifeTimeMin_)      { lifeTimeMin = lifeTimeMin_        ;}
+    void        setLifeTimeMax(float lifeTimeMax_)      { lifeTimeMax = lifeTimeMax_        ;}
+    void        setVelocityMin(float velocityMin_)      { velocityMin = velocityMin_        ;}
+    void        setVelocityMax(float velocityMax_)      { velocityMax = velocityMax_        ;}
+    void        setSizeMin(float sizeMin_)              { sizeMin = sizeMin_                ;}
+    void        setSizeMax(float sizeMax_)              {  sizeMax = sizeMax_               ;}
+
+
 };
 
 

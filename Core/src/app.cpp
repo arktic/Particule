@@ -63,7 +63,7 @@ GLuint g_planInd[] =
 
 App::App()
 {
-    setWindowTitle(trUtf8("IN55-App"));
+    setWindowTitle(trUtf8("IN55 Générateur de particules"));
     time_ms(&lastTimeFps);
 }
 
@@ -89,7 +89,7 @@ App::initializeObjects()
                       SMOKE_VELOCITY_MIN, SMOKE_VELOCITY_MAX,SMOKE_SIZE_COEF,
                       SMOKE_FRAME_MIN, SMOKE_FRAME_MAX, SMOKE_GENTIME);
 
-    fire = new Fire("Shaders/fire",GEN_FRAMETIME,GEN_ITEMPERFRAME,
+    fire = new Fire("Shaders/fire","Texture/tex2d_fire4-2.png",GEN_FRAMETIME,GEN_ITEMPERFRAME,
                     GEN_RADIUS,GEN_CENTER,
                     GEN_NBPARTICLE,
                     GEN_LIFETIME_MIN,GEN_LIFETIME_MAX,
@@ -324,6 +324,11 @@ App::render()
 void
 App::mouseMoveEvent(QMouseEvent *event){
     cam->orienter(event->x()-oldMouse.x ,event->y()-oldMouse.y);
+    oldMouse.x = event->x();
+    oldMouse.y = event->y();
+}
+
+void App::mousePressEvent(QMouseEvent * event) {
     oldMouse.x = event->x();
     oldMouse.y = event->y();
 }

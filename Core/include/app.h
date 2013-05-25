@@ -19,8 +19,6 @@
 #define GEN_RADIUS 4
 #define GEN_CENTER Vec3(0,0,0)
 
-#define GEN_TEXTURE_FIRE "Texture/tex2d_fire4-2.png"
-
 
 #include "GlWindow.h"
 #include "ParticuleGenerateur.h"
@@ -60,6 +58,7 @@ class App : public GlWindow
 
         virtual ~App();
         void mouseMoveEvent(QMouseEvent *);
+        void mousePressEvent(QMouseEvent *);
 		void keyPressEvent(QKeyEvent *);
 };
 
