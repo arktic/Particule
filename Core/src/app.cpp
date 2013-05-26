@@ -95,8 +95,8 @@ App::render()
         fire->render(this);
 
 //        /*--------------- fountain ---------- */
-//        fountain->update();
-//        fountain->render(this);
+        fountain->update();
+        fountain->render(this);
       //  map->render(this);
 
 
