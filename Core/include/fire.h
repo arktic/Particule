@@ -58,6 +58,11 @@ public:
     ~Fire();
 
     void setAtenuation(float _ageAtenuationFactor, float _ageAtenuationLimit );
+    void setAtenuationFactor(float _ageAtenuationFactor ) { ageAtenuationFactor = _ageAtenuationFactor ;}
+    void setAtenuationLimit(float _ageAtenuationLimit ) { ageAtenuationLimit = _ageAtenuationLimit ;}
+
+    float getAgeAtenuationFactor() { return ageAtenuationFactor;}
+    float getAgeAtenuationLimit() { return ageAtenuationLimit;}
 
     void load(App *app);
     void unload(App *app);
