@@ -191,3 +191,8 @@ App::~App() {
     delete fountain;
     delete cam;
 }
+
+
+App::App(QWidget*) {
+ time_ms(&lastTimeFps);
+}

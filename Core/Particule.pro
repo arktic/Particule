@@ -24,7 +24,8 @@ SOURCES += ../Common/RandomNumberGenerator.cpp \
     src/camera.cpp \
     src/smoke.cpp \
     src/fountain.cpp \
-    src/MainWindow.cpp
+    src/MainWindow.cpp \
+    src/repere.cpp \
     src/plan.cpp
 
 HEADERS  += ../Common/Vectors.h \
@@ -44,7 +45,8 @@ HEADERS  += ../Common/Vectors.h \
     include/camera.h \
     include/smoke.h \
     include/fountain.h \
-    include/MainWindow.h
+    include/MainWindow.h \
+    include/repere.h \
     include/plan.h
 
 
