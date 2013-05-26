@@ -121,8 +121,8 @@ App::render()
         }
 
 //        /*--------------- Smoke ---------- */
-//        smoke->update();
-//        smoke->render(this);
+        smoke->update();
+        smoke->render(this);
 
 
 

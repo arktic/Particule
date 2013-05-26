@@ -55,7 +55,7 @@
      </sizepolicy>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="fireTab">
      <property name="mouseTracking">
@@ -587,7 +587,7 @@
       <property name="title">
        <string>Velocity</string>
       </property>
-      <widget class="QSlider" name="velocityMinSliderFire_4">
+      <widget class="QSlider" name="velocityMinSliderFire">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -622,7 +622,7 @@
         <string>max</string>
        </property>
       </widget>
-      <widget class="QLabel" name="velocityMaxFireValue_4">
+      <widget class="QLabel" name="velocityMaxFireValue">
        <property name="geometry">
         <rect>
          <x>150</x>
@@ -648,7 +648,7 @@
         <string>min</string>
        </property>
       </widget>
-      <widget class="QLabel" name="velocityMinFireValue_4">
+      <widget class="QLabel" name="velocityMinFireValue">
        <property name="geometry">
         <rect>
          <x>60</x>
@@ -661,7 +661,7 @@
         <string>1</string>
        </property>
       </widget>
-      <widget class="QSlider" name="velocityMaxSliderFire_4">
+      <widget class="QSlider" name="velocityMaxSliderFire">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -806,6 +806,722 @@
      <attribute name="title">
       <string>Smoke</string>
      </attribute>
+     <widget class="QLabel" name="centerSmokeValue">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>240</y>
+        <width>46</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="acceptDrops">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string>(0,0,0)</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="centerXSmokeSpinbox">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>260</y>
+        <width>42</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>-1000</number>
+      </property>
+      <property name="maximum">
+       <number>1000</number>
+      </property>
+      <property name="singleStep">
+       <number>1</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="nbItemSmokeValue">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>60</y>
+        <width>46</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>10000</string>
+      </property>
+     </widget>
+     <widget class="QGroupBox" name="VelocitySmokeFrame">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>430</y>
+        <width>211</width>
+        <height>131</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Velocity</string>
+      </property>
+      <widget class="QSlider" name="velocityMinSliderSmoke">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>50</y>
+         <width>191</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>20</number>
+       </property>
+       <property name="pageStep">
+        <number>11</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_35">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>20</y>
+         <width>21</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>max</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="velocityMaxSmokeValue">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>20</y>
+         <width>46</width>
+         <height>13</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>4</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_36">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>20</y>
+         <width>21</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>min</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="velocityMinSmokeValue">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>20</y>
+         <width>46</width>
+         <height>13</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>1</string>
+       </property>
+      </widget>
+      <widget class="QSlider" name="velocityMaxSliderSmoke">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>80</y>
+         <width>191</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>20</number>
+       </property>
+       <property name="value">
+        <number>4</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QSlider" name="frameTimeSliderSmoke">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>200</y>
+        <width>211</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>10</number>
+      </property>
+      <property name="maximum">
+       <number>100</number>
+      </property>
+      <property name="value">
+       <number>33</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QSlider" name="radiusSliderSmoke">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>211</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="value">
+       <number>4</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="Line" name="lineSmoke">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>0</y>
+        <width>20</width>
+        <height>681</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+     <widget class="QGroupBox" name="SizeSmokeFrame">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>10</y>
+        <width>211</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Size</string>
+      </property>
+      <widget class="QSlider" name="coefSizeSliderSmoke">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>50</y>
+         <width>191</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>15</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="coefSizeSmokeLabel">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>20</y>
+         <width>21</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>coef</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="coefSizeSmokeValue">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>20</y>
+         <width>46</width>
+         <height>13</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="radiusSmokeValue">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>10</y>
+        <width>46</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>4</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>60</y>
+        <width>61</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Nb particles</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>15</x>
+        <y>180</y>
+        <width>81</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>FrameTime (ms)</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="frameTimeSmokeValue">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>180</y>
+        <width>46</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>33</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="centerZSmokeSpinbox">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>260</y>
+        <width>42</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>-1000</number>
+      </property>
+      <property name="maximum">
+       <number>1000</number>
+      </property>
+      <property name="singleStep">
+       <number>1</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_9">
+      <property name="geometry">
+       <rect>
+        <x>15</x>
+        <y>240</y>
+        <width>51</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Center</string>
+      </property>
+     </widget>
+     <widget class="QSlider" name="nbItemSliderFire_2">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>80</y>
+        <width>211</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>1000</number>
+      </property>
+      <property name="maximum">
+       <number>60000</number>
+      </property>
+      <property name="singleStep">
+       <number>1000</number>
+      </property>
+      <property name="value">
+       <number>10000</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_10">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>46</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Radius</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="setValuesButtonSmoke">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>360</y>
+        <width>141</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Set up values</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="centerYSmokeSpinbox">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>260</y>
+        <width>42</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>-1000</number>
+      </property>
+      <property name="maximum">
+       <number>1000</number>
+      </property>
+      <property name="singleStep">
+       <number>1</number>
+      </property>
+     </widget>
+     <widget class="QGroupBox" name="lifetimeSmoke">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>300</y>
+        <width>211</width>
+        <height>131</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Lifetime (ms)</string>
+      </property>
+      <widget class="QSlider" name="lifetimeMinSliderSmoke">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>50</y>
+         <width>191</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="minimum">
+        <number>200</number>
+       </property>
+       <property name="maximum">
+        <number>5000</number>
+       </property>
+       <property name="singleStep">
+        <number>100</number>
+       </property>
+       <property name="pageStep">
+        <number>100</number>
+       </property>
+       <property name="value">
+        <number>1000</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_37">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>20</y>
+         <width>21</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>max</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lifetimeMaxSmokeValue">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>20</y>
+         <width>46</width>
+         <height>13</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>3000</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_38">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>20</y>
+         <width>21</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>min</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lifetimeMinSmokeValue">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>20</y>
+         <width>46</width>
+         <height>13</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>1000</string>
+       </property>
+      </widget>
+      <widget class="QSlider" name="lifetimeMaxSliderSmoke">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>80</y>
+         <width>191</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="minimum">
+        <number>200</number>
+       </property>
+       <property name="maximum">
+        <number>5000</number>
+       </property>
+       <property name="singleStep">
+        <number>100</number>
+       </property>
+       <property name="pageStep">
+        <number>100</number>
+       </property>
+       <property name="value">
+        <number>3000</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="ItemPerFrameGB">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>110</y>
+        <width>211</width>
+        <height>131</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>ItemGeneration</string>
+      </property>
+      <widget class="QSlider" name="nbMaxItemPerFrameSliderSmoke">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>40</y>
+         <width>191</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="minimum">
+        <number>0</number>
+       </property>
+       <property name="maximum">
+        <number>600</number>
+       </property>
+       <property name="singleStep">
+        <number>1</number>
+       </property>
+       <property name="pageStep">
+        <number>100</number>
+       </property>
+       <property name="value">
+        <number>1</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_8">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>111</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>NbItemPerFrameMax</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="nbMaxItemPerFrameSmoke">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>20</y>
+         <width>46</width>
+         <height>13</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>300</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="nbMinItemPerFrameSmoke">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>70</y>
+         <width>46</width>
+         <height>13</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>300</string>
+       </property>
+      </widget>
+      <widget class="QSlider" name="nbMinItemPerFrameSliderSmoke">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>90</y>
+         <width>191</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="minimum">
+        <number>0</number>
+       </property>
+       <property name="maximum">
+        <number>600</number>
+       </property>
+       <property name="singleStep">
+        <number>1</number>
+       </property>
+       <property name="pageStep">
+        <number>100</number>
+       </property>
+       <property name="value">
+        <number>1</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_11">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>70</y>
+         <width>111</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>NbItemPerFrameMin</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="label_12">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>120</y>
+        <width>81</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>GenTimer (ms)</string>
+      </property>
+     </widget>
+     <widget class="QSlider" name="genTimerSliderSmoke">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>140</y>
+        <width>211</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <number>3000</number>
+      </property>
+      <property name="value">
+       <number>1</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="genTimerSmokeValue">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>120</y>
+        <width>46</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>33</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="fountainTab">
      <attribute name="title">
@@ -936,6 +1652,166 @@
     <hint type="destinationlabel">
      <x>262</x>
      <y>357</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radiusSliderSmoke</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>radiusSmokeValue</receiver>
+   <slot>setNum(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>697</x>
+     <y>83</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>684</x>
+     <y>59</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>genTimerSliderSmoke</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>genTimerSmokeValue</receiver>
+   <slot>setNum(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>697</x>
+     <y>193</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>734</x>
+     <y>169</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>frameTimeSliderSmoke</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>frameTimeSmokeValue</receiver>
+   <slot>setNum(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>697</x>
+     <y>253</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>704</x>
+     <y>229</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lifetimeMinSliderSmoke</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>lifetimeMinSmokeValue</receiver>
+   <slot>setNum(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>697</x>
+     <y>403</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>674</x>
+     <y>369</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lifetimeMaxSliderSmoke</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>lifetimeMaxSmokeValue</receiver>
+   <slot>setNum(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>697</x>
+     <y>433</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>764</x>
+     <y>369</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>velocityMaxSliderSmoke</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>velocityMaxSmokeValue</receiver>
+   <slot>setNum(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>697</x>
+     <y>563</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>764</x>
+     <y>499</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>velocityMinSliderSmoke</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>velocityMinSmokeValue</receiver>
+   <slot>setNum(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>697</x>
+     <y>533</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>674</x>
+     <y>499</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>coefSizeSliderSmoke</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>coefSizeSmokeValue</receiver>
+   <slot>setNum(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>927</x>
+     <y>113</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>904</x>
+     <y>79</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>nbMaxItemPerFrameSliderSmoke</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>nbMaxItemPerFrameSmoke</receiver>
+   <slot>setNum(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>927</x>
+     <y>203</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>994</x>
+     <y>179</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>nbMinItemPerFrameSliderSmoke</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>nbMinItemPerFrameSmoke</receiver>
+   <slot>setNum(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>927</x>
+     <y>253</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>994</x>
+     <y>229</y>
     </hint>
    </hints>
   </connection>
