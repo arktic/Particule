@@ -1,6 +1,3 @@
-#version 140
-
-
 uniform mat4 MVP;
 
 in vec3 position;

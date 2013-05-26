@@ -24,15 +24,37 @@
 
 
 #include "ParticuleGenerateur.h"
+#include "App.h"
+
+class App;
 class Smoke : public ParticuleGenerateur
 {
 private:
-     /*void fillRandomParticule(Particule* pt);*/
-    float sizeMaxCoef;
-    int itemPerFrameMax;
-    int itemPerFrameMin;
-    int updateNbItemTimer;
-    int lastUpdateNbItem;
+    GLuint shaderID;
+    GLuint textureID;
+
+    /* variable shader */
+    GLint   t             ;
+    GLint   ivelocity     ;
+    GLint   ageRatio      ;
+    GLint   position      ;
+    GLint   size          ;
+
+
+    /* variable uniforme */
+    Vec3    camPos        ;
+    GLint   mvp           ;
+    GLint   eyePosition   ;
+    GLint   viewport[4]   ;
+    GLint   viewportWidth ;
+    GLint   sizeCoef      ;
+
+
+    float   sizeMaxCoef         ;
+    int     itemPerFrameMax     ;
+    int     itemPerFrameMin     ;
+    int     updateNbItemTimer   ;
+    int     lastUpdateNbItem    ;
 
     void fillCGA(int &i, vector<Particule*>::iterator &it);
     void addParticle();
@@ -50,6 +72,12 @@ public:
     void setSizeMaxCoef(float coef) { sizeMaxCoef = coef; }
     int getRandomItemPerFrame();
 
+    void load(App* app);
+    void unload(App* app);
+    void render(App *app);
+
 };
+
+
 
 #endif // SMOKE_H

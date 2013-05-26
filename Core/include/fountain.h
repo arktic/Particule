@@ -5,7 +5,7 @@
 
 #include "ParticuleGenerateur.h"
 #include "Vectors.h"
-
+#include "App.h"
 
 #define FOUNTAIN_FRAMETIME 33
 #define FOUNTAIN_ITEMPERFRAME 100
@@ -25,10 +25,26 @@
 
 #define FOUNTAIN_DIRECTION Vec3(0,1,1)
 
-
+class App;
 class Fountain : public ParticuleGenerateur {
 
 private:
+    GLuint shaderID;
+    GLuint textureID;
+
+    /* variables shader uniformes */
+    GLint mvp           ;
+    GLint eyePosition   ;
+    GLint viewportWidth ;
+    GLint viewport[4]   ;
+    Vec3  camPos;
+
+    /* variables shaders */
+    GLint t             ;
+    GLint ivelocity     ;
+    GLint position      ;
+    GLint size          ;
+
     Vec3 direction;
 
     Vec3 getRandomVelocity();
@@ -38,10 +54,9 @@ public:
        float _lifeTimeMax,  float _sizeMin, float _sizeMax, float _velocityMin, float _velocityMax,
      Vec3 _direction);
 
-
-
-
-
+    void load(App* app);
+    void unload(App* app);
+    void render(App *app);
 
 };
 

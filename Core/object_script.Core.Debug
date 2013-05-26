@@ -12,4 +12,7 @@ INPUT(
 ./debug\fire.o
 ./debug\camera.o
 ./debug\smoke.o
+./debug\fountain.o
+./debug\repere.o
+./debug\plan.o
 );

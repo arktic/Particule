@@ -17,11 +17,12 @@
 
 
 using namespace std;
-
+class App;
 /* 	Cette classe permet de génerer des particules avec certaines propriétés.
 	La forme de ce générateur est par défault un cercle dans le plan XoY */
-class ParticuleGenerateur {
+class ParticuleGenerateur{
 protected:
+    bool loaded;
     char*       shaderName;
     char*       textureName;
     // temps depuis le début de la génération
@@ -72,6 +73,9 @@ protected:
     void updateParticle(int &elapsedTime);
     virtual void fillRandomParticule(Particule* pt);
     virtual void fillCGA(int &i, vector<Particule*>::iterator &it);
+    virtual void load(App *app)   =0;
+    virtual void unload(App *app) =0;
+    virtual void render(App *app) =0;
 
 	/* 	liste des particules actuellement vivantes, donc les seules dont on doit
 		effectuer le rendu */

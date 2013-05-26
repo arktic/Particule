@@ -35,6 +35,7 @@ ParticuleGenerateur::ParticuleGenerateur
         alive(),
         dead()
 {
+    loaded = false;
     shaderName = _shaderName;
     textureName = _textureName;
     vertices = new GLfloat[3*nbItem];

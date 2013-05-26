@@ -2,6 +2,7 @@
 #include "smoke.h"
 #include <iostream>
 #include "utils.h"
+#include "App.h"
 
 Smoke::Smoke
     (char* _shaderName   , char* _textureName,  float _frameTime  , float _radius,
@@ -76,4 +77,91 @@ Vec3 Smoke::getRandomCenteredPosition() {
     out.y = getBoundedRandom(center.y, center.y);
     out.z = getBoundedRandom(center.z-2, center.z+2);
     return out;
+}
+
+void
+Smoke::load(App *app){
+    if(!loaded) {
+        if(shaderName != NULL)
+            app->createShader(shaderName);
+        if(textureName != NULL)
+            textureID = app->createTexture(textureName);
+        loaded  = true;
+    }
+}
+
+void
+Smoke::unload(App *app){
+    if(loaded) {
+        if(textureName != NULL)
+            app->deleteTexture(textureID);
+        loaded = false;
+    }
+}
+
+void
+Smoke::render(App *app){
+    glEnable(GL_POINT_SPRITE);
+    glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D,textureID);
+
+    app->useShader( shaderName );
+    shaderID = app->getCurrentShaderId();
+
+    // textureID initialization
+    glUniform1i(glGetUniformLocation(0, "texId"),0);
+
+    // setting de la position de la caméra dans le shader et du viewport width
+    camPos = app->getCamera()->getPosition();
+    glGetIntegerv(GL_VIEWPORT, viewport);
+
+    mvp           = glGetUniformLocation( shaderID, "MVP" );
+    eyePosition   = glGetUniformLocation( shaderID, "eyePosition" );
+    viewportWidth = glGetUniformLocation( shaderID, "viewportWidth" );
+    sizeCoef      = glGetUniformLocation (shaderID, "sizeCoef");
+
+    app->transmitMVP( mvp );
+    glUniform3f(eyePosition, camPos.x, camPos.y, camPos.z);
+    glUniform1f(viewportWidth,viewport[2] );
+    glUniform1f( sizeCoef, sizeMaxCoef);
+
+    t             = glGetAttribLocation( shaderID, "t" );
+    ivelocity      = glGetAttribLocation( shaderID, "velocity" );
+    ageRatio      = glGetAttribLocation( shaderID, "ageRatio" );
+    position      = glGetAttribLocation( shaderID, "position" );
+    size          = glGetAttribLocation( shaderID, "size" );
+
+    glEnableVertexAttribArray( t );
+    glEnableVertexAttribArray( ivelocity );
+    glEnableVertexAttribArray( position );
+    glEnableVertexAttribArray( ageRatio );
+    glEnableVertexAttribArray( size );
+
+
+    glVertexAttribPointer( t, 1, GL_FLOAT, GL_FALSE, 0, ages );
+    glVertexAttribPointer( ivelocity, 3, GL_FLOAT, GL_FALSE, 0, this->velocity );
+    glVertexAttribPointer( position, 3, GL_FLOAT, GL_FALSE, 0, vertices );
+    glVertexAttribPointer( size, 1, GL_FLOAT, GL_FALSE, 0, sizes );
+    glVertexAttribPointer( ageRatio, 1, GL_FLOAT, GL_FALSE, 0, agesRatio );
+
+    glDrawArrays( GL_POINTS, 0, nbAlive );
+
+    glDisableVertexAttribArray( position );
+    glDisableVertexAttribArray( ivelocity );
+    glDisableVertexAttribArray( t );
+    glDisableVertexAttribArray( size );
+    glDisableVertexAttribArray( ageRatio );
+
+    //unbind de la texture
+    glBindTexture(GL_TEXTURE_2D,0);
+    glDisable(GL_DEPTH_TEST);
+    glDisable(GL_BLEND);
+    glDisable(GL_POINT_SPRITE);
+    glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
+    glDisable(GL_TEXTURE_2D);
 }

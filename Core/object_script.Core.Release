@@ -12,4 +12,7 @@ INPUT(
 ./release\fire.o
 ./release\camera.o
 ./release\smoke.o
+./release\fountain.o
+./release\repere.o
+./release\plan.o
 );
