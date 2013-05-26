@@ -125,5 +125,4 @@ void Fire::unload(App *app) {
 }
 
 Fire::~Fire(){
-
 }

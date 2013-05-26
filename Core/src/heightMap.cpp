@@ -57,10 +57,10 @@ void HeightMap::render(App *app){
     glEnable(GL_DEPTH_TEST);
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-//    app->useShader(shaderName);
-//    mvp  = glGetUniformLocation( app->getCurrentShaderId(), "mvp" );
-//    app->transmitMVP(mvp);
-
+   /* cout << "useshader" << app->useShader(shaderName) << endl;
+    mvp  = glGetUniformLocation( app->getCurrentShaderId(), "mvp" );
+    app->transmitMVP(mvp);
+*/
     glColor3f(1,0,0);
 
     glEnableClientState(GL_VERTEX_ARRAY);
@@ -76,7 +76,7 @@ void HeightMap::render(App *app){
 void HeightMap::load(App *app){
     if(!loaded){
         if(shaderName != NULL)
-            app->createShader(shaderName);
+            cout << "create shader << " << app->createShader(shaderName) << endl;
         loaded = true;
     }
 }

@@ -23,7 +23,7 @@ class HeightMap;
 class App : public GlWindow
 {
     private:
-  //  HeightMap* map;
+    HeightMap* map;
     Repere* repere;
     Plan* plan;
     Fire* fire;

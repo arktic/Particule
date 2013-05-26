@@ -1,5 +1,10 @@
 #include "camera.h"
 
+#include <iostream>
+
+using namespace std;
+
+
 Camera::Camera() : phi(0.0), theta(0.0), orientation(), Vaxe(0, 1, 0), deplacementLateral(), position(), target()
 {
 
@@ -12,6 +17,10 @@ Camera::Camera(float positionX, float positionY, float positionZ, float targetX,
     setTarget();
     deplacementLateral = Vaxe.crossProduct(orientation);
     deplacementLateral.normalize();
+
+    cout << "CAMERA:" << orientation.x << ":" << orientation.y << ":" << orientation.z << endl;
+    cout << "CAMERA:" << phi << ":" << theta << endl;
+
 }
 
 Camera::~Camera()
@@ -132,7 +141,7 @@ void Camera::setTarget()
         phi = asin(orientation.x);
         theta = acos(orientation.y / cos(phi));
 
-        if(orientation.y < 0)
+        if(orientation.y <= 0)
             theta *= -1;
     }
 
@@ -146,7 +155,7 @@ void Camera::setTarget()
         phi = asin(orientation.y);
         theta = acos(orientation.z / cos(phi));
 
-        if(orientation.z < 0)
+        if(orientation.z <= 0)
             theta *= -1;
     }
 
@@ -160,7 +169,7 @@ void Camera::setTarget()
         phi = asin(orientation.x);
         theta = acos(orientation.z / cos(phi));
 
-        if(orientation.z < 0)
+        if(orientation.z <= 0)
             theta *= -1;
     }
 
