@@ -43,6 +43,9 @@ public slots:
     void ageAttenuationFactorChanged(int);
     void ageAttenuationLimitChanged(int);
     void setCurrentValues();
+    void onNbMaxItemPerFrameChanged(int);
+    void onNbMinItemPerFrameChanged(int);
+    void onUpdateTimerChanged(int);
 };
 
 #endif // MAINWINDOW_H

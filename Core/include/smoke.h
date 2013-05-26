@@ -75,7 +75,7 @@ public:
 
     void    setSizeMaxCoef         (float      coef    ) { sizeMaxCoef = coef          ; }
     void    setItemPerFrameMax     (int        max     ) { itemPerFrameMax = max       ; }
-    void    setItemPerFrameMin     (int        min     ) { itemPerFrameMax = min       ; }
+    void    setItemPerFrameMin     (int        min     ) { itemPerFrameMin = min       ; }
     void    setUpdateNbItemTimer   (int        timer   ) { updateNbItemTimer = timer   ; }
 
     int getRandomItemPerFrame();

@@ -87,8 +87,8 @@ App::render()
         plan->render(this);
 
 //        /*--------------- Smoke ---------- */
-//        smoke->update();
-//        smoke->render(this);
+        smoke->update();
+        smoke->render(this);
 
 //        /*--------------- fire ---------- */
         fire->update();
