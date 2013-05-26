@@ -1,6 +1,5 @@
 
 #include "smoke.h"
-#include <iostream>
 #include "utils.h"
 #include "App.h"
 

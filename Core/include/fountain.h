@@ -54,6 +54,9 @@ public:
        float _lifeTimeMax,  float _sizeMin, float _sizeMax, float _velocityMin, float _velocityMax,
      Vec3 _direction);
 
+    Vec3 getDirection() { return direction; }
+    void setDirection(Vec3 dir) { direction = dir; }
+
     void load(App* app);
     void unload(App* app);
     void render(App *app);

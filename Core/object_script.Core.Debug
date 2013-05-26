@@ -13,6 +13,8 @@ INPUT(
 ./debug\camera.o
 ./debug\smoke.o
 ./debug\fountain.o
+./debug\MainWindow.o
 ./debug\repere.o
 ./debug\plan.o
+./debug\heightMap.o
 );

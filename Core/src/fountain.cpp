@@ -1,4 +1,3 @@
-
 #include "fountain.h"
 #include "utils.h"
 #include "App.h"
@@ -46,6 +45,7 @@ Fountain::unload(App *app){
 
 void
 Fountain::render(App *app){
+
     glEnable(GL_POINT_SPRITE);
     glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
     glDisable(GL_BLEND);

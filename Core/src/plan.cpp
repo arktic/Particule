@@ -10,7 +10,7 @@ Plan::Plan(char *_shaderName):loaded(false){
 
     g_planColor[0]     =  1;    g_planColor[1]    =  0;    g_planColor[2]     = 0;
     g_planColor[3]     =  1;    g_planColor[4]    =  0;    g_planColor[5]     = 0;
-    g_planColor[6]     = 0;   g_planColor[7]     =  1;    g_planColor[8]     = 0;
+    g_planColor[6]     =  0;   g_planColor[7]     =  1;    g_planColor[8]     = 0;
     g_planColor[9]     =  0;   g_planColor[10]    =  1;    g_planColor[11]    = 0;
 
     g_planInd[0]    =  0;

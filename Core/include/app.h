@@ -1,7 +1,7 @@
 #ifndef APP_h
 #define APP_h
 
-#define CAM_SPEED 0.5
+#define CAM_SPEED 1
 
 #include "GlWindow.h"
 #include "ParticuleGenerateur.h"
@@ -11,16 +11,19 @@
 #include "fountain.h"
 #include "repere.h"
 #include "plan.h"
+#include "heightMap.h"
 
 class Fire;
 class Fountain;
 class Smoke;
 class Repere;
 class Plan;
+class HeightMap;
 
 class App : public GlWindow
 {
     private:
+    HeightMap* map;
     Repere* repere;
     Plan* plan;
     Fire* fire;
@@ -39,7 +42,7 @@ class App : public GlWindow
     void printFps();
 
 	public:
-		App();
+        //App();
         App(QWidget* parent);
 
         Camera* getCamera() { return cam; }

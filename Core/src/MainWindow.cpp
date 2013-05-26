@@ -2,6 +2,7 @@
 #include "MainWindow.h"
 #include "ui_mainwindow.h"
 #include "App.h"
+#include <iostream>
 
 /*
 #include "MainWindow.h"
@@ -78,15 +79,15 @@ QGroupBox* MainWindow::createVelocityBox(QWidget* parent) {
     return velocityBox;
 }
 */
-/*
-void MainWindow::keyPressEvent(QKeyEvent * event) {
 
-  */  /* just redirect event to app */
-   /* if(app!=NULL) {
-        app->keyPressEvent(event);
+void MainWindow::keyPressEvent(QKeyEvent * event) {
+    /* just redirect event to app */
+    if(ui->app!=NULL) {
+        ui->app->keyPressEvent(event);
     }
+
 }
-*/
+
 
 
 
@@ -99,7 +100,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
    // ui->layoutHoriz->addWidget(new App());
 
-    ui->app = new App();
+   // ui->app = new App(parent);
 
 }
 
