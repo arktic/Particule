@@ -26,7 +26,7 @@ void main() {
 	gl_PointSize = size *0.2* viewportWidth / length(eyePosition);
 	
 	// calcul de la nouvelle position
-	np = position + 0.001*t * velocity;
+	np = position + 0.001*t * (velocity);
 	//np.y -= (g * t * t * 0.000001) /2;
 	
 	// cette nouvelle position est la position de notre particule

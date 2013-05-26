@@ -90,18 +90,16 @@ App::render()
         plan->render(this);
 
         /*--------------- Smoke ---------- */
-        smoke->update();
-        smoke->render(this);
+//        smoke->update();
+//        smoke->render(this);
 
         /*--------------- fire ---------- */
         fire->update();
         fire->render(this);
 
         /*--------------- fountain ---------- */
-        fountain->update();
-        fountain->render(this);
-
-
+//        fountain->update();
+//        fountain->render(this);
 
 
     popMatrix();

@@ -13,6 +13,8 @@ INPUT(
 ./release\camera.o
 ./release\smoke.o
 ./release\fountain.o
+./release\MainWindow.o
 ./release\repere.o
 ./release\plan.o
+./release\moc_MainWindow.o
 );

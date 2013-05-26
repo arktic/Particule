@@ -6,28 +6,812 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1036</width>
+    <height>630</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="mouseTracking">
+    <bool>false</bool>
+   </property>
    <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>701</width>
-      <height>351</height>
+      <width>571</width>
+      <height>701</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="layoutHoriz">
      <item>
-      <widget class="App" name="app" native="true"/>
+      <widget class="App" name="app" native="true">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QTabWidget" name="controlSelector">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>0</y>
+      <width>461</width>
+      <height>701</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="fireTab">
+     <property name="mouseTracking">
+      <bool>false</bool>
+     </property>
+     <attribute name="title">
+      <string>Fire</string>
+     </attribute>
+     <widget class="QGroupBox" name="Size">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>10</y>
+        <width>211</width>
+        <height>131</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Size</string>
+      </property>
+      <widget class="QSlider" name="sizeMinSliderFire">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>50</y>
+         <width>191</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>15</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_13">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>20</y>
+         <width>21</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>max</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="sizeMaxFireValue">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>20</y>
+         <width>46</width>
+         <height>13</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_14">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>20</y>
+         <width>21</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>min</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="sizeMinFireValue">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>20</y>
+         <width>46</width>
+         <height>13</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+      </widget>
+      <widget class="QSlider" name="sizeMaxSliderFire">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>80</y>
+         <width>191</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>15</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QSpinBox" name="centerXFireSpinbox">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>260</y>
+        <width>42</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>-1000</number>
+      </property>
+      <property name="maximum">
+       <number>1000</number>
+      </property>
+      <property name="singleStep">
+       <number>1</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="centerFireValue">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>240</y>
+        <width>46</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="acceptDrops">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string>(0,0,0)</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="centerYFireSpinbox">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>260</y>
+        <width>42</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>-1000</number>
+      </property>
+      <property name="maximum">
+       <number>1000</number>
+      </property>
+      <property name="singleStep">
+       <number>1</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>120</y>
+        <width>81</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>NbItemPerFrame</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>60</y>
+        <width>61</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Nb particles</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="nbItemFireValue">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>60</y>
+        <width>46</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>10000</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="radiusFireValue">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>10</y>
+        <width>46</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>4</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>15</x>
+        <y>240</y>
+        <width>51</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Center</string>
+      </property>
+     </widget>
+     <widget class="QGroupBox" name="lifetime">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>300</y>
+        <width>211</width>
+        <height>131</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Lifetime (ms)</string>
+      </property>
+      <widget class="QSlider" name="lifetimeMinSliderFire_4">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>50</y>
+         <width>191</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="minimum">
+        <number>200</number>
+       </property>
+       <property name="maximum">
+        <number>5000</number>
+       </property>
+       <property name="singleStep">
+        <number>100</number>
+       </property>
+       <property name="pageStep">
+        <number>100</number>
+       </property>
+       <property name="value">
+        <number>1000</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_21">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>20</y>
+         <width>21</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>max</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lifetimeMaxFireValue_4">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>20</y>
+         <width>46</width>
+         <height>13</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>3000</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_22">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>20</y>
+         <width>21</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>min</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lifetimeMinFireValue_4">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>20</y>
+         <width>46</width>
+         <height>13</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>1000</string>
+       </property>
+      </widget>
+      <widget class="QSlider" name="lifetimeMaxSliderFire_4">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>80</y>
+         <width>191</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="minimum">
+        <number>200</number>
+       </property>
+       <property name="maximum">
+        <number>5000</number>
+       </property>
+       <property name="singleStep">
+        <number>100</number>
+       </property>
+       <property name="pageStep">
+        <number>100</number>
+       </property>
+       <property name="value">
+        <number>3000</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QSpinBox" name="centerZFireSpinbox">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>260</y>
+        <width>42</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>-1000</number>
+      </property>
+      <property name="maximum">
+       <number>1000</number>
+      </property>
+      <property name="singleStep">
+       <number>1</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="nbItemPerFrameFireValue">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>120</y>
+        <width>46</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>300</string>
+      </property>
+     </widget>
+     <widget class="QSlider" name="nbItemSliderFire">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>80</y>
+        <width>211</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>1000</number>
+      </property>
+      <property name="maximum">
+       <number>60000</number>
+      </property>
+      <property name="singleStep">
+       <number>1000</number>
+      </property>
+      <property name="value">
+       <number>10000</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>46</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Radius</string>
+      </property>
+     </widget>
+     <widget class="QSlider" name="radiusSliderFire">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>211</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="value">
+       <number>4</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QSlider" name="frameTimeSliderFire">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>200</y>
+        <width>211</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>10</number>
+      </property>
+      <property name="maximum">
+       <number>100</number>
+      </property>
+      <property name="value">
+       <number>33</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>15</x>
+        <y>180</y>
+        <width>81</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>FrameTime (ms)</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="frameTimeFireValue">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>180</y>
+        <width>46</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>33</string>
+      </property>
+     </widget>
+     <widget class="QSlider" name="nbItemPerFrameSliderFire">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>140</y>
+        <width>211</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>100</number>
+      </property>
+      <property name="maximum">
+       <number>3000</number>
+      </property>
+      <property name="singleStep">
+       <number>100</number>
+      </property>
+      <property name="pageStep">
+       <number>100</number>
+      </property>
+      <property name="value">
+       <number>300</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QGroupBox" name="Velocity">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>430</y>
+        <width>211</width>
+        <height>131</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Velocity</string>
+      </property>
+      <widget class="QSlider" name="velocityMinSliderFire_4">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>50</y>
+         <width>191</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>20</number>
+       </property>
+       <property name="pageStep">
+        <number>11</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_23">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>20</y>
+         <width>21</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>max</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="velocityMaxFireValue_4">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>20</y>
+         <width>46</width>
+         <height>13</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>4</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_24">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>20</y>
+         <width>21</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>min</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="velocityMinFireValue_4">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>20</y>
+         <width>46</width>
+         <height>13</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>1</string>
+       </property>
+      </widget>
+      <widget class="QSlider" name="velocityMaxSliderFire_4">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>80</y>
+         <width>191</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>20</number>
+       </property>
+       <property name="value">
+        <number>4</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </widget>
+     <widget class="Line" name="line">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>0</y>
+        <width>20</width>
+        <height>681</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+     <widget class="QGroupBox" name="ageAttenuation">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>160</y>
+        <width>211</width>
+        <height>131</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Age Attenuation</string>
+      </property>
+      <widget class="QSlider" name="ageAttenuationFactorSliderFire">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>50</y>
+         <width>191</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_27">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>20</y>
+         <width>21</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>limit</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="ageAttenuationLimitFireValue">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>20</y>
+         <width>46</width>
+         <height>13</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_28">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>20</y>
+         <width>31</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>factor</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="ageAttenuationFactorFireValue">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>20</y>
+         <width>46</width>
+         <height>13</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+      </widget>
+      <widget class="QSlider" name="ageAttenuationLimitSliderFire">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>80</y>
+         <width>191</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QPushButton" name="setValuesButton">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>360</y>
+        <width>141</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Set up values</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="smokeTab">
+     <attribute name="title">
+      <string>Smoke</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="fountainTab">
+     <attribute name="title">
+      <string>Fountain</string>
+     </attribute>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -35,7 +819,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1036</width>
      <height>21</height>
     </rect>
    </property>
@@ -51,5 +835,70 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>radiusSliderFire</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>radiusFireValue</receiver>
+   <slot>setNum(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>265</x>
+     <y>211</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>252</x>
+     <y>187</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>nbItemSliderFire</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>nbItemFireValue</receiver>
+   <slot>setNum(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>265</x>
+     <y>261</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>252</x>
+     <y>237</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>nbItemPerFrameSliderFire</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>nbItemPerFrameFireValue</receiver>
+   <slot>setNum(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>265</x>
+     <y>321</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>282</x>
+     <y>297</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>frameTimeSliderFire</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>frameTimeFireValue</receiver>
+   <slot>setNum(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>265</x>
+     <y>381</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>262</x>
+     <y>357</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
