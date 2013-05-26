@@ -27,7 +27,8 @@ SOURCES += ../Common/RandomNumberGenerator.cpp \
     src/MainWindow.cpp \
     src/repere.cpp \
     src/plan.cpp \
-    src/heightMap.cpp
+    src/heightMap.cpp \
+    src/tree.cpp
 
 HEADERS  += ../Common/Vectors.h \
     ../Common/Types.h \
@@ -49,7 +50,8 @@ HEADERS  += ../Common/Vectors.h \
     include/MainWindow.h \
     include/repere.h \
     include/plan.h \
-    include/heightMap.h
+    include/heightMap.h \
+    include/tree.h
 
 
 INCLUDEPATH = ../Common/ src ../glew-mingw/include include

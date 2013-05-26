@@ -1,15 +1,6 @@
 #include "App.h"
 #include "utils.h"
 #include "camera.h"
-
-GLfloat angle1 = 30.0f;
-GLfloat angle2 = 20.0f;
-
-const GLfloat g_AngleSpeed = 10.0f;
-
-
-#include <iostream>
-
 #include "ParticuleGenerateur.h"
 #include "fire.h"
 #include "smoke.h"
@@ -17,7 +8,23 @@ const GLfloat g_AngleSpeed = 10.0f;
 #include "repere.h"
 #include "plan.h"
 
+#include <vector>
+#include <iostream>
+#include <algorithm>
+
+
+GLfloat angle1 = 30.0f;
+GLfloat angle2 = 20.0f;
+
+const GLfloat g_AngleSpeed = 10.0f;
+
+
+
+
 using namespace std;
+
+
+
 
 
 bool
@@ -28,7 +35,7 @@ App::initializeObjects()
     map->load(this);
     oldMouse.x = 0;
     oldMouse.y = 0;
-    glClearColor( 0.2f, 0.2f, 0.2f, 1.0f );
+    glClearColor( 0.0f, 0.635294f, 0.90980f, 1.0f );
     fps = 0;
 
     repere = new Repere("Shaders/color");
@@ -61,6 +68,26 @@ App::initializeObjects()
                     FOUNTAIN_VELOCITY_MIN, FOUNTAIN_VELOCITY_MAX, FOUNTAIN_DIRECTION);
     fountain->load(this);
 
+    trees.push_back(new Tree("Shaders/tree",Vec3(-10,0,10),10,5,10,10));
+    trees.push_back(new Tree("Shaders/tree",Vec3(-10,0,30),10,5,10,10));
+    trees.push_back(new Tree("Shaders/tree",Vec3(-10,0,-10),10,5,10,10));
+
+    trees.push_back(new Tree("Shaders/tree",Vec3(-30,0,10),10,5,10,10));
+    trees.push_back(new Tree("Shaders/tree",Vec3(-30,0,30),10,5,10,10));
+    trees.push_back(new Tree("Shaders/tree",Vec3(-30,0,-10),10,5,10,10));
+
+
+    trees.push_back(new Tree("Shaders/tree",Vec3(20,0,30),10,5,10,10));
+    trees.push_back(new Tree("Shaders/tree",Vec3(20,0,60),10,5,10,10));
+    trees.push_back(new Tree("Shaders/tree",Vec3(20,0,-20),10,5,10,10));
+
+    std::vector<Tree*>::iterator tree = trees.begin();
+    while(tree != trees.end()) {
+        (*tree)->load(this);
+        ++tree;
+    }
+
+
     return true;
 }
 
@@ -86,18 +113,29 @@ App::render()
 //        /*-------------- plan ------------*/
         plan->render(this);
 
+        /*-------------- trees ------------*/
+        std::vector<Tree*>::iterator tree = trees.begin();
+        while(tree != trees.end()) {
+            (*tree)->render(this);
+            ++tree;
+        }
+
 //        /*--------------- Smoke ---------- */
 //        smoke->update();
 //        smoke->render(this);
+
+
+
 
 //        /*--------------- fire ---------- */
         fire->update();
         fire->render(this);
 
 //        /*--------------- fountain ---------- */
-//        fountain->update();
-//        fountain->render(this);
+      //  fountain->update();
+      //  fountain->render(this);
       //  map->render(this);
+
 
 
         // affichage des fps
@@ -166,9 +204,8 @@ void App::printFps() {
     fps++;
     if( currentTime - lastTimeFps  > 1000)
     {
+        notifyFpsChanged(fps);
         std::cout << "fps:" << fps << " nbalive:" << fire->getNbAlive() << std::endl;
-//        qglColor(Qt::white);
- //       renderText(10, 20, 10, QString("FPS:%1").arg(fps));
         fps = 0;
         time_ms(&lastTimeFps);
     }
@@ -190,6 +227,11 @@ App::~App() {
 }
 
 
-App::App(QWidget*) {
+App::App(QWidget*) : trees() {
  time_ms(&lastTimeFps);
+}
+
+
+void App::notifyFpsChanged(int fps) {
+    emit onFpsChanged(fps);
 }

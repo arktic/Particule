@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Sun 26. May 19:17:52 2013
+** Created: Sun 26. May 23:25:20 2013
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -89,6 +89,8 @@ public:
     QPushButton *setValuesButton;
     QWidget *smokeTab;
     QWidget *fountainTab;
+    QLabel *fpsValue;
+    QLabel *label_6;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -118,7 +120,7 @@ public:
 
         controlSelector = new QTabWidget(centralwidget);
         controlSelector->setObjectName(QString::fromUtf8("controlSelector"));
-        controlSelector->setGeometry(QRect(580, 0, 461, 701));
+        controlSelector->setGeometry(QRect(580, 30, 461, 671));
         QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Expanding);
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
@@ -334,6 +336,21 @@ public:
         fountainTab = new QWidget();
         fountainTab->setObjectName(QString::fromUtf8("fountainTab"));
         controlSelector->addTab(fountainTab, QString());
+        fpsValue = new QLabel(centralwidget);
+        fpsValue->setObjectName(QString::fromUtf8("fpsValue"));
+        fpsValue->setGeometry(QRect(680, 0, 51, 31));
+        QFont font;
+        font.setPointSize(10);
+        font.setBold(false);
+        font.setWeight(50);
+        fpsValue->setFont(font);
+        label_6 = new QLabel(centralwidget);
+        label_6->setObjectName(QString::fromUtf8("label_6"));
+        label_6->setGeometry(QRect(640, 10, 31, 16));
+        QFont font1;
+        font1.setBold(false);
+        font1.setWeight(50);
+        label_6->setFont(font1);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -392,6 +409,8 @@ public:
         controlSelector->setTabText(controlSelector->indexOf(fireTab), QApplication::translate("MainWindow", "Fire", 0, QApplication::UnicodeUTF8));
         controlSelector->setTabText(controlSelector->indexOf(smokeTab), QApplication::translate("MainWindow", "Smoke", 0, QApplication::UnicodeUTF8));
         controlSelector->setTabText(controlSelector->indexOf(fountainTab), QApplication::translate("MainWindow", "Fountain", 0, QApplication::UnicodeUTF8));
+        fpsValue->setText(QApplication::translate("MainWindow", "0", 0, QApplication::UnicodeUTF8));
+        label_6->setText(QApplication::translate("MainWindow", "FPS", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };
