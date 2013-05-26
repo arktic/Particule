@@ -12,6 +12,9 @@
 #include "repere.h"
 #include "plan.h"
 #include "heightMap.h"
+#include "tree.h"
+
+#include <vector>
 
 class Fire;
 class Fountain;
@@ -19,9 +22,11 @@ class Smoke;
 class Repere;
 class Plan;
 class HeightMap;
+class Tree;
 
 class App : public GlWindow
 {
+    Q_OBJECT
     private:
     HeightMap* map;
     Repere* repere;
@@ -29,6 +34,7 @@ class App : public GlWindow
     Fire* fire;
     Smoke* smoke;
     Fountain* fountain;
+    std::vector<Tree *> trees;
 
     float fps;
     int64_t lastTimeFps;
@@ -65,6 +71,13 @@ class App : public GlWindow
         void mouseMoveEvent(QMouseEvent *);
         void mousePressEvent(QMouseEvent *);
 		void keyPressEvent(QKeyEvent *);
+
+        int getFps() { return fps;}
+
+        void notifyFpsChanged(int fps);
+
+signals:
+        void onFpsChanged(int fps);
 };
 
 

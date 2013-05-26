@@ -106,6 +106,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->setValuesButtonSmoke, SIGNAL(clicked()), this, SLOT(setCurrentValues()));
     connect(ui->setValuesButtonFountain, SIGNAL(clicked()), this, SLOT(setCurrentValues()));
 
+    connect(ui->app, SIGNAL(onFpsChanged(int)), ui->fpsValue, SLOT(setNum(int)));
+
 }
 
 

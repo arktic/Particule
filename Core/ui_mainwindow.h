@@ -133,6 +133,7 @@ public:
     QSlider *genTimerSliderSmoke;
     QLabel *genTimerSmokeValue;
     QWidget *fountainTab;
+<<<<<<< .mine
     QLabel *centerFountainValue;
     QSpinBox *centerXFountainSpinbox;
     QLabel *nbItemFountainValue;
@@ -177,6 +178,52 @@ public:
     QSpinBox *directionXFountainSpinbox;
     QSpinBox *directionZFountainSpinbox;
     QSpinBox *directionYFountainSpinbox;
+=======
+    QLabel *fpsValue;
+    QLabel *label_6;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> .theirs
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -206,7 +253,7 @@ public:
 
         controlSelector = new QTabWidget(centralwidget);
         controlSelector->setObjectName(QString::fromUtf8("controlSelector"));
-        controlSelector->setGeometry(QRect(580, 0, 461, 701));
+        controlSelector->setGeometry(QRect(580, 30, 461, 671));
         QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Expanding);
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
@@ -816,6 +863,21 @@ public:
         directionYFountainSpinbox->setMaximum(1000);
         directionYFountainSpinbox->setSingleStep(1);
         controlSelector->addTab(fountainTab, QString());
+        fpsValue = new QLabel(centralwidget);
+        fpsValue->setObjectName(QString::fromUtf8("fpsValue"));
+        fpsValue->setGeometry(QRect(680, 0, 51, 31));
+        QFont font;
+        font.setPointSize(10);
+        font.setBold(false);
+        font.setWeight(50);
+        fpsValue->setFont(font);
+        label_6 = new QLabel(centralwidget);
+        label_6->setObjectName(QString::fromUtf8("label_6"));
+        label_6->setGeometry(QRect(640, 10, 31, 16));
+        QFont font1;
+        font1.setBold(false);
+        font1.setWeight(50);
+        label_6->setFont(font1);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -949,6 +1011,8 @@ public:
         lifetimeMinFountainValue->setText(QApplication::translate("MainWindow", "1000", 0, QApplication::UnicodeUTF8));
         label_46->setText(QApplication::translate("MainWindow", "Direction", 0, QApplication::UnicodeUTF8));
         controlSelector->setTabText(controlSelector->indexOf(fountainTab), QApplication::translate("MainWindow", "Fountain", 0, QApplication::UnicodeUTF8));
+        fpsValue->setText(QApplication::translate("MainWindow", "0", 0, QApplication::UnicodeUTF8));
+        label_6->setText(QApplication::translate("MainWindow", "FPS", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };
