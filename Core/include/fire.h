@@ -27,13 +27,30 @@ private:
     GLuint shaderID;
     GLuint textureID;
 
-    void fillRandomParticule(Particule* pt);
+    /* variable shader */
+    GLint   t             ;
+    GLint   ivelocity      ;
+    GLint   ageRatio      ;
+    GLint   position      ;
+    GLint   size          ;
+
+    /* variable uniforme */
+    Vec3    camPos        ;
+    GLint   mvp           ;
+    GLint   c             ;
+    GLint   radius        ;
+    GLint   eyePosition   ;
+    GLint   viewport[4]   ;
+    GLint   viewportWidth ;
 
     /* détermine le coéficient appliqué à l'atténuation de l'age (pour les bords) en plus de l'atténuation linéaire */
     float ageAtenuationFactor;
 
     /* détermine la limite de début de l'aténuation de l'age par rapport au centre du feu (en pourcentage) */
     float ageAtenuationLimit;
+
+    void fillRandomParticule(Particule* pt);
+
 public:
     Fire(char* _shaderName, char* _textureName, float _frameTime, int _nbItemPerFrame, float _radius,
                Vec3 _center, int _nbItem, float _lifeTimeMin, float _lifeTimeMax,

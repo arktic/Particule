@@ -40,12 +40,12 @@ void Plan::render(App *app){
     GLint color = glGetAttribLocation( shaderID, "color" );
     app->transmitMVP( var_id );
 
-    // drawing plan
     glVertexAttribPointer( position, 3, GL_FLOAT, GL_FALSE, 0, g_plan);
     glVertexAttribPointer( color, 3, GL_FLOAT, GL_FALSE, 0, g_planColor);
     glEnableVertexAttribArray( position );
     glEnableVertexAttribArray( color );
     glVertexPointer(3,GL_FLOAT,0,g_plan);
+    // drawing plan
     glDrawElements(GL_TRIANGLE_STRIP,5, GL_UNSIGNED_INT,g_planInd);
 
     glDisableVertexAttribArray( position );

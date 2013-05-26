@@ -32,6 +32,19 @@ private:
     GLuint shaderID;
     GLuint textureID;
 
+    /* variables shader uniformes */
+    GLint mvp           ;
+    GLint eyePosition   ;
+    GLint viewportWidth ;
+    GLint viewport[4]   ;
+    Vec3  camPos;
+
+    /* variables shaders */
+    GLint t             ;
+    GLint ivelocity     ;
+    GLint position      ;
+    GLint size          ;
+
     Vec3 direction;
 
     Vec3 getRandomVelocity();

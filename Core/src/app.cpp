@@ -87,7 +87,7 @@ App::render()
         repere->render(this);
 
         /*-------------- plan ------------*/
-        //plan->render(this);
+        plan->render(this);
 
         /*--------------- Smoke ---------- */
         smoke->update();

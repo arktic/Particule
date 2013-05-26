@@ -33,11 +33,28 @@ private:
     GLuint shaderID;
     GLuint textureID;
 
-    float sizeMaxCoef;
-    int itemPerFrameMax;
-    int itemPerFrameMin;
-    int updateNbItemTimer;
-    int lastUpdateNbItem;
+    /* variable shader */
+    GLint   t             ;
+    GLint   ivelocity     ;
+    GLint   ageRatio      ;
+    GLint   position      ;
+    GLint   size          ;
+
+
+    /* variable uniforme */
+    Vec3    camPos        ;
+    GLint   mvp           ;
+    GLint   eyePosition   ;
+    GLint   viewport[4]   ;
+    GLint   viewportWidth ;
+    GLint   sizeCoef      ;
+
+
+    float   sizeMaxCoef         ;
+    int     itemPerFrameMax     ;
+    int     itemPerFrameMin     ;
+    int     updateNbItemTimer   ;
+    int     lastUpdateNbItem    ;
 
     void fillCGA(int &i, vector<Particule*>::iterator &it);
     void addParticle();

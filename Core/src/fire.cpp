@@ -55,38 +55,36 @@ void Fire::render(App *app)
     glUniform1i(glGetUniformLocation(0, "texId"),0);
 
     // setting de la position de la caméra dans le shader et du viewport width
-    Vec3 camPos = app->getCamera()->getPosition();
-    GLint viewport[4];
+    camPos = app->getCamera()->getPosition();
     glGetIntegerv(GL_VIEWPORT, viewport);
 
-    GLint mvp = glGetUniformLocation( shaderID, "MVP" );
-    GLint c = glGetUniformLocation(shaderID, "center" );
-    GLint radius = glGetUniformLocation(shaderID, "radius" );
-    GLint eyePosition = glGetUniformLocation( shaderID, "eyePosition" );
-    GLint viewportWidth = glGetUniformLocation( shaderID, "viewportWidth" );
+    mvp           = glGetUniformLocation( shaderID, "MVP" );
+    c             = glGetUniformLocation(shaderID, "center" );
+    radius        = glGetUniformLocation(shaderID, "radius" );
+    eyePosition   = glGetUniformLocation( shaderID, "eyePosition" );
+    viewportWidth = glGetUniformLocation( shaderID, "viewportWidth" );
 
     app->transmitMVP( mvp );
     glUniform3f(eyePosition, camPos.x, camPos.y, camPos.z);
     glUniform1f(viewportWidth,viewport[2] );
-    glUniform1f( radius, getRadius());
+    glUniform1f( radius, radius);
     glUniform3f(c, center.x, center.y, center.z );
 
-
-    GLint t = glGetAttribLocation( shaderID, "t" );
-    GLint velocity = glGetAttribLocation( shaderID, "velocity" );
-    GLint ageRatio = glGetAttribLocation( shaderID, "ageRatio" );
-    GLint position = glGetAttribLocation( shaderID, "position" );
-    GLint size = glGetAttribLocation( shaderID, "size" );
+    t        = glGetAttribLocation( shaderID, "t" );
+    ivelocity = glGetAttribLocation( shaderID, "velocity" );
+    ageRatio = glGetAttribLocation( shaderID, "ageRatio" );
+    position = glGetAttribLocation( shaderID, "position" );
+    size     = glGetAttribLocation( shaderID, "size" );
 
     glEnableVertexAttribArray( t );
-    glEnableVertexAttribArray( velocity );
+    glEnableVertexAttribArray( ivelocity );
     glEnableVertexAttribArray( position );
     glEnableVertexAttribArray( ageRatio );
     glEnableVertexAttribArray( size );
 
 
     glVertexAttribPointer( t, 1, GL_FLOAT, GL_FALSE, 0, ages );
-    glVertexAttribPointer( velocity, 3, GL_FLOAT, GL_FALSE, 0, this->velocity );
+    glVertexAttribPointer( ivelocity, 3, GL_FLOAT, GL_FALSE, 0, this->velocity );
     glVertexAttribPointer( position, 3, GL_FLOAT, GL_FALSE, 0, vertices );
     glVertexAttribPointer( size, 1, GL_FLOAT, GL_FALSE, 0, sizes );
     glVertexAttribPointer( ageRatio, 1, GL_FLOAT, GL_FALSE, 0, agesRatio );
@@ -94,7 +92,7 @@ void Fire::render(App *app)
     glDrawArrays( GL_POINTS, 0, nbAlive );
 
     glDisableVertexAttribArray( position );
-    glDisableVertexAttribArray( velocity );
+    glDisableVertexAttribArray( ivelocity );
     glDisableVertexAttribArray( t );
     glDisableVertexAttribArray( size );
     glDisableVertexAttribArray( ageRatio );

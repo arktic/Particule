@@ -13,7 +13,7 @@ private:
 
     GLfloat g_plan[12];
     GLfloat g_planColor[12];
-    GLfloat g_planInd[5];
+    GLuint g_planInd[5];
 
 
 public:
