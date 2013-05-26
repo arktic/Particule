@@ -122,8 +122,8 @@ public:
     float       getFrameTime()        { return frameTime          ;}
     float       getLifeTimeMin()      { return lifeTimeMin        ;}
     float       getLifeTimeMax()      { return lifeTimeMax        ;}
-    float       getVelocityMin()      { return lifeTimeMin        ;}
-    float       getVelocityMax()      { return lifeTimeMax        ;}
+    float       getVelocityMin()      { return velocityMin        ;}
+    float       getVelocityMax()      { return velocityMax        ;}
     float       getSizeMin()          { return sizeMin            ;}
     float       getSizeMax()          { return sizeMax            ;}
 

@@ -46,6 +46,11 @@ class App : public GlWindow
         App(QWidget* parent);
 
         Camera* getCamera() { return cam; }
+        Fire* getFire() { return fire;}
+        Smoke * getSmoke() { return smoke;}
+        Fountain * getFountain() { return fountain;}
+
+
 		/*!
 		*\brief Initialization des objets.
 		*/
