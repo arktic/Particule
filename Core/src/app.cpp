@@ -1,6 +1,9 @@
 #include "App.h"
 #include "utils.h"
 #include "camera.h"
+#include <QDialog>
+#include <QLabel>
+#include <QVBoxLayout>
 
 GLfloat angle1 = 30.0f;
 GLfloat angle2 = 20.0f;
@@ -66,7 +69,7 @@ GLuint g_planInd[] =
 
 App::App()
 {
-    setWindowTitle(trUtf8("IN55 Générateur de particules"));
+    //setWindowTitle(trUtf8("IN55 Générateur de particules"));
     time_ms(&lastTimeFps);
 }
 
@@ -79,8 +82,6 @@ App::initializeObjects()
     oldMouse.x = 0;
     oldMouse.y = 0;
     glClearColor( 0.2f, 0.2f, 0.2f, 1.0f );
-
-
 
 
     fps = 0;
@@ -107,6 +108,12 @@ App::initializeObjects()
                     FOUNTAIN_VELOCITY_MIN, FOUNTAIN_VELOCITY_MAX, FOUNTAIN_DIRECTION);
 
 
+
+
+    QLabel* label = new QLabel(this);
+    label->setText("Audric");
+    label->setVisible(true);
+    //label->setBackgroundRole(Qt::black);
     createShader( "Shaders/color");
     //createShader( "Shaders/plan");
     createShader( fire->getShaderName() );
@@ -470,4 +477,9 @@ void App::printFps() {
 App::~App() {
     delete fire;
     delete cam;
+}
+
+
+App::App(QWidget* parent) {
+    time_ms(&lastTimeFps);
 }

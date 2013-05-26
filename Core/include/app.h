@@ -49,6 +49,7 @@ class App : public GlWindow
 
 	public:
 		App();
+        App(QWidget* parent);
 
 		/*!
 		*\brief Initialization des objets.

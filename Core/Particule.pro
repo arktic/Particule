@@ -23,7 +23,8 @@ SOURCES += ../Common/RandomNumberGenerator.cpp \
     src/fire.cpp \
     src/camera.cpp \
     src/smoke.cpp \
-    src/fountain.cpp
+    src/fountain.cpp \
+    src/MainWindow.cpp
 
 HEADERS  += ../Common/Vectors.h \
     ../Common/Types.h \
@@ -41,7 +42,8 @@ HEADERS  += ../Common/Vectors.h \
     include/fire.h \
     include/camera.h \
     include/smoke.h \
-    include/fountain.h
+    include/fountain.h \
+    include/MainWindow.h
 
 
 INCLUDEPATH = ../Common/ src ../glew-mingw/include include
@@ -53,3 +55,6 @@ win32 {
 OTHER_FILES += \
     ../Shaders/color.vs \
     ../Shaders/color.fs
+
+FORMS += \
+    mainwindow.ui

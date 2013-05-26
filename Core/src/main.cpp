@@ -1,6 +1,7 @@
 #include <QtGui/QApplication>
 #include <time.h>
 #include "app.h"
+#include "MainWindow.h"
 
 int main(int argc, char *argv[])
 {
@@ -8,7 +9,7 @@ int main(int argc, char *argv[])
     srand(time(NULL));
 
 
-    App win;
+    MainWindow win(NULL);
     win.show();
 
     return a.exec();
