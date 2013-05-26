@@ -33,8 +33,8 @@ bool
 App::initializeObjects()
 {
     cam = new Camera(20,20,0,0,0,0,0,1,0);
-    map = new HeightMap("Texture/heightmap.png","Shaders/map");
-    map->load(this);
+   // map = new HeightMap("Texture/heightmap.png","Shaders/map");
+   // map->load(this);
     oldMouse.x = 0;
     oldMouse.y = 0;
     glClearColor( 0.2f, 0.2f, 0.2f, 1.0f );
@@ -84,8 +84,8 @@ App::render()
 
     // Rendu des objets
     pushMatrix();
-        rotate( angle1, 0, 1, 0 );
-        rotate( angle2, 1, 0, 0 );
+       // rotate( angle1, 0, 1, 0 );
+       // rotate( angle2, 1, 0, 0 );
         computeAncillaryMatrices();
 
 //        /*------------- repere ------------*/
@@ -99,13 +99,13 @@ App::render()
 //        smoke->render(this);
 
 //        /*--------------- fire ---------- */
-//        fire->update();
-//        fire->render(this);
+        fire->update();
+        fire->render(this);
 
 //        /*--------------- fountain ---------- */
 //        fountain->update();
 //        fountain->render(this);
-        map->render(this);
+    //    map->render(this);
         printFps();
 
 

@@ -13,8 +13,8 @@ using namespace std;
 
 void MainWindow::keyPressEvent(QKeyEvent * event) {
     /* just redirect event to app */
-    if(app!=NULL) {
-        app->keyPressEvent(event);
+    if(ui->app!=NULL) {
+        ui->app->keyPressEvent(event);
     }
 }
 
@@ -255,8 +255,6 @@ void MainWindow::setCurrentValues() {
         ui->centerXFireSpinbox->setValue(center.x);
         ui->centerYFireSpinbox->setValue(center.y);
         ui->centerZFireSpinbox->setValue(center.z);
-
-
     }
 }
 
