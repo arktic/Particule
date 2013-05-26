@@ -34,7 +34,7 @@ App::initializeObjects()
     repere = new Repere("Shaders/color");
     repere->load(this);
 
-    plan = new Plan("Shaders/plan");
+    plan = new Plan("Shaders/plan","Texture/tex2d_herbe.png");
     plan->load(this);
 
     smoke = new Smoke("Shaders/smoke",SMOKE_TEXTURE,SMOKE_FRAMETIME,
@@ -60,6 +60,7 @@ App::initializeObjects()
                     FOUNTAIN_SIZE_MIN,  FOUNTAIN_SIZE_MAX,
                     FOUNTAIN_VELOCITY_MIN, FOUNTAIN_VELOCITY_MAX, FOUNTAIN_DIRECTION);
     fountain->load(this);
+
     return true;
 }
 
@@ -83,7 +84,7 @@ App::render()
 //        repere->render(this);
 
 //        /*-------------- plan ------------*/
-//        plan->render(this);
+        plan->render(this);
 
 //        /*--------------- Smoke ---------- */
 //        smoke->update();
@@ -184,6 +185,7 @@ App::~App() {
     delete fire;
     fountain->unload(this);
     delete fountain;
+    plan->unload(this);
     delete cam;
 }
 

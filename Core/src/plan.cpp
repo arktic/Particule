@@ -1,12 +1,12 @@
 #include "plan.h"
 #include "App.h"
 
-Plan::Plan(char *_shaderName):loaded(false){
+Plan::Plan(char *_shaderName, char* _textureName):loaded(false){
 
-    g_plan[0]     =  -20;    g_plan[1]    =  0;    g_plan[2]     = 20;
-    g_plan[3]     =  -20;    g_plan[4]    =  0;    g_plan[5]     = -20;
-    g_plan[6]     = 20;   g_plan[7]     =  0;    g_plan[8]     = -20;
-    g_plan[9]     =  20;   g_plan[10]    =  0;    g_plan[11]    = 20;
+    g_plan[0]     =  -100;    g_plan[1]    =  0;    g_plan[2]     = 100;
+    g_plan[3]     =  -100;    g_plan[4]    =  0;    g_plan[5]     = -100;
+    g_plan[6]     = 100;   g_plan[7]     =  0;    g_plan[8]     = -100;
+    g_plan[9]     =  100;   g_plan[10]    =  0;    g_plan[11]    = 100;
 
     g_planColor[0]     =  1;    g_planColor[1]    =  0;    g_planColor[2]     = 0;
     g_planColor[3]     =  1;    g_planColor[4]    =  0;    g_planColor[5]     = 0;
@@ -20,19 +20,22 @@ Plan::Plan(char *_shaderName):loaded(false){
     g_planInd[4]    =  2;
 
     shaderName = _shaderName;
+    textureName = _textureName;
 }
 
 void Plan::load(App *app){
     if(!loaded){
         if(shaderName != NULL)
             app->createShader(shaderName);
+        if(textureName != NULL)
+             textureID = app->createTexture(textureName);
         loaded = true;
     }
 }
 
 void Plan::render(App *app){
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_ZERO,GL_ONE);
+    glDisable(GL_BLEND);
+    glDisable(GL_DEPTH_TEST);
     app->useShader(shaderName);
     shaderID = app->getCurrentShaderId();
     GLint var_id = glGetUniformLocation( shaderID, "MVP" );
@@ -50,5 +53,14 @@ void Plan::render(App *app){
 
     glDisableVertexAttribArray( position );
     glDisableVertexAttribArray( color );
-    glDisable(GL_BLEND);
 }
+
+
+void Plan::unload(App *app) {
+    if(loaded) {
+        if(textureName != NULL)
+            app->deleteTexture(textureID);
+        loaded = false;
+    }
+}
+

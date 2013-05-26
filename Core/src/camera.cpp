@@ -17,10 +17,6 @@ Camera::Camera(float positionX, float positionY, float positionZ, float targetX,
     setTarget();
     deplacementLateral = Vaxe.crossProduct(orientation);
     deplacementLateral.normalize();
-
-    cout << "CAMERA:" << orientation.x << ":" << orientation.y << ":" << orientation.z << endl;
-    cout << "CAMERA:" << phi << ":" << theta << endl;
-
 }
 
 Camera::~Camera()

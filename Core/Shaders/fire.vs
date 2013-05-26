@@ -27,7 +27,6 @@ void main() {
 	
 	// calcul de la nouvelle position
 	np = position + 0.001*t * (velocity);
-	//np.y -= (g * t * t * 0.000001) /2;
 	
 	// cette nouvelle position est la position de notre particule
 	gl_Position = MVP * vec4( np, 1.0f );
