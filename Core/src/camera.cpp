@@ -1,17 +1,15 @@
 #include "camera.h"
 
-
 Camera::Camera() : phi(0.0), theta(0.0), orientation(), Vaxe(0, 1, 0), deplacementLateral(), position(), target()
 {
 
 }
 
 Camera::Camera(float positionX, float positionY, float positionZ, float targetX, float targetY, float targetZ, float axeX, float axeY, float axeZ) :
-               phi(0.0), theta(0.0), orientation(), Vaxe(axeX, axeY, axeZ), deplacementLateral(),
+               phi(0.0), theta(0.0), orientation(0,0,0), Vaxe(axeX, axeY, axeZ), deplacementLateral(),
                position(positionX, positionY, positionZ), target(targetX, targetY, targetZ)
 {
     setTarget();
-
     deplacementLateral = Vaxe.crossProduct(orientation);
     deplacementLateral.normalize();
 }

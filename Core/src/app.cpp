@@ -18,18 +18,23 @@ const GLfloat g_AngleSpeed = 10.0f;
 #include "plan.h"
 
 using namespace std;
-
+/*
 App::App()
 {
     setWindowTitle(trUtf8("IN55 Générateur de particules"));
     time_ms(&lastTimeFps);
-}
+
+    cout << "APP CONSTRUCTOR" << endl;
+
+}*/
 
 
 bool
 App::initializeObjects()
 {
     cam = new Camera(20,20,0,0,0,0,0,1,0);
+    map = new HeightMap("Texture/heightmap.png","Shaders/map");
+    map->load(this);
     oldMouse.x = 0;
     oldMouse.y = 0;
     glClearColor( 0.2f, 0.2f, 0.2f, 1.0f );
@@ -79,33 +84,32 @@ App::render()
 
     // Rendu des objets
     pushMatrix();
-        //rotate( angle1, 0, 1, 0 );
-        //rotate( angle2, 1, 0, 0 );
+        rotate( angle1, 0, 1, 0 );
+        rotate( angle2, 1, 0, 0 );
         computeAncillaryMatrices();
 
-        /*------------- repere ------------*/
-        repere->render(this);
+//        /*------------- repere ------------*/
+//        repere->render(this);
 
-        /*-------------- plan ------------*/
-        plan->render(this);
+//        /*-------------- plan ------------*/
+//        plan->render(this);
 
-        /*--------------- Smoke ---------- */
+//        /*--------------- Smoke ---------- */
 //        smoke->update();
 //        smoke->render(this);
 
-        /*--------------- fire ---------- */
-        fire->update();
-        fire->render(this);
+//        /*--------------- fire ---------- */
+//        fire->update();
+//        fire->render(this);
 
-        /*--------------- fountain ---------- */
+//        /*--------------- fountain ---------- */
 //        fountain->update();
 //        fountain->render(this);
+        map->render(this);
+        printFps();
 
-
-    popMatrix();
 
     // affichage des fps
-    printFps();
 }
 
 
@@ -171,6 +175,8 @@ void App::printFps() {
     if( currentTime - lastTimeFps  > 1000)
     {
         std::cout << "fps:" << fps << " nbalive:" << fire->getNbAlive() << std::endl;
+//        qglColor(Qt::white);
+//        renderText(10, 20, 10, QString("FPS:%1").arg(fps));
         fps = 0;
         time_ms(&lastTimeFps);
     }
@@ -192,5 +198,6 @@ App::~App() {
 
 
 App::App(QWidget*) {
+     cout << "APP CONSTRUCTOR" << endl;
  time_ms(&lastTimeFps);
 }

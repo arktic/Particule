@@ -21,7 +21,6 @@ class MainWindow : public QMainWindow {
 private:
     Q_OBJECT
     Ui::MainWindow *ui;
-    App* app;
 
 
     //void setUpCurrentValues();

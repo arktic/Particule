@@ -1,5 +1,4 @@
 #include "fire.h"
-#include <iostream>
 
 Fire::Fire
     (
@@ -37,6 +36,7 @@ void Fire::setAtenuation(float _ageAtenuationFactor, float _ageAtenuationLimit )
 
 void Fire::render(App *app)
 {
+    // GL_DEPTH_BUFFER_BIT); //
     glEnable(GL_POINT_SPRITE);
     glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
     glEnable(GL_TEXTURE_2D);
@@ -45,7 +45,7 @@ void Fire::render(App *app)
     glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 
 
-    app->useShader( getShaderName() );
+    app->useShader( shaderName );
     shaderID = app->getCurrentShaderId();
 
     glActiveTexture(GL_TEXTURE0);

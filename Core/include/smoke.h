@@ -68,8 +68,16 @@ public:
                int _nbItemPerFrame = 0
           );
 
-    float getSizeMaxCoef() { return sizeMaxCoef; }
-    void setSizeMaxCoef(float coef) { sizeMaxCoef = coef; }
+    float   getSizeMaxCoef          () { return sizeMaxCoef         ; }
+    int     getItemPerFrameMax      () { return itemPerFrameMax     ; }
+    int     getItemPerFrameMin      () { return itemPerFrameMin     ; }
+    int     getUpdateNbItemTimer    () { return updateNbItemTimer   ; }
+
+    void    setSizeMaxCoef         (float      coef    ) { sizeMaxCoef = coef          ; }
+    void    setItemPerFrameMax     (int        max     ) { itemPerFrameMax = max       ; }
+    void    setItemPerFrameMin     (int        min     ) { itemPerFrameMax = min       ; }
+    void    setUpdateNbItemTimer   (int        timer   ) { updateNbItemTimer = timer   ; }
+
     int getRandomItemPerFrame();
 
     void load(App* app);
