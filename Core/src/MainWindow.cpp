@@ -31,10 +31,14 @@ MainWindow::MainWindow(QWidget *parent) :
     /* radius */
     connect(ui->radiusSliderFire, SIGNAL(valueChanged(int)), this,SLOT(onRadiusChanged(int)));
     connect(ui->radiusSliderSmoke, SIGNAL(valueChanged(int)), this,SLOT(onRadiusChanged(int)));
+    connect(ui->radiusSliderFountain, SIGNAL(valueChanged(int)), this,SLOT(onRadiusChanged(int)));
 
     /* nbitem & nbitemperframe */
     connect(ui->nbItemSliderFire, SIGNAL(valueChanged(int)), this,SLOT(onNbItemChanged(int)));
     connect(ui->nbItemPerFrameSliderFire, SIGNAL(valueChanged(int)), this,SLOT(onNbItemPerFrameChanged(int)));
+
+    connect(ui->nbItemSliderFountain, SIGNAL(valueChanged(int)), this,SLOT(onNbItemChanged(int)));
+    connect(ui->nbItemPerFrameSliderFountain, SIGNAL(valueChanged(int)), this,SLOT(onNbItemPerFrameChanged(int)));
 
     connect(ui->nbMaxItemPerFrameSliderSmoke, SIGNAL(valueChanged(int)), this,SLOT(onNbMaxItemPerFrameChanged(int)));
     connect(ui->nbMinItemPerFrameSliderSmoke, SIGNAL(valueChanged(int)), this,SLOT(onNbMinItemPerFrameChanged(int)));
@@ -43,6 +47,7 @@ MainWindow::MainWindow(QWidget *parent) :
     /* frametime */
     connect(ui->frameTimeSliderFire, SIGNAL(valueChanged(int)), this,SLOT(onFrametimeChanged(int)));
     connect(ui->frameTimeSliderSmoke, SIGNAL(valueChanged(int)), this,SLOT(onFrametimeChanged(int)));
+    connect(ui->frameTimeSliderFountain, SIGNAL(valueChanged(int)), this,SLOT(onFrametimeChanged(int)));
 
     /* factor age attenuation */
     connect(ui->ageAttenuationFactorSliderFire, SIGNAL(valueChanged(int)), this,SLOT(ageAttenuationFactorChanged(int)));
@@ -51,12 +56,20 @@ MainWindow::MainWindow(QWidget *parent) :
     /* center */
     connect(ui->centerXFireSpinbox, SIGNAL(valueChanged(int)), this,SLOT(onCenterChanged(int)));
     connect(ui->centerXSmokeSpinbox, SIGNAL(valueChanged(int)), this,SLOT(onCenterChanged(int)));
+    connect(ui->centerXFountainSpinbox, SIGNAL(valueChanged(int)), this,SLOT(onCenterChanged(int)));
 
     connect(ui->centerYFireSpinbox, SIGNAL(valueChanged(int)), this,SLOT(onCenterChanged(int)));
     connect(ui->centerYSmokeSpinbox, SIGNAL(valueChanged(int)), this,SLOT(onCenterChanged(int)));
+    connect(ui->centerYFountainSpinbox, SIGNAL(valueChanged(int)), this,SLOT(onCenterChanged(int)));
 
     connect(ui->centerZFireSpinbox, SIGNAL(valueChanged(int)), this,SLOT(onCenterChanged(int)));
     connect(ui->centerZSmokeSpinbox, SIGNAL(valueChanged(int)), this,SLOT(onCenterChanged(int)));
+    connect(ui->centerZFountainSpinbox, SIGNAL(valueChanged(int)), this,SLOT(onCenterChanged(int)));
+
+    /* direction */
+    connect(ui->directionXFountainSpinbox, SIGNAL(valueChanged(int)), this,SLOT(onDirectionChanged(int)));
+    connect(ui->directionYFountainSpinbox, SIGNAL(valueChanged(int)), this,SLOT(onDirectionChanged(int)));
+    connect(ui->directionZFountainSpinbox, SIGNAL(valueChanged(int)), this,SLOT(onDirectionChanged(int)));
 
     /* lifetime */
     connect(ui->lifetimeMaxSliderFire_4, SIGNAL(valueChanged(int)), this,SLOT(onLifetimeChanged(int)));
@@ -65,6 +78,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->lifetimeMinSliderSmoke, SIGNAL(valueChanged(int)), this,SLOT(onLifetimeChanged(int)));
     connect(ui->lifetimeMaxSliderSmoke, SIGNAL(valueChanged(int)), this,SLOT(onLifetimeChanged(int)));
 
+    connect(ui->lifetimeMaxSliderFountain, SIGNAL(valueChanged(int)), this,SLOT(onLifetimeChanged(int)));
+    connect(ui->lifetimeMinSliderFountain, SIGNAL(valueChanged(int)), this,SLOT(onLifetimeChanged(int)));
+
+
     /* velocity */
     connect(ui->velocityMinSliderFire, SIGNAL(valueChanged(int)), this,SLOT(onVelocityChanged(int)));
     connect(ui->velocityMaxSliderFire, SIGNAL(valueChanged(int)), this,SLOT(onVelocityChanged(int)));
@@ -72,14 +89,22 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->velocityMaxSliderSmoke, SIGNAL(valueChanged(int)), this,SLOT(onVelocityChanged(int)));
     connect(ui->velocityMinSliderSmoke, SIGNAL(valueChanged(int)), this,SLOT(onVelocityChanged(int)));
 
+    connect(ui->velocityMaxSliderFountain, SIGNAL(valueChanged(int)), this,SLOT(onVelocityChanged(int)));
+    connect(ui->velocityMinSliderFountain, SIGNAL(valueChanged(int)), this,SLOT(onVelocityChanged(int)));
+
     /* size */
     connect(ui->sizeMaxSliderFire, SIGNAL(valueChanged(int)), this,SLOT(onSizeChanged(int)));
     connect(ui->sizeMinSliderFire, SIGNAL(valueChanged(int)), this,SLOT(onSizeChanged(int)));
+
+    connect(ui->sizeMaxSliderFountain, SIGNAL(valueChanged(int)), this,SLOT(onSizeChanged(int)));
+    connect(ui->sizeMinSliderFountain, SIGNAL(valueChanged(int)), this,SLOT(onSizeChanged(int)));
+
 
     connect(ui->coefSizeSliderSmoke, SIGNAL(valueChanged(int)), this,SLOT(onSizeChanged(int)));
 
     connect(ui->setValuesButton, SIGNAL(clicked()), this, SLOT(setCurrentValues()));
     connect(ui->setValuesButtonSmoke, SIGNAL(clicked()), this, SLOT(setCurrentValues()));
+    connect(ui->setValuesButtonFountain, SIGNAL(clicked()), this, SLOT(setCurrentValues()));
 
     connect(ui->app, SIGNAL(onFpsChanged(int)), ui->fpsValue, SLOT(setNum(int)));
 
@@ -108,17 +133,32 @@ void MainWindow::onCenterChanged(int) {
         if(smoke)
             smoke->setCenter(Vec3(x->value(),y->value(),z->value()));
     } else if (tab == 2) {
-//        QSpinBox * x = ui->centerXFountainSpinbox;
-//        QSpinBox * y = ui->centerYFountainSpinbox;
-//        QSpinBox * z = ui->centerZFountainSpinbox;
-//        QString centerS = QString("(%1 %2 %3)").arg(QString::number(x->value()),QString::number(y->value()) ,QString::number(z->value()));
-//        ui->centerFountainValue->setText(centerS);
-//        Fountain * fountain =  ui->app->getFountain();
-//        if(fountain)
-//            fountain->setCenter(Vec3(x->value(),y->value(),z->value()));
+        QSpinBox * x = ui->centerXFountainSpinbox;
+        QSpinBox * y = ui->centerYFountainSpinbox;
+        QSpinBox * z = ui->centerZFountainSpinbox;
+        QString centerS = QString("(%1 %2 %3)").arg(QString::number(x->value()),QString::number(y->value()) ,QString::number(z->value()));
+        ui->centerFountainValue->setText(centerS);
+        Fountain * fountain =  ui->app->getFountain();
+        if(fountain)
+            fountain->setCenter(Vec3(x->value(),y->value(),z->value()));
     }
 }
 
+void MainWindow::onDirectionChanged(int){
+    int tab = ui->controlSelector->currentIndex();
+    if(tab == 0) {
+
+    } else if (tab == 1){
+
+    } else if (tab == 2) {
+        QSpinBox * x = ui->directionXFountainSpinbox;
+        QSpinBox * y = ui->directionYFountainSpinbox;
+        QSpinBox * z = ui->directionZFountainSpinbox;
+        Fountain * fountain =  ui->app->getFountain();
+        if(fountain)
+            fountain->setDirection(Vec3(x->value(),y->value(),z->value()));
+    }
+}
 
 void MainWindow::onLifetimeChanged(int) {
     int tab = ui->controlSelector->currentIndex();
@@ -175,31 +215,31 @@ void MainWindow::onLifetimeChanged(int) {
             smoke->setLifeTimeMax(maxValue);
         }
     } else if (tab == 2) {
-//        QSlider * min = ui->lifetimeMinSliderFountain;
-//        QSlider * max = ui->lifetimeMaxSliderFountain;
+        QSlider * min = ui->lifetimeMinSliderFountain;
+        QSlider * max = ui->lifetimeMaxSliderFountain;
 
-//        QLabel * labMin = ui->lifetimeMinFountainValue;
-//        QLabel * labMax = ui->lifetimeMaxFountainValue;
+        QLabel * labMin = ui->lifetimeMinFountainValue;
+        QLabel * labMax = ui->lifetimeMaxFountainValue;
 
-//        int minValue = min->value();
-//        int maxValue = max->value();
+        int minValue = min->value();
+        int maxValue = max->value();
 
-//        if(minValue > maxValue) {
-//            maxValue = minValue;
-//            min->setValue(minValue);
-//            max->setValue(maxValue);
-//        }
+        if(minValue > maxValue) {
+            maxValue = minValue;
+            min->setValue(minValue);
+            max->setValue(maxValue);
+        }
 
-//        QString minS = QString::number(minValue);
-//        QString maxS = QString::number(maxValue);
-//        labMin->setText(minS);
-//        labMax->setText(maxS);
+        QString minS = QString::number(minValue);
+        QString maxS = QString::number(maxValue);
+        labMin->setText(minS);
+        labMax->setText(maxS);
 
-//        Fountain * fountain =  ui->app->getFountain();
-//        if(fountain) {
-//            fountain->setLifeTimeMin(minValue);
-//            fountain->setLifeTimeMax(maxValue);
-//        }
+        Fountain * fountain =  ui->app->getFountain();
+        if(fountain) {
+            fountain->setLifeTimeMin(minValue);
+            fountain->setLifeTimeMax(maxValue);
+        }
     }
 }
 
@@ -261,31 +301,31 @@ void MainWindow::onVelocityChanged(int) {
             smoke->setVelocityMax(maxValue);
         }
     } else if (tab == 2) {
-//        QSlider * min = ui->velocityMinSliderFountain;
-//        QSlider * max = ui->velocityMaxSliderFountain;
+        QSlider * min = ui->velocityMinSliderFountain;
+        QSlider * max = ui->velocityMaxSliderFountain;
 
-//        QLabel * labMin = ui->velocityMinFountainValue;
-//        QLabel * labMax = ui->velocityMaxFountainValue;
+        QLabel * labMin = ui->velocityMinFountainValue;
+        QLabel * labMax = ui->velocityMaxFountainValue;
 
-//        int minValue = min->value();
-//        int maxValue = max->value();
+        int minValue = min->value();
+        int maxValue = max->value();
 
-//        if(minValue > maxValue) {
-//            maxValue = minValue;
-//            min->setValue(minValue);
-//            max->setValue(maxValue);
-//        }
+        if(minValue > maxValue) {
+            maxValue = minValue;
+            min->setValue(minValue);
+            max->setValue(maxValue);
+        }
 
-//        QString minS = QString::number(minValue);
-//        QString maxS = QString::number(maxValue);
-//        labMin->setText(minS);
-//        labMax->setText(maxS);
+        QString minS = QString::number(minValue);
+        QString maxS = QString::number(maxValue);
+        labMin->setText(minS);
+        labMax->setText(maxS);
 
-//        Fountain * fountain =  ui->app->getFountain();
-//        if(fountain) {
-//            fountain->setVelocityMin(minValue);
-//            fountain->setVelocityMax(maxValue);
-//        }
+        Fountain * fountain =  ui->app->getFountain();
+        if(fountain) {
+            fountain->setVelocityMin(minValue);
+            fountain->setVelocityMax(maxValue);
+        }
     }
 }
 
@@ -321,38 +361,38 @@ void MainWindow::onSizeChanged(int) {
     } else if (tab == 1){
         QSlider * coef = ui->coefSizeSliderSmoke;
         QString coefs = QString::number(coef->value());
-        ui->coefSizeSmokeLabel->setText(coefs);
+        ui->coefSizeSmokeValue->setText(coefs);
 
         Smoke * smoke =  ui->app->getSmoke();
         if(smoke) {
             smoke->setSizeMaxCoef(coef->value());
         }
     } else if (tab == 2){
-//        QSlider * min = ui->sizeMinSliderFountain;
-//        QSlider * max = ui->sizeMaxSliderFountain;
+        QSlider * min = ui->sizeMinSliderFountain;
+        QSlider * max = ui->sizeMaxSliderFountain;
 
-//        QLabel * labMin = ui->sizeMinFountainValue;
-//        QLabel * labMax = ui->sizeMaxFountainValue;
+        QLabel * labMin = ui->sizeMinFountainValue;
+        QLabel * labMax = ui->sizeMaxFountainValue;
 
-//        int minValue = min->value();
-//        int maxValue = max->value();
+        int minValue = min->value();
+        int maxValue = max->value();
 
-//        if(minValue > maxValue) {
-//            maxValue = minValue;
-//            min->setValue(minValue);
-//            max->setValue(maxValue);
-//        }
+        if(minValue > maxValue) {
+            maxValue = minValue;
+            min->setValue(minValue);
+            max->setValue(maxValue);
+        }
 
-//        QString minS = QString::number(minValue);
-//        QString maxS = QString::number(maxValue);
-//        labMin->setText(minS);
-//        labMax->setText(maxS);
+        QString minS = QString::number(minValue);
+        QString maxS = QString::number(maxValue);
+        labMin->setText(minS);
+        labMax->setText(maxS);
 
-//        Fountain * fountain =  ui->app->getFountain();
-//        if(fountain) {
-//            fountain->setSizeMin(minValue);
-//            fountain->setSizeMax(maxValue);
-//        }
+        Fountain * fountain =  ui->app->getFountain();
+        if(fountain) {
+            fountain->setSizeMin(minValue);
+            fountain->setSizeMax(maxValue);
+        }
     }
 
 }
@@ -386,7 +426,10 @@ void MainWindow::onNbItemChanged(int nbitem) {
     {
 
     } else if (tab == 2) {
-
+        Fountain * fountain =  ui->app->getFountain();
+        cout << "setting nbitem:" << nbitem << endl;
+        if(fountain)
+            fountain->setNbItem(nbitem);
     }
 }
 
@@ -456,7 +499,6 @@ void MainWindow::setCurrentValues() {
             ui->lifetimeMaxSliderFire_4->setValue(fire->getLifeTimeMax());
             ui->lifetimeMinSliderFire_4->setValue(fire->getLifeTimeMin());
 
-            cout << "vel mac!" << fire->getSizeMin() <<endl;
             ui->velocityMaxSliderFire->setValue((float) fire->getVelocityMax());
             ui->velocityMinSliderFire->setValue((float) fire->getVelocityMin());
 
@@ -480,7 +522,6 @@ void MainWindow::setCurrentValues() {
             ui->lifetimeMaxSliderSmoke->setValue(smoke->getLifeTimeMax());
             ui->lifetimeMinSliderSmoke->setValue(smoke->getLifeTimeMin());
 
-            cout << "vel mac!" << smoke->getSizeMin() <<endl;
             ui->velocityMaxSliderSmoke->setValue((float) smoke->getVelocityMax());
             ui->velocityMinSliderSmoke->setValue((float) smoke->getVelocityMin());
 
@@ -499,7 +540,33 @@ void MainWindow::setCurrentValues() {
             ui->centerZSmokeSpinbox->setValue(center.z);
         }
     } else if(tab == 2) {
+        Fountain * fountain =  ui->app->getFountain();
+        if(fountain){
+            ui->radiusSliderFountain->setValue(fountain->getRadius());
+            ui->frameTimeSliderFountain->setValue(fountain->getFrameTime());
 
+            ui->lifetimeMaxSliderFountain->setValue(fountain->getLifeTimeMax());
+            ui->lifetimeMinSliderFountain->setValue(fountain->getLifeTimeMin());
+
+            ui->velocityMaxSliderFountain->setValue((float) fountain->getVelocityMax());
+            ui->velocityMinSliderFountain->setValue((float) fountain->getVelocityMin());
+
+            ui->sizeMaxSliderFountain->setValue(fountain->getSizeMax());
+            ui->sizeMinSliderFountain->setValue(fountain->getSizeMin());
+
+            ui->nbItemPerFrameSliderFountain->setValue(fountain->getNbItemPerFrame());
+            ui->nbItemSliderFountain->setValue(fountain->getNbItem());
+
+            Vec3 center = fountain->getCenter();
+            ui->centerXFountainSpinbox->setValue(center.x);
+            ui->centerYFountainSpinbox->setValue(center.y);
+            ui->centerZFountainSpinbox->setValue(center.z);
+
+            Vec3 dir = fountain->getDirection();
+            ui->directionXFountainSpinbox->setValue(dir.x);
+            ui->directionYFountainSpinbox->setValue(dir.y);
+            ui->directionZFountainSpinbox->setValue(dir.z);
+        }
     }
 }
 

@@ -46,6 +46,7 @@ public slots:
     void onNbMaxItemPerFrameChanged(int);
     void onNbMinItemPerFrameChanged(int);
     void onUpdateTimerChanged(int);
+    void onDirectionChanged(int);
 };
 
 #endif // MAINWINDOW_H
