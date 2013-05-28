@@ -3,6 +3,8 @@
 #include "ui_mainwindow.h"
 #include "App.h"
 #include "fire.h"
+#include "smoke.h"
+#include "fountain.h"
 #include "Vectors.h"
 
 #include <QSpinBox>
@@ -27,6 +29,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    /* rot */
+    connect(ui->rotSpeedSliderFountain, SIGNAL(valueChanged(int)), this, SLOT(onRotSpeedChange(int)));
+    connect(ui->rotOffsetAngleFountainSlider, SIGNAL(valueChanged(int)), this, SLOT(onRotOffsetChange(int)));
+    connect(ui->rotEnableFountain, SIGNAL(stateChanged(int)), this, SLOT(onRotEnableChange(int)));
 
     /* radius */
     connect(ui->radiusSliderFire, SIGNAL(valueChanged(int)), this,SLOT(onRadiusChanged(int)));
@@ -566,6 +573,10 @@ void MainWindow::setCurrentValues() {
             ui->directionXFountainSpinbox->setValue(dir.x);
             ui->directionYFountainSpinbox->setValue(dir.y);
             ui->directionZFountainSpinbox->setValue(dir.z);
+
+            ui->rotEnableFountain->setChecked(fountain->getRot());
+            ui->rotOffsetAngleFountainSlider->setValue(fountain->getRotOffset()*1000);
+            ui->rotSpeedSliderFountain->setValue(fountain->getRotSpeed());
         }
     }
 }
@@ -599,6 +610,28 @@ void MainWindow::onUpdateTimerChanged(int newValue) {
     if(ui->app->getSmoke() != NULL) {
         Smoke* smoke = ui->app->getSmoke();
         smoke->setUpdateNbItemTimer(newValue);
+    }
+}
+
+void MainWindow::onRotSpeedChange(int speed) {
+    Fountain * fountain =  ui->app->getFountain();
+    if(fountain){
+        fountain->setRotSpeed(speed);
+    }
+}
+
+void MainWindow::onRotOffsetChange(int off) {
+    Fountain * fountain =  ui->app->getFountain();
+    if(fountain){
+        fountain->setRotOffset((float)off/1000.f);
+    }
+}
+
+void MainWindow::onRotEnableChange(int status) {
+    Fountain * fountain =  ui->app->getFountain();
+    if(fountain){
+        std::cout << "checked ?" << ui->rotEnableFountain->isChecked() << std::endl;
+        fountain->setRot(ui->rotEnableFountain->isChecked());
     }
 }
 

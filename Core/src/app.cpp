@@ -206,7 +206,7 @@ void App::printFps() {
     if( currentTime - lastTimeFps  > 1000)
     {
         notifyFpsChanged(fps);
-        std::cout << "fps:" << fps << " nbalive:" << fire->getNbAlive() << std::endl;
+        //std::cout << "fps:" << fps << " nbalive:" << fire->getNbAlive() << std::endl;
         fps = 0;
         time_ms(&lastTimeFps);
     }

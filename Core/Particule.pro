@@ -62,7 +62,8 @@ win32 {
 
 OTHER_FILES += \
     ../Shaders/color.vs \
-    ../Shaders/color.fs
+    ../Shaders/color.fs \
+    spec.txt
 
 FORMS += \
     mainwindow.ui

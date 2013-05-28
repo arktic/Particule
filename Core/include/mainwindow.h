@@ -47,6 +47,9 @@ public slots:
     void onNbMinItemPerFrameChanged(int);
     void onUpdateTimerChanged(int);
     void onDirectionChanged(int);
+    void onRotSpeedChange(int);
+    void onRotOffsetChange(int);
+    void onRotEnableChange(int);
 };
 
 #endif // MAINWINDOW_H

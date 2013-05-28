@@ -165,7 +165,7 @@ void ParticuleGenerateur::updateParticle(int &elapsedTime){
         }
         else {
             fillCGA(i,it);
+            i++;
         }
-        i++;
     }
 }

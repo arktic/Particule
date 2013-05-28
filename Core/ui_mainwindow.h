@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Mon 27. May 00:04:08 2013
+** Created: Wed 29. May 00:38:36 2013
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -14,6 +14,7 @@
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
+#include <QtGui/QCheckBox>
 #include <QtGui/QFrame>
 #include <QtGui/QGroupBox>
 #include <QtGui/QHBoxLayout>
@@ -133,7 +134,6 @@ public:
     QSlider *genTimerSliderSmoke;
     QLabel *genTimerSmokeValue;
     QWidget *fountainTab;
-<<<<<<< .mine
     QLabel *centerFountainValue;
     QSpinBox *centerXFountainSpinbox;
     QLabel *nbItemFountainValue;
@@ -178,52 +178,16 @@ public:
     QSpinBox *directionXFountainSpinbox;
     QSpinBox *directionZFountainSpinbox;
     QSpinBox *directionYFountainSpinbox;
-=======
+    QGroupBox *rotFrame;
+    QSlider *rotSpeedSliderFountain;
+    QLabel *label_25;
+    QLabel *rotOffsetAngleFountainValue;
+    QLabel *label_26;
+    QLabel *rotSpeedFountainValue;
+    QSlider *rotOffsetAngleFountainSlider;
+    QCheckBox *rotEnableFountain;
     QLabel *fpsValue;
-    QLabel *label_6;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> .theirs
+    QLabel *label_61;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -801,7 +765,7 @@ public:
         label_45->setGeometry(QRect(20, 10, 46, 13));
         setValuesButtonFountain = new QPushButton(fountainTab);
         setValuesButtonFountain->setObjectName(QString::fromUtf8("setValuesButtonFountain"));
-        setValuesButtonFountain->setGeometry(QRect(270, 360, 141, 101));
+        setValuesButtonFountain->setGeometry(QRect(270, 410, 141, 101));
         centerYFountainSpinbox = new QSpinBox(fountainTab);
         centerYFountainSpinbox->setObjectName(QString::fromUtf8("centerYFountainSpinbox"));
         centerYFountainSpinbox->setGeometry(QRect(90, 260, 42, 22));
@@ -862,6 +826,41 @@ public:
         directionYFountainSpinbox->setMinimum(-1000);
         directionYFountainSpinbox->setMaximum(1000);
         directionYFountainSpinbox->setSingleStep(1);
+        rotFrame = new QGroupBox(fountainTab);
+        rotFrame->setObjectName(QString::fromUtf8("rotFrame"));
+        rotFrame->setGeometry(QRect(240, 220, 211, 161));
+        rotSpeedSliderFountain = new QSlider(rotFrame);
+        rotSpeedSliderFountain->setObjectName(QString::fromUtf8("rotSpeedSliderFountain"));
+        rotSpeedSliderFountain->setGeometry(QRect(10, 80, 191, 22));
+        rotSpeedSliderFountain->setMinimum(1);
+        rotSpeedSliderFountain->setMaximum(10000);
+        rotSpeedSliderFountain->setOrientation(Qt::Horizontal);
+        label_25 = new QLabel(rotFrame);
+        label_25->setObjectName(QString::fromUtf8("label_25"));
+        label_25->setGeometry(QRect(10, 110, 61, 21));
+        rotOffsetAngleFountainValue = new QLabel(rotFrame);
+        rotOffsetAngleFountainValue->setObjectName(QString::fromUtf8("rotOffsetAngleFountainValue"));
+        rotOffsetAngleFountainValue->setGeometry(QRect(140, 110, 46, 13));
+        label_26 = new QLabel(rotFrame);
+        label_26->setObjectName(QString::fromUtf8("label_26"));
+        label_26->setGeometry(QRect(10, 50, 41, 21));
+        rotSpeedFountainValue = new QLabel(rotFrame);
+        rotSpeedFountainValue->setObjectName(QString::fromUtf8("rotSpeedFountainValue"));
+        rotSpeedFountainValue->setGeometry(QRect(140, 50, 46, 13));
+        rotOffsetAngleFountainSlider = new QSlider(rotFrame);
+        rotOffsetAngleFountainSlider->setObjectName(QString::fromUtf8("rotOffsetAngleFountainSlider"));
+        rotOffsetAngleFountainSlider->setGeometry(QRect(10, 130, 191, 22));
+        rotOffsetAngleFountainSlider->setMinimum(1);
+        rotOffsetAngleFountainSlider->setMaximum(10000);
+        rotOffsetAngleFountainSlider->setSingleStep(1);
+        rotOffsetAngleFountainSlider->setOrientation(Qt::Horizontal);
+        rotOffsetAngleFountainSlider->setInvertedAppearance(false);
+        rotOffsetAngleFountainSlider->setInvertedControls(false);
+        rotOffsetAngleFountainSlider->setTickPosition(QSlider::NoTicks);
+        rotEnableFountain = new QCheckBox(rotFrame);
+        rotEnableFountain->setObjectName(QString::fromUtf8("rotEnableFountain"));
+        rotEnableFountain->setGeometry(QRect(10, 20, 70, 17));
+        rotEnableFountain->setChecked(true);
         controlSelector->addTab(fountainTab, QString());
         fpsValue = new QLabel(centralwidget);
         fpsValue->setObjectName(QString::fromUtf8("fpsValue"));
@@ -871,13 +870,13 @@ public:
         font.setBold(false);
         font.setWeight(50);
         fpsValue->setFont(font);
-        label_6 = new QLabel(centralwidget);
-        label_6->setObjectName(QString::fromUtf8("label_6"));
-        label_6->setGeometry(QRect(640, 10, 31, 16));
+        label_61 = new QLabel(centralwidget);
+        label_61->setObjectName(QString::fromUtf8("label_61"));
+        label_61->setGeometry(QRect(640, 10, 31, 16));
         QFont font1;
         font1.setBold(false);
         font1.setWeight(50);
-        label_6->setFont(font1);
+        label_61->setFont(font1);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -911,6 +910,8 @@ public:
         QObject::connect(velocityMaxSliderFountain, SIGNAL(valueChanged(int)), velocityMaxFountainValue, SLOT(setNum(int)));
         QObject::connect(velocityMinSliderFountain, SIGNAL(valueChanged(int)), velocityMinFountainValue, SLOT(setNum(int)));
         QObject::connect(sizeMaxSliderFountain, SIGNAL(valueChanged(int)), sizeMaxFountainValue, SLOT(setNum(int)));
+        QObject::connect(rotOffsetAngleFountainSlider, SIGNAL(valueChanged(int)), rotOffsetAngleFountainValue, SLOT(setNum(int)));
+        QObject::connect(rotSpeedSliderFountain, SIGNAL(valueChanged(int)), rotSpeedFountainValue, SLOT(setNum(int)));
 
         controlSelector->setCurrentIndex(2);
 
@@ -1010,9 +1011,15 @@ public:
         label_49->setText(QApplication::translate("MainWindow", "min", 0, QApplication::UnicodeUTF8));
         lifetimeMinFountainValue->setText(QApplication::translate("MainWindow", "1000", 0, QApplication::UnicodeUTF8));
         label_46->setText(QApplication::translate("MainWindow", "Direction", 0, QApplication::UnicodeUTF8));
+        rotFrame->setTitle(QApplication::translate("MainWindow", "Rotation", 0, QApplication::UnicodeUTF8));
+        label_25->setText(QApplication::translate("MainWindow", "offsetAngle", 0, QApplication::UnicodeUTF8));
+        rotOffsetAngleFountainValue->setText(QApplication::translate("MainWindow", "0", 0, QApplication::UnicodeUTF8));
+        label_26->setText(QApplication::translate("MainWindow", "Speed", 0, QApplication::UnicodeUTF8));
+        rotSpeedFountainValue->setText(QApplication::translate("MainWindow", "0", 0, QApplication::UnicodeUTF8));
+        rotEnableFountain->setText(QApplication::translate("MainWindow", "Rotate", 0, QApplication::UnicodeUTF8));
         controlSelector->setTabText(controlSelector->indexOf(fountainTab), QApplication::translate("MainWindow", "Fountain", 0, QApplication::UnicodeUTF8));
         fpsValue->setText(QApplication::translate("MainWindow", "0", 0, QApplication::UnicodeUTF8));
-        label_6->setText(QApplication::translate("MainWindow", "FPS", 0, QApplication::UnicodeUTF8));
+        label_61->setText(QApplication::translate("MainWindow", "FPS", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

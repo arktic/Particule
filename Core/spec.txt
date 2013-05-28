@@ -1,0 +1,9 @@
+Smoke:
+http://gyazo.com/fce2418a0e7858a36b6cef2a8a3931c4
+radius           4
+gentimer         211
+frameTime        33
+lifetime        >4600 <5000
+velocity         >4 <6
+coef             5
+nbItemPerFrame  >1 <2
