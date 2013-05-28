@@ -25,7 +25,7 @@ ParticuleGenerateur::ParticuleGenerateur
         radius(_radius),
         center(_center),
         nbItem(_nbItem),
-        nbAlive(0),
+        //nbAlive(0),
         lifeTimeMin(_lifeTimeMin),
         lifeTimeMax(_lifeTimeMax),
         velocityMin(_velocityMin),
@@ -148,7 +148,7 @@ void ParticuleGenerateur::addParticle(){
         dead.pop_back();
         fillRandomParticule(pt);
         alive.push_back(pt);
-        nbAlive++;
+       // nbAlive++;
         nbPtcBroughtBackToLife++;
     }
 }
@@ -161,7 +161,7 @@ void ParticuleGenerateur::updateParticle(int &elapsedTime){
         if(!(*it)->isAlive()) {
             dead.push_back(*it);
             alive.erase(it);
-            nbAlive--;
+           // nbAlive--;
         }
         else {
             fillCGA(i,it);

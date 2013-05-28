@@ -46,7 +46,7 @@ protected:
     int         nbItem;
 
 	/* nombre de particules vivante actuellement. */
-    int         nbAlive;
+    //int         nbAlive;
 
 	/* durée de vie minium des particules générées */
     float       lifeTimeMin;
@@ -115,9 +115,9 @@ public:
     GLfloat     getRadius()           { return radius             ;}
     Vec3        getCenter()           { return center             ;}
     char*       getShaderName()       { return shaderName         ;}
-    char*       getTextureName()       { return textureName         ;}
+    char*       getTextureName()       { return textureName       ;}
     int         getNbItemPerFrame()   { return nbItemPerFrame     ;}
-    int         getNbAlive()          { return nbAlive            ;}
+    int         getNbAlive()          { return alive.size()       ;}
     int         getNbItem()           { return nbItem             ;}
     float       getFrameTime()        { return frameTime          ;}
     float       getLifeTimeMin()      { return lifeTimeMin        ;}

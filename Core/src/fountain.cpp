@@ -82,7 +82,7 @@ Fountain::render(App *app){
     glVertexAttribPointer( size, 1, GL_FLOAT, GL_FALSE, 0, sizes );
 
 
-    glDrawArrays( GL_POINTS, 0, nbAlive );
+    glDrawArrays( GL_POINTS, 0, getNbAlive() );
 
     glDisableVertexAttribArray( position );
     glDisableVertexAttribArray( ivelocity );

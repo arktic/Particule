@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Sun 26. May 23:25:20 2013
+** Created: Mon 27. May 22:16:07 2013
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -134,7 +134,7 @@ public:
     QLabel *genTimerSmokeValue;
     QWidget *fountainTab;
     QLabel *fpsValue;
-    QLabel *label_6;
+    QLabel *label_61;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -584,13 +584,13 @@ public:
         font.setBold(false);
         font.setWeight(50);
         fpsValue->setFont(font);
-        label_6 = new QLabel(centralwidget);
-        label_6->setObjectName(QString::fromUtf8("label_6"));
-        label_6->setGeometry(QRect(640, 10, 31, 16));
+        label_61 = new QLabel(centralwidget);
+        label_61->setObjectName(QString::fromUtf8("label_61"));
+        label_61->setGeometry(QRect(640, 10, 31, 16));
         QFont font1;
         font1.setBold(false);
         font1.setWeight(50);
-        label_6->setFont(font1);
+        label_61->setFont(font1);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -689,7 +689,7 @@ public:
         controlSelector->setTabText(controlSelector->indexOf(smokeTab), QApplication::translate("MainWindow", "Smoke", 0, QApplication::UnicodeUTF8));
         controlSelector->setTabText(controlSelector->indexOf(fountainTab), QApplication::translate("MainWindow", "Fountain", 0, QApplication::UnicodeUTF8));
         fpsValue->setText(QApplication::translate("MainWindow", "0", 0, QApplication::UnicodeUTF8));
-        label_6->setText(QApplication::translate("MainWindow", "FPS", 0, QApplication::UnicodeUTF8));
+        label_61->setText(QApplication::translate("MainWindow", "FPS", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

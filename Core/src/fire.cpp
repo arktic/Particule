@@ -89,7 +89,7 @@ void Fire::render(App *app)
     glVertexAttribPointer( size, 1, GL_FLOAT, GL_FALSE, 0, sizes );
     glVertexAttribPointer( ageRatio, 1, GL_FLOAT, GL_FALSE, 0, agesRatio );
 
-    glDrawArrays( GL_POINTS, 0, nbAlive );
+    glDrawArrays( GL_POINTS, 0, getNbAlive() );
 
     glDisableVertexAttribArray( position );
     glDisableVertexAttribArray( ivelocity );
