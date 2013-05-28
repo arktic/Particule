@@ -223,7 +223,7 @@ void App::deleteFire() {
 
 void App::createFountain() {
     if(fountain == NULL) {
-        fountain = new Fountain("Shaders/fountain",NULL,FOUNTAIN_FRAMETIME,FOUNTAIN_ITEMPERFRAME,
+        fountain = new Fountain("Shaders/fountain","Texture/tex2d_radial_blur_water.png",FOUNTAIN_FRAMETIME,FOUNTAIN_ITEMPERFRAME,
                                 FOUNTAIN_RADIUS,FOUNTAIN_CENTER,
                                 FOUNTAIN_NBPARTICLE,
                                 FOUNTAIN_LIFETIME_MIN,FOUNTAIN_LIFETIME_MAX,

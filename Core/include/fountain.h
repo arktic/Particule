@@ -7,6 +7,8 @@
 #include "Vectors.h"
 #include "App.h"
 
+#define FOUNTAIN_TEXTURE "Texture/tex2d_radial_blur.png"
+
 #define FOUNTAIN_FRAMETIME 33
 #define FOUNTAIN_ITEMPERFRAME 100
 #define FOUNTAIN_NBPARTICLE 20000

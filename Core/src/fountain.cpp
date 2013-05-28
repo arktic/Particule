@@ -3,25 +3,24 @@
 #include "App.h"
 
 Fountain::Fountain(
-    char* _shaderName   , char* _textureName, int64_t _frameTime  , int _nbItemPerFrame   , float _radius,
-    Vec3 _center        , int _nbItem       , float _lifeTimeMin    , float _lifeTimeMax,
-    float _sizeMin      , float _sizeMax    , float _velocityMin    , float _velocityMax, Vec3 _direction
-):
-ParticuleGenerateur
+        char* _shaderName   , char* _textureName, int64_t _frameTime  , int _nbItemPerFrame   , float _radius,
+        Vec3 _center        , int _nbItem       , float _lifeTimeMin    , float _lifeTimeMax,
+        float _sizeMin      , float _sizeMax    , float _velocityMin    , float _velocityMax, Vec3 _direction
+        ):
+    ParticuleGenerateur
     (
         _shaderName     , _textureName, _frameTime     , _nbItemPerFrame       , _radius,
         _center         ,_nbItem        , _lifeTimeMin          , _lifeTimeMax,
         _sizeMin        ,_sizeMax       , _velocityMin          , _velocityMax
         )
 {
-    _direction.normalize();
-    direction = (Vec3) _direction;
-    //    if(_direction.length() !=0){
-    //        direction = _direction.normalize();
-    //    }
-    //    else {
-    //        direction = Vec3(0,1,0);
-    //    }
+    if(_direction.length() !=0){
+        _direction.normalize();
+        direction = (Vec3) _direction;
+    }
+    else {
+        direction = Vec3(0,1,0);
+    }
 }
 
 
@@ -58,9 +57,19 @@ Fountain::render(App *app){
     glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
     glEnable(GL_BLEND);
     glDisable(GL_DEPTH);
+    glEnable(GL_TEXTURE_2D);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE);
     app->useShader( shaderName );
     shaderID = app->getCurrentShaderId();
+
+    GLint ageRatio;
+
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D,textureID);
+
+    glUniform1i(glGetUniformLocation(0, "texId"),textureID);
+
+
     // setting de la position de la caméra dans le shader et du viewport width
     camPos = app->getCamera()->getPosition();
     glGetIntegerv(GL_VIEWPORT, viewport);
@@ -78,17 +87,21 @@ Fountain::render(App *app){
     ivelocity     = glGetAttribLocation( shaderID, "velocity" );
     position      = glGetAttribLocation( shaderID, "position" );
     size          = glGetAttribLocation( shaderID, "size" );
+    ageRatio = glGetAttribLocation( shaderID, "ageRatio" );
+
 
     glEnableVertexAttribArray( t );
     glEnableVertexAttribArray( ivelocity );
     glEnableVertexAttribArray( position );
     glEnableVertexAttribArray( size );
+    glEnableVertexAttribArray( ageRatio );
 
 
     glVertexAttribPointer( t, 1, GL_FLOAT, GL_FALSE, 0, ages );
     glVertexAttribPointer( ivelocity, 3, GL_FLOAT, GL_FALSE, 0, this->velocity );
     glVertexAttribPointer( position, 3, GL_FLOAT, GL_FALSE, 0, vertices );
     glVertexAttribPointer( size, 1, GL_FLOAT, GL_FALSE, 0, sizes );
+    glVertexAttribPointer( ageRatio, 1, GL_FLOAT, GL_FALSE, 0, agesRatio );
 
 
     glDrawArrays( GL_POINTS, 0, getNbAlive() );
@@ -97,7 +110,11 @@ Fountain::render(App *app){
     glDisableVertexAttribArray( ivelocity );
     glDisableVertexAttribArray( t );
     glDisableVertexAttribArray( size );
+    glDisableVertexAttribArray( ageRatio );
 
+
+    glBindTexture(GL_TEXTURE_2D,0);
+    glDisable(GL_TEXTURE_2D);
     glDisable(GL_POINT_SPRITE);
     glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
     glDisable(GL_DEPTH_TEST);

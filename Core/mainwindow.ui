@@ -55,7 +55,7 @@
      </sizepolicy>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="fireTab">
      <property name="mouseTracking">
@@ -191,8 +191,8 @@
        <rect>
         <x>60</x>
         <y>240</y>
-        <width>46</width>
-        <height>13</height>
+        <width>91</width>
+        <height>16</height>
        </rect>
       </property>
       <property name="acceptDrops">
@@ -1834,7 +1834,7 @@
         <number>1</number>
        </property>
        <property name="maximum">
-        <number>15</number>
+        <number>25</number>
        </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -1863,7 +1863,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>0</string>
+        <string>5</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_20">
@@ -1889,7 +1889,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>0</string>
+        <string>1</string>
        </property>
       </widget>
       <widget class="QSlider" name="sizeMaxSliderFountain">
@@ -1905,7 +1905,10 @@
         <number>1</number>
        </property>
        <property name="maximum">
-        <number>15</number>
+        <number>25</number>
+       </property>
+       <property name="value">
+        <number>5</number>
        </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>

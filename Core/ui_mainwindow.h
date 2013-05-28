@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Tue 28. May 21:53:57 2013
+** Created: Tue 28. May 22:47:06 2013
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -258,7 +258,7 @@ public:
         centerXFireSpinbox->setSingleStep(1);
         centerFireValue = new QLabel(fireTab);
         centerFireValue->setObjectName(QString::fromUtf8("centerFireValue"));
-        centerFireValue->setGeometry(QRect(60, 240, 46, 13));
+        centerFireValue->setGeometry(QRect(60, 240, 91, 16));
         centerFireValue->setAcceptDrops(true);
         centerYFireSpinbox = new QSpinBox(fireTab);
         centerYFireSpinbox->setObjectName(QString::fromUtf8("centerYFireSpinbox"));
@@ -709,7 +709,7 @@ public:
         sizeMinSliderFountain->setObjectName(QString::fromUtf8("sizeMinSliderFountain"));
         sizeMinSliderFountain->setGeometry(QRect(10, 50, 191, 22));
         sizeMinSliderFountain->setMinimum(1);
-        sizeMinSliderFountain->setMaximum(15);
+        sizeMinSliderFountain->setMaximum(25);
         sizeMinSliderFountain->setOrientation(Qt::Horizontal);
         label_19 = new QLabel(Size_2);
         label_19->setObjectName(QString::fromUtf8("label_19"));
@@ -727,7 +727,8 @@ public:
         sizeMaxSliderFountain->setObjectName(QString::fromUtf8("sizeMaxSliderFountain"));
         sizeMaxSliderFountain->setGeometry(QRect(10, 80, 191, 22));
         sizeMaxSliderFountain->setMinimum(1);
-        sizeMaxSliderFountain->setMaximum(15);
+        sizeMaxSliderFountain->setMaximum(25);
+        sizeMaxSliderFountain->setValue(5);
         sizeMaxSliderFountain->setOrientation(Qt::Horizontal);
         nbItemPerFrameSliderFountain = new QSlider(fountainTab);
         nbItemPerFrameSliderFountain->setObjectName(QString::fromUtf8("nbItemPerFrameSliderFountain"));
@@ -894,7 +895,7 @@ public:
         QObject::connect(sizeMaxSliderFountain, SIGNAL(valueChanged(int)), sizeMaxFountainValue, SLOT(setNum(int)));
         QObject::connect(nbMaxItemPerFrameSliderSmoke, SIGNAL(valueChanged(int)), nbMaxItemPerFrameSmoke, SLOT(setNum(int)));
 
-        controlSelector->setCurrentIndex(0);
+        controlSelector->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -979,9 +980,9 @@ public:
         velocityMinFountainValue->setText(QApplication::translate("MainWindow", "1", 0, QApplication::UnicodeUTF8));
         Size_2->setTitle(QApplication::translate("MainWindow", "Size", 0, QApplication::UnicodeUTF8));
         label_19->setText(QApplication::translate("MainWindow", "max", 0, QApplication::UnicodeUTF8));
-        sizeMaxFountainValue->setText(QApplication::translate("MainWindow", "0", 0, QApplication::UnicodeUTF8));
+        sizeMaxFountainValue->setText(QApplication::translate("MainWindow", "5", 0, QApplication::UnicodeUTF8));
         label_20->setText(QApplication::translate("MainWindow", "min", 0, QApplication::UnicodeUTF8));
-        sizeMinFountainValue->setText(QApplication::translate("MainWindow", "0", 0, QApplication::UnicodeUTF8));
+        sizeMinFountainValue->setText(QApplication::translate("MainWindow", "1", 0, QApplication::UnicodeUTF8));
         radiusFountainValue->setText(QApplication::translate("MainWindow", "4", 0, QApplication::UnicodeUTF8));
         label_41->setText(QApplication::translate("MainWindow", "Nb particles", 0, QApplication::UnicodeUTF8));
         label_42->setText(QApplication::translate("MainWindow", "FrameTime (ms)", 0, QApplication::UnicodeUTF8));

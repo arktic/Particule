@@ -52,7 +52,7 @@ void Fire::render(App *app)
     glBindTexture(GL_TEXTURE_2D,textureID);
 
     // textureID initialization
-    glUniform1i(glGetUniformLocation(0, "texId"),0);
+    glUniform1i(glGetUniformLocation(0, "texId"),textureID);
 
     // setting de la position de la caméra dans le shader et du viewport width
     camPos = app->getCamera()->getPosition();

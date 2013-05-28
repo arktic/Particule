@@ -580,9 +580,9 @@ void MainWindow::setCurrentValues() {
             ui->centerZFountainSpinbox->setValue(center.z);
 
             Vec3 dir = fountain->getDirection();
-            ui->directionXFountainSpinbox->setValue(dir.x);
-            ui->directionYFountainSpinbox->setValue(dir.y);
-            ui->directionZFountainSpinbox->setValue(dir.z);
+            ui->directionXFountainSpinbox->setValue(dir.x*10);
+            ui->directionYFountainSpinbox->setValue(dir.y*10);
+            ui->directionZFountainSpinbox->setValue(dir.z*10);
         }
     }
 }
@@ -691,12 +691,15 @@ void MainWindow::stopGeneration() {
     if(tab == 0) {
         ui->app->deleteFire();
         ui->stopButtonFire->setEnabled(false);
+        ui->startButtonFire->setText("Start");
     } else if (tab == 1){
         ui->app->deleteSmoke();
         ui->stopButtonSmoke->setEnabled(false);
+        ui->startButtonSmoke->setText("Start");
     } else if (tab == 2) {
         ui->app->deleteFountain();
         ui->stopButtonFountain->setEnabled(false);
+        ui->startButtonFountain->setText("Start");
     }
 }
 
