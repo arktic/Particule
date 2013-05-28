@@ -703,9 +703,6 @@ void MainWindow::stopGeneration() {
 
 
 
-
-
-
 MainWindow::~MainWindow()
 {
     delete ui;

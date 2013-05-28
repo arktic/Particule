@@ -55,7 +55,7 @@ public:
      Vec3 _direction);
 
     Vec3 getDirection() { return direction; }
-    void setDirection(Vec3 dir) { direction = dir; }
+    void setDirection(Vec3 dir);
 
     void load(App* app);
     void unload(App* app);

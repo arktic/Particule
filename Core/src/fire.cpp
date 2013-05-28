@@ -126,3 +126,21 @@ void Fire::unload(App *app) {
 
 Fire::~Fire(){
 }
+
+void Fire::fillCGA(int &i, vector<Particule*>::iterator &it)
+{
+    Vec3 pos = (*it)->getPosition();
+    vertices[3*i  ]   = pos.x;
+    vertices[3*i+1] = pos.y;
+    vertices[3*i+2] = pos.z;
+
+    pos = (*it)->getVelocity();
+
+    velocity[3*i]   = pos.x;
+    velocity[3*i+1] = pos.y;
+    velocity[3*i+2] = pos.z;
+
+    agesRatio[i] = (*it)->getAge()/((*it)->getLifeTime());
+    ages[i] = (*it)->getAge();
+    sizes[i] = (float)(*it)->getSize();
+}

@@ -12,8 +12,16 @@ ParticuleGenerateur
         _shaderName     , _textureName, _frameTime     , _nbItemPerFrame       , _radius,
         _center         ,_nbItem        , _lifeTimeMin          , _lifeTimeMax,
         _sizeMin        ,_sizeMax       , _velocityMin          , _velocityMax
-        ), direction(_direction)
+        )
 {
+    _direction.normalize();
+    direction = (Vec3) _direction;
+    //    if(_direction.length() !=0){
+    //        direction = _direction.normalize();
+    //    }
+    //    else {
+    //        direction = Vec3(0,1,0);
+    //    }
 }
 
 
@@ -48,7 +56,8 @@ Fountain::render(App *app){
 
     glEnable(GL_POINT_SPRITE);
     glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
-    glDisable(GL_BLEND);
+    glEnable(GL_BLEND);
+    glDisable(GL_DEPTH);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE);
     app->useShader( shaderName );
     shaderID = app->getCurrentShaderId();
@@ -93,4 +102,15 @@ Fountain::render(App *app){
     glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
     glDisable(GL_DEPTH_TEST);
 
+}
+
+
+void Fountain::setDirection(Vec3 dir) {
+    if(dir.length() !=0){
+        dir.normalize();
+        direction = dir;
+    }
+    else {
+        direction = Vec3(0,1,0);
+    }
 }

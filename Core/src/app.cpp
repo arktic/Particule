@@ -195,7 +195,8 @@ App::keyPressEvent( QKeyEvent* event )
 
 void App::createFire() {
     if(fire == NULL) {
-        fire = new Fire("Shaders/fire","Texture/tex2d_fire4-2.png",FIRE_FRAMETIME,FIRE_ITEMPERFRAME,
+        //"Texture/tex2d_fire4-2.png"
+        fire = new Fire("Shaders/fire","Texture/tex2d_radial_blur.png",FIRE_FRAMETIME,FIRE_ITEMPERFRAME,
                         FIRE_RADIUS,FIRE_CENTER,
                         FIRE_NBPARTICLE,
                         FIRE_LIFETIME_MIN,FIRE_LIFETIME_MAX,

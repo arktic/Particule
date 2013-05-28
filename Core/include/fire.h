@@ -6,7 +6,7 @@
 
 #define FIRE_FRAMETIME 33
 #define FIRE_ITEMPERFRAME 1000
-#define FIRE_NBPARTICLE 10000
+#define FIRE_NBPARTICLE 9000
 
 #define FIRE_LIFETIME_MIN 1000
 #define FIRE_LIFETIME_MAX 3000
@@ -29,7 +29,7 @@ private:
 
     /* variable shader */
     GLint   t             ;
-    GLint   ivelocity      ;
+    GLint   ivelocity     ;
     GLint   ageRatio      ;
     GLint   position      ;
     GLint   size          ;
@@ -67,6 +67,7 @@ public:
     void load(App *app);
     void unload(App *app);
     void render(App *app);
+    void fillCGA(int &i, vector<Particule*>::iterator &it);
 };
 
 #endif // FIRE_H

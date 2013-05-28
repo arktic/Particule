@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Tue 28. May 18:31:31 2013
+** Created: Tue 28. May 21:53:57 2013
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -894,7 +894,7 @@ public:
         QObject::connect(sizeMaxSliderFountain, SIGNAL(valueChanged(int)), sizeMaxFountainValue, SLOT(setNum(int)));
         QObject::connect(nbMaxItemPerFrameSliderSmoke, SIGNAL(valueChanged(int)), nbMaxItemPerFrameSmoke, SLOT(setNum(int)));
 
-        controlSelector->setCurrentIndex(1);
+        controlSelector->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
