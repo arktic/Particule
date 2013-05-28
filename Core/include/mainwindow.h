@@ -26,9 +26,11 @@ private:
     //void setUpCurrentValues();
 
     void keyPressEvent(QKeyEvent *);
+
 public:
     MainWindow(QWidget * parent);
     ~MainWindow();
+
 
 
 public slots:
@@ -47,6 +49,8 @@ public slots:
     void onNbMinItemPerFrameChanged(int);
     void onUpdateTimerChanged(int);
     void onDirectionChanged(int);
+    void startAndPauseGeneration();
+    void stopGeneration();
 };
 
 #endif // MAINWINDOW_H

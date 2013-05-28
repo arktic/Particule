@@ -56,6 +56,19 @@ class App : public GlWindow
         Smoke * getSmoke() { return smoke;}
         Fountain * getFountain() { return fountain;}
 
+        void createFire();
+        void deleteFire();
+        void deleteAndCreateFire();
+
+        void createFountain();
+        void deleteFountain();
+        void deleteAndCreateFountain();
+
+
+        void createSmoke();
+        void deleteSmoke();
+        void deleteAndCreateSmoke();
+
 
 		/*!
 		*\brief Initialization des objets.

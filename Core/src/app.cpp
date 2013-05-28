@@ -44,29 +44,12 @@ App::initializeObjects()
     plan = new Plan("Shaders/plan","Texture/tex2d_herbe.png");
     plan->load(this);
 
-    smoke = new Smoke("Shaders/smoke",SMOKE_TEXTURE,SMOKE_FRAMETIME,
-                      SMOKE_RADIUS,SMOKE_CENTER,
-                      SMOKE_NBPARTICLE,
-                      SMOKE_LIFETIME_MIN,SMOKE_LIFETIME_MAX,
-                      SMOKE_SIZE_MIN,  SMOKE_SIZE_MAX,
-                      SMOKE_VELOCITY_MIN, SMOKE_VELOCITY_MAX,SMOKE_SIZE_COEF,
-                      SMOKE_FRAME_MIN, SMOKE_FRAME_MAX, SMOKE_GENTIME);
-    smoke->load(this);
 
-    fire = new Fire("Shaders/fire","Texture/tex2d_fire4-2.png",FIRE_FRAMETIME,FIRE_ITEMPERFRAME,
-                    FIRE_RADIUS,FIRE_CENTER,
-                    FIRE_NBPARTICLE,
-                    FIRE_LIFETIME_MIN,FIRE_LIFETIME_MAX,
-                    FIRE_SIZE_MIN,  FIRE_SIZE_MAX,
-                    FIRE_VELOCITY_MIN, FIRE_VELOCITY_MAX);
-    fire->load(this);
-    fountain = new Fountain("Shaders/fountain",NULL,FOUNTAIN_FRAMETIME,FOUNTAIN_ITEMPERFRAME,
-                    FOUNTAIN_RADIUS,FOUNTAIN_CENTER,
-                    FOUNTAIN_NBPARTICLE,
-                    FOUNTAIN_LIFETIME_MIN,FOUNTAIN_LIFETIME_MAX,
-                    FOUNTAIN_SIZE_MIN,  FOUNTAIN_SIZE_MAX,
-                    FOUNTAIN_VELOCITY_MIN, FOUNTAIN_VELOCITY_MAX, FOUNTAIN_DIRECTION);
-    fountain->load(this);
+    fire = NULL;
+    fountain = NULL;
+    smoke = NULL;
+
+
 
     trees.push_back(new Tree("Shaders/tree",Vec3(-10,0,10),10,5,10,10));
     trees.push_back(new Tree("Shaders/tree",Vec3(-10,0,30),10,5,10,10));
@@ -92,55 +75,65 @@ App::initializeObjects()
 }
 
 
+
+
+
 void
 App::render()
 {
     // Initialisation de la caméra
-        lookAt( cam->getPosition().x, cam->getPosition().y, cam->getPosition().z,
-                cam->getTarget().x, cam->getTarget().y, cam->getTarget().z,
-                cam->getVaxe().x, cam->getVaxe().y, cam->getVaxe().z );
+    lookAt( cam->getPosition().x, cam->getPosition().y, cam->getPosition().z,
+            cam->getTarget().x, cam->getTarget().y, cam->getTarget().z,
+            cam->getVaxe().x, cam->getVaxe().y, cam->getVaxe().z );
 
 
     // Rendu des objets
     pushMatrix();
-       // rotate( angle1, 0, 1, 0 );
-       // rotate( angle2, 1, 0, 0 );
-        computeAncillaryMatrices();
+    // rotate( angle1, 0, 1, 0 );
+    // rotate( angle2, 1, 0, 0 );
+    computeAncillaryMatrices();
 
-//        /*------------- repere ------------*/
-//        repere->render(this);
+    //        /*------------- repere ------------*/
+    //        repere->render(this);
 
-//        /*-------------- plan ------------*/
-        plan->render(this);
+    //        /*-------------- plan ------------*/
+    plan->render(this);
 
-        /*-------------- trees ------------*/
-        std::vector<Tree*>::iterator tree = trees.begin();
-        while(tree != trees.end()) {
-            (*tree)->render(this);
-            ++tree;
-        }
+    /*-------------- trees ------------*/
+    std::vector<Tree*>::iterator tree = trees.begin();
+    while(tree != trees.end()) {
+        (*tree)->render(this);
+        ++tree;
+    }
 
-//        /*--------------- Smoke ---------- */
-        smoke->update();
+    //        /*--------------- Smoke ---------- */
+    if(smoke != NULL) {
+        if(smoke->isPlaying())
+            smoke->update();
         smoke->render(this);
+    }
 
 
-
-
-//        /*--------------- fire ---------- */
-        fire->update();
+    //        /*--------------- fire ---------- */
+    if(fire != NULL) {
+        if(fire->isPlaying())
+            fire->update();
         fire->render(this);
+    }
 
-//        /*--------------- fountain ---------- */
+    /*--------------- fountain ---------- */
 
-        fountain->update();
+    if(fountain) {
+        if(fountain->isPlaying())
+            fountain->update();
         fountain->render(this);
-      //  map->render(this);
+    }
+    //  map->render(this);
 
 
 
-        // affichage des fps
-        printFps();
+    // affichage des fps
+    printFps();
 }
 
 
@@ -173,31 +166,116 @@ App::keyPressEvent( QKeyEvent* event )
     }
     switch( event->key())
     {
-        case Qt::Key_Escape:
-            close();
-            break;
+    case Qt::Key_Escape:
+        close();
+        break;
 
-        case Qt::Key_Left:
-            angle1 -= g_AngleSpeed;
-            break;
+    case Qt::Key_Left:
+        angle1 -= g_AngleSpeed;
+        break;
 
-        case Qt::Key_Right:
-            angle1 += g_AngleSpeed;
-            break;
+    case Qt::Key_Right:
+        angle1 += g_AngleSpeed;
+        break;
 
-        case Qt::Key_Up:
-            angle2 -= g_AngleSpeed;
-            break;
+    case Qt::Key_Up:
+        angle2 -= g_AngleSpeed;
+        break;
 
-        case Qt::Key_Down:
-            angle2 += g_AngleSpeed;
-            break;
+    case Qt::Key_Down:
+        angle2 += g_AngleSpeed;
+        break;
 
-        case Qt::Key_R:
-            angle1 = angle2 = 0.0f;
-            break;
+    case Qt::Key_R:
+        angle1 = angle2 = 0.0f;
+        break;
     }
 }
+
+
+void App::createFire() {
+    if(fire == NULL) {
+        fire = new Fire("Shaders/fire","Texture/tex2d_fire4-2.png",FIRE_FRAMETIME,FIRE_ITEMPERFRAME,
+                        FIRE_RADIUS,FIRE_CENTER,
+                        FIRE_NBPARTICLE,
+                        FIRE_LIFETIME_MIN,FIRE_LIFETIME_MAX,
+                        FIRE_SIZE_MIN,  FIRE_SIZE_MAX,
+                        FIRE_VELOCITY_MIN, FIRE_VELOCITY_MAX);
+        fire->load(this);
+    }
+}
+
+
+void App::deleteAndCreateFire() {
+    deleteFire();
+    createFire();
+}
+
+
+void App::deleteFire() {
+    if(fire != NULL) {
+        delete fire;
+        fire = NULL;
+    }
+}
+
+
+void App::createFountain() {
+    if(fountain == NULL) {
+        fountain = new Fountain("Shaders/fountain",NULL,FOUNTAIN_FRAMETIME,FOUNTAIN_ITEMPERFRAME,
+                                FOUNTAIN_RADIUS,FOUNTAIN_CENTER,
+                                FOUNTAIN_NBPARTICLE,
+                                FOUNTAIN_LIFETIME_MIN,FOUNTAIN_LIFETIME_MAX,
+                                FOUNTAIN_SIZE_MIN,  FOUNTAIN_SIZE_MAX,
+                                FOUNTAIN_VELOCITY_MIN, FOUNTAIN_VELOCITY_MAX, FOUNTAIN_DIRECTION);
+        fountain->load(this);
+    }
+}
+
+
+void App::deleteAndCreateFountain() {
+    deleteFountain();
+    createFountain();
+}
+
+
+void App::deleteFountain() {
+    if(fountain != NULL) {
+        delete fountain;
+        fountain = NULL;
+    }
+}
+
+
+
+
+void App::createSmoke() {
+    if(smoke == NULL) {
+        smoke = new Smoke("Shaders/smoke",SMOKE_TEXTURE,SMOKE_FRAMETIME,
+                          SMOKE_RADIUS,SMOKE_CENTER,
+                          SMOKE_NBPARTICLE,
+                          SMOKE_LIFETIME_MIN,SMOKE_LIFETIME_MAX,
+                          SMOKE_SIZE_MIN,  SMOKE_SIZE_MAX,
+                          SMOKE_VELOCITY_MIN, SMOKE_VELOCITY_MAX,SMOKE_SIZE_COEF,
+                          SMOKE_FRAME_MIN, SMOKE_FRAME_MAX, SMOKE_GENTIME);
+        smoke->load(this);
+    }
+}
+
+
+void App::deleteAndCreateSmoke() {
+    deleteSmoke();
+    createSmoke();
+}
+
+
+void App::deleteSmoke() {
+    if(smoke != NULL) {
+        delete smoke;
+        smoke = NULL;
+    }
+}
+
 
 void App::printFps() {
     int64_t currentTime;
@@ -206,7 +284,7 @@ void App::printFps() {
     if( currentTime - lastTimeFps  > 1000)
     {
         notifyFpsChanged(fps);
-        std::cout << "fps:" << fps << " nbalive:" << fire->getNbAlive() << std::endl;
+        std::cout << "fps:" << fps << endl;
         fps = 0;
         time_ms(&lastTimeFps);
     }
@@ -217,19 +295,26 @@ void App::printFps() {
 App::~App() {
     delete repere;
     delete plan;
-    smoke->unload(this);
-    delete smoke;
-    fire->unload(this);
-    delete fire;
-    fountain->unload(this);
-    delete fountain;
+    if(smoke) {
+        smoke->unload(this);
+        delete smoke;
+    }
+    if(fire) {
+        fire->unload(this);
+        delete fire;
+    }
+    if(fountain) {
+        fountain->unload(this);
+        delete fountain;
+    }
     plan->unload(this);
     delete cam;
 }
 
 
 App::App(QWidget*) : trees() {
- time_ms(&lastTimeFps);
+    time_ms(&lastTimeFps);
+    fire = NULL;
 }
 
 

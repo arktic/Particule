@@ -6,6 +6,7 @@
 #include "Vectors.h"
 
 #include <QSpinBox>
+#include <QPushbutton>
 #include <QLabel>
 #include <iostream>
 
@@ -102,10 +103,26 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->coefSizeSliderSmoke, SIGNAL(valueChanged(int)), this,SLOT(onSizeChanged(int)));
 
+
+    /* init values button */
     connect(ui->setValuesButton, SIGNAL(clicked()), this, SLOT(setCurrentValues()));
     connect(ui->setValuesButtonSmoke, SIGNAL(clicked()), this, SLOT(setCurrentValues()));
     connect(ui->setValuesButtonFountain, SIGNAL(clicked()), this, SLOT(setCurrentValues()));
 
+
+    /* start buttons */
+    connect(ui->startButtonFire, SIGNAL(clicked()), this, SLOT(startAndPauseGeneration()));
+    connect(ui->startButtonSmoke, SIGNAL(clicked()), this, SLOT(startAndPauseGeneration()));
+    connect(ui->startButtonFountain, SIGNAL(clicked()), this, SLOT(startAndPauseGeneration()));
+
+
+    /* stop buttons */
+    connect(ui->stopButtonFire, SIGNAL(clicked()), this, SLOT(stopGeneration()));
+    connect(ui->stopButtonSmoke, SIGNAL(clicked()), this, SLOT(stopGeneration()));
+    connect(ui->stopButtonFountain, SIGNAL(clicked()), this, SLOT(stopGeneration()));
+
+
+    /* fps */
     connect(ui->app, SIGNAL(onFpsChanged(int)), ui->fpsValue, SLOT(setNum(int)));
 
 }
@@ -120,7 +137,7 @@ void MainWindow::onCenterChanged(int) {
         QString centerS = QString("(%1 %2 %3)").arg(QString::number(x->value()),QString::number(y->value()) ,QString::number(z->value()));
         ui->centerFireValue->setText(centerS);
         Fire * fire =  ui->app->getFire();
-        if(fire)
+        if(fire != NULL)
             fire->setCenter(Vec3(x->value(),y->value(),z->value()));
 
     } else if (tab == 1){
@@ -184,7 +201,7 @@ void MainWindow::onLifetimeChanged(int) {
         labMax->setText(maxS);
 
         Fire * fire =  ui->app->getFire();
-        if(fire) {
+        if(fire != NULL) {
             fire->setLifeTimeMin(minValue);
             fire->setLifeTimeMax(maxValue);
         }
@@ -490,7 +507,7 @@ void MainWindow::setCurrentValues() {
     int tab = ui->controlSelector->currentIndex();
     if(tab == 0) {
         Fire * fire =  ui->app->getFire();
-        if(fire) {
+        if(fire != NULL) {
             ui->ageAttenuationFactorSliderFire->setValue(fire->getAgeAtenuationFactor() * 100);
             ui->ageAttenuationLimitSliderFire->setValue(fire->getAgeAtenuationLimit() * 100);
             ui->radiusSliderFire->setValue(fire->getRadius());
@@ -601,6 +618,93 @@ void MainWindow::onUpdateTimerChanged(int newValue) {
         smoke->setUpdateNbItemTimer(newValue);
     }
 }
+
+
+
+
+
+void MainWindow::startAndPauseGeneration() {
+    int tab = ui->controlSelector->currentIndex();
+    if(tab == 0) {
+        QPushButton * start = ui->startButtonFire;
+        if((start->text()).compare("Start") == 0) {
+            ui->app->createFire();
+            Fire * fire =  ui->app->getFire();
+            if(fire && ui->stopButtonFire->isEnabled() == true) {
+                fire->play();
+            }
+            start->setText("Pause");
+            ui->stopButtonFire->setEnabled(true);
+        }
+        else {
+           start->setText("Start");
+           Fire * fire =  ui->app->getFire();
+           if(fire && ui->stopButtonFire->isEnabled() == true) {
+               fire->pause();
+           }
+        }
+    } else if (tab == 1){
+        QPushButton * start = ui->startButtonSmoke;
+        if((start->text()).compare("Start") == 0) {
+            ui->app->createSmoke();
+            Smoke * smoke =  ui->app->getSmoke();
+            if(smoke && ui->stopButtonSmoke->isEnabled() == true) {
+                smoke->play();
+            }
+            start->setText("Pause");
+            ui->stopButtonSmoke->setEnabled(true);
+        }
+        else {
+           start->setText("Start");
+           Smoke * smoke =  ui->app->getSmoke();
+           if(smoke && ui->stopButtonSmoke->isEnabled() == true) {
+               smoke->pause();
+           }
+        }
+
+    } else if (tab == 2) {
+        QPushButton * start = ui->startButtonFountain;
+        if((start->text()).compare("Start") == 0) {
+            ui->app->createFountain();
+            Fountain * fountain =  ui->app->getFountain();
+            if(fountain && ui->stopButtonFountain->isEnabled() == true) {
+                fountain->play();
+            }
+            start->setText("Pause");
+            ui->stopButtonFountain->setEnabled(true);
+        }
+        else {
+           start->setText("Start");
+           Fountain * fountain =  ui->app->getFountain();
+           if(fountain && ui->stopButtonFountain->isEnabled() == true) {
+               fountain->pause();
+           }
+        }
+    }
+}
+
+
+
+
+void MainWindow::stopGeneration() {
+    int tab = ui->controlSelector->currentIndex();
+    if(tab == 0) {
+        ui->app->deleteFire();
+        ui->stopButtonFire->setEnabled(false);
+    } else if (tab == 1){
+        ui->app->deleteSmoke();
+        ui->stopButtonSmoke->setEnabled(false);
+    } else if (tab == 2) {
+        ui->app->deleteFountain();
+        ui->stopButtonFountain->setEnabled(false);
+    }
+}
+
+
+
+
+
+
 
 MainWindow::~MainWindow()
 {

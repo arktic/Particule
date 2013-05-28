@@ -3,9 +3,12 @@
 
 
 #include <vector>
+#include <GL/glew.h>
+
+
 #include "Vectors.h"
 #include "Particule.h"
-#include <GL/glew.h>
+#include "utils.h"
 
 #define DEFAULT_RADIUS 100
 #define DEFAULT_CENTER Vec3i(0,0,0)
@@ -68,6 +71,8 @@ protected:
 
 	/* taille maximum des particules générées */
     float       sizeMax;
+
+    bool playing;
 
     virtual void addParticle(void);
     void updateParticle(int &elapsedTime);
@@ -140,6 +145,10 @@ public:
     void        setSizeMax(float sizeMax_)              {  sizeMax = sizeMax_               ;}
 
 
+    void play() { playing = true; time_ms(&lastFrameTime);}
+    void pause() { playing = false;}
+
+    bool isPlaying() {return playing;}
 };
 
 

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Mon 27. May 00:04:08 2013
+** Created: Tue 28. May 18:31:31 2013
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -87,6 +87,8 @@ public:
     QLabel *ageAttenuationFactorFireValue;
     QSlider *ageAttenuationLimitSliderFire;
     QPushButton *setValuesButton;
+    QPushButton *startButtonFire;
+    QPushButton *stopButtonFire;
     QWidget *smokeTab;
     QLabel *centerSmokeValue;
     QSpinBox *centerXSmokeSpinbox;
@@ -123,17 +125,18 @@ public:
     QLabel *lifetimeMinSmokeValue;
     QSlider *lifetimeMaxSliderSmoke;
     QGroupBox *ItemPerFrameGB;
-    QSlider *nbMaxItemPerFrameSliderSmoke;
-    QLabel *label_8;
-    QLabel *nbMaxItemPerFrameSmoke;
     QLabel *nbMinItemPerFrameSmoke;
     QSlider *nbMinItemPerFrameSliderSmoke;
     QLabel *label_11;
+    QLabel *nbMaxItemPerFrameSmoke;
+    QLabel *label_8;
+    QSlider *nbMaxItemPerFrameSliderSmoke;
     QLabel *label_12;
     QSlider *genTimerSliderSmoke;
     QLabel *genTimerSmokeValue;
+    QPushButton *stopButtonSmoke;
+    QPushButton *startButtonSmoke;
     QWidget *fountainTab;
-<<<<<<< .mine
     QLabel *centerFountainValue;
     QSpinBox *centerXFountainSpinbox;
     QLabel *nbItemFountainValue;
@@ -178,52 +181,10 @@ public:
     QSpinBox *directionXFountainSpinbox;
     QSpinBox *directionZFountainSpinbox;
     QSpinBox *directionYFountainSpinbox;
-=======
+    QPushButton *stopButtonFountain;
+    QPushButton *startButtonFountain;
     QLabel *fpsValue;
-    QLabel *label_6;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> .theirs
+    QLabel *label_61;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -462,6 +423,13 @@ public:
         setValuesButton = new QPushButton(fireTab);
         setValuesButton->setObjectName(QString::fromUtf8("setValuesButton"));
         setValuesButton->setGeometry(QRect(270, 360, 141, 101));
+        startButtonFire = new QPushButton(fireTab);
+        startButtonFire->setObjectName(QString::fromUtf8("startButtonFire"));
+        startButtonFire->setGeometry(QRect(250, 300, 75, 23));
+        stopButtonFire = new QPushButton(fireTab);
+        stopButtonFire->setObjectName(QString::fromUtf8("stopButtonFire"));
+        stopButtonFire->setEnabled(false);
+        stopButtonFire->setGeometry(QRect(340, 300, 75, 23));
         controlSelector->addTab(fireTab, QString());
         smokeTab = new QWidget();
         smokeTab->setObjectName(QString::fromUtf8("smokeTab"));
@@ -592,7 +560,7 @@ public:
         lifetimeMinSliderSmoke->setMaximum(5000);
         lifetimeMinSliderSmoke->setSingleStep(100);
         lifetimeMinSliderSmoke->setPageStep(100);
-        lifetimeMinSliderSmoke->setValue(1000);
+        lifetimeMinSliderSmoke->setValue(4600);
         lifetimeMinSliderSmoke->setOrientation(Qt::Horizontal);
         label_37 = new QLabel(lifetimeSmoke);
         label_37->setObjectName(QString::fromUtf8("label_37"));
@@ -613,32 +581,17 @@ public:
         lifetimeMaxSliderSmoke->setMaximum(5000);
         lifetimeMaxSliderSmoke->setSingleStep(100);
         lifetimeMaxSliderSmoke->setPageStep(100);
-        lifetimeMaxSliderSmoke->setValue(3000);
+        lifetimeMaxSliderSmoke->setValue(5000);
         lifetimeMaxSliderSmoke->setOrientation(Qt::Horizontal);
         ItemPerFrameGB = new QGroupBox(smokeTab);
         ItemPerFrameGB->setObjectName(QString::fromUtf8("ItemPerFrameGB"));
         ItemPerFrameGB->setGeometry(QRect(240, 110, 211, 131));
-        nbMaxItemPerFrameSliderSmoke = new QSlider(ItemPerFrameGB);
-        nbMaxItemPerFrameSliderSmoke->setObjectName(QString::fromUtf8("nbMaxItemPerFrameSliderSmoke"));
-        nbMaxItemPerFrameSliderSmoke->setGeometry(QRect(10, 40, 191, 22));
-        nbMaxItemPerFrameSliderSmoke->setMinimum(0);
-        nbMaxItemPerFrameSliderSmoke->setMaximum(600);
-        nbMaxItemPerFrameSliderSmoke->setSingleStep(1);
-        nbMaxItemPerFrameSliderSmoke->setPageStep(100);
-        nbMaxItemPerFrameSliderSmoke->setValue(1);
-        nbMaxItemPerFrameSliderSmoke->setOrientation(Qt::Horizontal);
-        label_8 = new QLabel(ItemPerFrameGB);
-        label_8->setObjectName(QString::fromUtf8("label_8"));
-        label_8->setGeometry(QRect(10, 20, 111, 20));
-        nbMaxItemPerFrameSmoke = new QLabel(ItemPerFrameGB);
-        nbMaxItemPerFrameSmoke->setObjectName(QString::fromUtf8("nbMaxItemPerFrameSmoke"));
-        nbMaxItemPerFrameSmoke->setGeometry(QRect(150, 20, 46, 13));
         nbMinItemPerFrameSmoke = new QLabel(ItemPerFrameGB);
         nbMinItemPerFrameSmoke->setObjectName(QString::fromUtf8("nbMinItemPerFrameSmoke"));
-        nbMinItemPerFrameSmoke->setGeometry(QRect(150, 70, 46, 13));
+        nbMinItemPerFrameSmoke->setGeometry(QRect(150, 20, 46, 13));
         nbMinItemPerFrameSliderSmoke = new QSlider(ItemPerFrameGB);
         nbMinItemPerFrameSliderSmoke->setObjectName(QString::fromUtf8("nbMinItemPerFrameSliderSmoke"));
-        nbMinItemPerFrameSliderSmoke->setGeometry(QRect(10, 90, 191, 22));
+        nbMinItemPerFrameSliderSmoke->setGeometry(QRect(10, 40, 191, 22));
         nbMinItemPerFrameSliderSmoke->setMinimum(0);
         nbMinItemPerFrameSliderSmoke->setMaximum(600);
         nbMinItemPerFrameSliderSmoke->setSingleStep(1);
@@ -647,20 +600,42 @@ public:
         nbMinItemPerFrameSliderSmoke->setOrientation(Qt::Horizontal);
         label_11 = new QLabel(ItemPerFrameGB);
         label_11->setObjectName(QString::fromUtf8("label_11"));
-        label_11->setGeometry(QRect(10, 70, 111, 20));
+        label_11->setGeometry(QRect(10, 20, 111, 20));
+        nbMaxItemPerFrameSmoke = new QLabel(ItemPerFrameGB);
+        nbMaxItemPerFrameSmoke->setObjectName(QString::fromUtf8("nbMaxItemPerFrameSmoke"));
+        nbMaxItemPerFrameSmoke->setGeometry(QRect(150, 70, 46, 13));
+        label_8 = new QLabel(ItemPerFrameGB);
+        label_8->setObjectName(QString::fromUtf8("label_8"));
+        label_8->setGeometry(QRect(10, 70, 111, 20));
+        nbMaxItemPerFrameSliderSmoke = new QSlider(ItemPerFrameGB);
+        nbMaxItemPerFrameSliderSmoke->setObjectName(QString::fromUtf8("nbMaxItemPerFrameSliderSmoke"));
+        nbMaxItemPerFrameSliderSmoke->setGeometry(QRect(10, 90, 191, 22));
+        nbMaxItemPerFrameSliderSmoke->setMinimum(0);
+        nbMaxItemPerFrameSliderSmoke->setMaximum(600);
+        nbMaxItemPerFrameSliderSmoke->setSingleStep(1);
+        nbMaxItemPerFrameSliderSmoke->setPageStep(100);
+        nbMaxItemPerFrameSliderSmoke->setValue(1);
+        nbMaxItemPerFrameSliderSmoke->setOrientation(Qt::Horizontal);
         label_12 = new QLabel(smokeTab);
         label_12->setObjectName(QString::fromUtf8("label_12"));
         label_12->setGeometry(QRect(20, 120, 81, 20));
         genTimerSliderSmoke = new QSlider(smokeTab);
         genTimerSliderSmoke->setObjectName(QString::fromUtf8("genTimerSliderSmoke"));
         genTimerSliderSmoke->setGeometry(QRect(10, 140, 211, 22));
-        genTimerSliderSmoke->setMinimum(1);
+        genTimerSliderSmoke->setMinimum(100);
         genTimerSliderSmoke->setMaximum(3000);
-        genTimerSliderSmoke->setValue(1);
+        genTimerSliderSmoke->setValue(211);
         genTimerSliderSmoke->setOrientation(Qt::Horizontal);
         genTimerSmokeValue = new QLabel(smokeTab);
         genTimerSmokeValue->setObjectName(QString::fromUtf8("genTimerSmokeValue"));
         genTimerSmokeValue->setGeometry(QRect(130, 120, 46, 13));
+        stopButtonSmoke = new QPushButton(smokeTab);
+        stopButtonSmoke->setObjectName(QString::fromUtf8("stopButtonSmoke"));
+        stopButtonSmoke->setEnabled(false);
+        stopButtonSmoke->setGeometry(QRect(340, 290, 75, 23));
+        startButtonSmoke = new QPushButton(smokeTab);
+        startButtonSmoke->setObjectName(QString::fromUtf8("startButtonSmoke"));
+        startButtonSmoke->setGeometry(QRect(250, 290, 75, 23));
         controlSelector->addTab(smokeTab, QString());
         fountainTab = new QWidget();
         fountainTab->setObjectName(QString::fromUtf8("fountainTab"));
@@ -862,6 +837,13 @@ public:
         directionYFountainSpinbox->setMinimum(-1000);
         directionYFountainSpinbox->setMaximum(1000);
         directionYFountainSpinbox->setSingleStep(1);
+        stopButtonFountain = new QPushButton(fountainTab);
+        stopButtonFountain->setObjectName(QString::fromUtf8("stopButtonFountain"));
+        stopButtonFountain->setEnabled(false);
+        stopButtonFountain->setGeometry(QRect(340, 290, 75, 23));
+        startButtonFountain = new QPushButton(fountainTab);
+        startButtonFountain->setObjectName(QString::fromUtf8("startButtonFountain"));
+        startButtonFountain->setGeometry(QRect(250, 290, 75, 23));
         controlSelector->addTab(fountainTab, QString());
         fpsValue = new QLabel(centralwidget);
         fpsValue->setObjectName(QString::fromUtf8("fpsValue"));
@@ -871,13 +853,13 @@ public:
         font.setBold(false);
         font.setWeight(50);
         fpsValue->setFont(font);
-        label_6 = new QLabel(centralwidget);
-        label_6->setObjectName(QString::fromUtf8("label_6"));
-        label_6->setGeometry(QRect(640, 10, 31, 16));
+        label_61 = new QLabel(centralwidget);
+        label_61->setObjectName(QString::fromUtf8("label_61"));
+        label_61->setGeometry(QRect(640, 10, 31, 16));
         QFont font1;
         font1.setBold(false);
         font1.setWeight(50);
-        label_6->setFont(font1);
+        label_61->setFont(font1);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -900,7 +882,6 @@ public:
         QObject::connect(velocityMaxSliderSmoke, SIGNAL(valueChanged(int)), velocityMaxSmokeValue, SLOT(setNum(int)));
         QObject::connect(velocityMinSliderSmoke, SIGNAL(valueChanged(int)), velocityMinSmokeValue, SLOT(setNum(int)));
         QObject::connect(coefSizeSliderSmoke, SIGNAL(valueChanged(int)), coefSizeSmokeValue, SLOT(setNum(int)));
-        QObject::connect(nbMaxItemPerFrameSliderSmoke, SIGNAL(valueChanged(int)), nbMaxItemPerFrameSmoke, SLOT(setNum(int)));
         QObject::connect(nbMinItemPerFrameSliderSmoke, SIGNAL(valueChanged(int)), nbMinItemPerFrameSmoke, SLOT(setNum(int)));
         QObject::connect(nbItemPerFrameSliderFountain, SIGNAL(valueChanged(int)), nbItemPerFrameFountainValue, SLOT(setNum(int)));
         QObject::connect(radiusSliderFountain, SIGNAL(valueChanged(int)), radiusFountainValue, SLOT(setNum(int)));
@@ -911,8 +892,9 @@ public:
         QObject::connect(velocityMaxSliderFountain, SIGNAL(valueChanged(int)), velocityMaxFountainValue, SLOT(setNum(int)));
         QObject::connect(velocityMinSliderFountain, SIGNAL(valueChanged(int)), velocityMinFountainValue, SLOT(setNum(int)));
         QObject::connect(sizeMaxSliderFountain, SIGNAL(valueChanged(int)), sizeMaxFountainValue, SLOT(setNum(int)));
+        QObject::connect(nbMaxItemPerFrameSliderSmoke, SIGNAL(valueChanged(int)), nbMaxItemPerFrameSmoke, SLOT(setNum(int)));
 
-        controlSelector->setCurrentIndex(2);
+        controlSelector->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -952,6 +934,8 @@ public:
         label_28->setText(QApplication::translate("MainWindow", "factor", 0, QApplication::UnicodeUTF8));
         ageAttenuationFactorFireValue->setText(QApplication::translate("MainWindow", "0", 0, QApplication::UnicodeUTF8));
         setValuesButton->setText(QApplication::translate("MainWindow", "Set up values", 0, QApplication::UnicodeUTF8));
+        startButtonFire->setText(QApplication::translate("MainWindow", "Start", 0, QApplication::UnicodeUTF8));
+        stopButtonFire->setText(QApplication::translate("MainWindow", "Stop", 0, QApplication::UnicodeUTF8));
         controlSelector->setTabText(controlSelector->indexOf(fireTab), QApplication::translate("MainWindow", "Fire", 0, QApplication::UnicodeUTF8));
         centerSmokeValue->setText(QApplication::translate("MainWindow", "(0,0,0)", 0, QApplication::UnicodeUTF8));
         nbItemSmokeValue->setText(QApplication::translate("MainWindow", "10000", 0, QApplication::UnicodeUTF8));
@@ -972,16 +956,18 @@ public:
         setValuesButtonSmoke->setText(QApplication::translate("MainWindow", "Set up values", 0, QApplication::UnicodeUTF8));
         lifetimeSmoke->setTitle(QApplication::translate("MainWindow", "Lifetime (ms)", 0, QApplication::UnicodeUTF8));
         label_37->setText(QApplication::translate("MainWindow", "max", 0, QApplication::UnicodeUTF8));
-        lifetimeMaxSmokeValue->setText(QApplication::translate("MainWindow", "3000", 0, QApplication::UnicodeUTF8));
+        lifetimeMaxSmokeValue->setText(QApplication::translate("MainWindow", "5000", 0, QApplication::UnicodeUTF8));
         label_38->setText(QApplication::translate("MainWindow", "min", 0, QApplication::UnicodeUTF8));
-        lifetimeMinSmokeValue->setText(QApplication::translate("MainWindow", "1000", 0, QApplication::UnicodeUTF8));
+        lifetimeMinSmokeValue->setText(QApplication::translate("MainWindow", "4600", 0, QApplication::UnicodeUTF8));
         ItemPerFrameGB->setTitle(QApplication::translate("MainWindow", "ItemGeneration", 0, QApplication::UnicodeUTF8));
-        label_8->setText(QApplication::translate("MainWindow", "NbItemPerFrameMax", 0, QApplication::UnicodeUTF8));
-        nbMaxItemPerFrameSmoke->setText(QApplication::translate("MainWindow", "300", 0, QApplication::UnicodeUTF8));
         nbMinItemPerFrameSmoke->setText(QApplication::translate("MainWindow", "300", 0, QApplication::UnicodeUTF8));
         label_11->setText(QApplication::translate("MainWindow", "NbItemPerFrameMin", 0, QApplication::UnicodeUTF8));
+        nbMaxItemPerFrameSmoke->setText(QApplication::translate("MainWindow", "300", 0, QApplication::UnicodeUTF8));
+        label_8->setText(QApplication::translate("MainWindow", "NbItemPerFrameMax", 0, QApplication::UnicodeUTF8));
         label_12->setText(QApplication::translate("MainWindow", "GenTimer (ms)", 0, QApplication::UnicodeUTF8));
-        genTimerSmokeValue->setText(QApplication::translate("MainWindow", "33", 0, QApplication::UnicodeUTF8));
+        genTimerSmokeValue->setText(QApplication::translate("MainWindow", "211", 0, QApplication::UnicodeUTF8));
+        stopButtonSmoke->setText(QApplication::translate("MainWindow", "Stop", 0, QApplication::UnicodeUTF8));
+        startButtonSmoke->setText(QApplication::translate("MainWindow", "Start", 0, QApplication::UnicodeUTF8));
         controlSelector->setTabText(controlSelector->indexOf(smokeTab), QApplication::translate("MainWindow", "Smoke", 0, QApplication::UnicodeUTF8));
         centerFountainValue->setText(QApplication::translate("MainWindow", "(0,0,0)", 0, QApplication::UnicodeUTF8));
         nbItemFountainValue->setText(QApplication::translate("MainWindow", "10000", 0, QApplication::UnicodeUTF8));
@@ -1010,9 +996,11 @@ public:
         label_49->setText(QApplication::translate("MainWindow", "min", 0, QApplication::UnicodeUTF8));
         lifetimeMinFountainValue->setText(QApplication::translate("MainWindow", "1000", 0, QApplication::UnicodeUTF8));
         label_46->setText(QApplication::translate("MainWindow", "Direction", 0, QApplication::UnicodeUTF8));
+        stopButtonFountain->setText(QApplication::translate("MainWindow", "Stop", 0, QApplication::UnicodeUTF8));
+        startButtonFountain->setText(QApplication::translate("MainWindow", "Start", 0, QApplication::UnicodeUTF8));
         controlSelector->setTabText(controlSelector->indexOf(fountainTab), QApplication::translate("MainWindow", "Fountain", 0, QApplication::UnicodeUTF8));
         fpsValue->setText(QApplication::translate("MainWindow", "0", 0, QApplication::UnicodeUTF8));
-        label_6->setText(QApplication::translate("MainWindow", "FPS", 0, QApplication::UnicodeUTF8));
+        label_61->setText(QApplication::translate("MainWindow", "FPS", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };
