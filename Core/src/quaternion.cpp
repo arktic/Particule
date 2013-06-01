@@ -5,6 +5,7 @@
 
 #include "quaternion.h"
 #include "Vectors.h"
+#include "GlFramework.h"
 
 
 using namespace std;
@@ -70,14 +71,15 @@ float Quaternion::normeCarre() const {
 Quaternion& Quaternion::normalize() {
     float nrm = norme();
     if(nrm != 0) {
-        s /= nrm;
-        x /= nrm;
-        y /= nrm;
-        z /= nrm;
+        float d = 1/nrm;
+        s *= nrm;
+        x *= nrm;
+        y *= nrm;
+        z *= nrm;
     }
 
-    std::cout << "normalize avec une norme de zero impossible!";
-    exit(-1);
+//    std::cout << "normalize avec une norme de zero impossible!";
+//    exit(-1);
 }
 
 
@@ -91,4 +93,64 @@ std::ostream& operator<<(std::ostream& out, Quaternion& quat) {
 ostream& operator<<(ostream& out, const Quaternion& quat) {
     out << "<" << quat.getS() << ":" << quat.getX() << ":" << quat.getY() << ":" << quat.getZ() << ">" << std::endl;
     return out;
+}
+
+
+
+Quaternion::Quaternion(float angle, Vec3 v) {
+    s = (float) cos(angle/2);
+    float sinus = (float) sin(angle/2);
+
+    x = v.x*sinus;
+    y = v.y*sinus;
+    z = v.z*sinus;
+}
+
+
+GLMatrix Quaternion::toMatrix() const {
+    GLMatrix * mat = new GLMatrix();
+    mat->m[0][0] = 1 - 2*y*y - 2*z*z;
+    mat->m[0][1] = 2*x*y - 2*s*z;
+    mat->m[0][2] = 2*x*z + 2*s*y;
+    mat->m[0][3] = 0;
+
+    mat->m[1][0] = 2*x*y + 2*s*z;
+    mat->m[1][1] = 1-2*x*x - 2*z*z;
+    mat->m[1][2] = 2*y*z - 2*s*x;
+    mat->m[1][3] = 0;
+
+    mat->m[2][0] = 2*x*z - 2*s*y;
+    mat->m[2][1] = 2*y*z + 2*s*x;
+    mat->m[2][2] = 1 - 2*x*x - 2*y*y;
+    mat->m[2][3] = 0;
+
+    mat->m[0][3] = 0;
+    mat->m[1][3] = 0;
+    mat->m[2][3] = 0;
+    mat->m[3][3] = 1;
+
+    return * mat;
+ }
+
+/* Construit un quaternion de rotation suivant le modèle pitch/roll/yaw */
+Quaternion::Quaternion( float pitch, float roll, float yaw )
+{
+
+    float p = pitch * M_PI_2 / 180.0;
+    float y = yaw   * M_PI_2 / 180.0;
+    float r = roll  * M_PI_2 / 180.0;
+
+    float sinp = sin(p);
+    float siny = sin(y);
+    float sinr = sin(r);
+    float cosp = cos(p);
+    float cosy = cos(y);
+    float cosr = cos(r);
+
+    this->s = cosr * cosp * cosy + sinr * sinp * siny;
+    this->x = sinr * cosp * cosy - cosr * sinp * siny;
+    this->y = cosr * sinp * cosy + sinr * cosp * siny;
+    this->z = cosr * cosp * siny - sinr * sinp * cosy;
+
+    normalize();
 }

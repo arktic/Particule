@@ -1,40 +1,40 @@
-#ifndef DEF_CAMERA
-#define DEF_CAMERA
+#ifndef CAMERA_H
+#define CAMERA_H
 
+#include "Quaternion.h"
 #include "Vectors.h"
+#include "app.h"
 
-class Camera
-{
-private:
 
-    float phi;
-    float theta;
-    Vec3 orientation;
+class App;
 
-    Vec3 Vaxe;
-    Vec3 deplacementLateral;
-
-    Vec3 position;
-    Vec3 target;
-
+class Camera {
 public:
-
-    Camera();
-    Camera(float positionX, float positionY, float positionZ, float targetX, float targetY, float targetZ, float VaxeX, float VaxeY, float VaxeZ);
+    Camera(double x, double y, double z,App* app);
     ~Camera();
+    void rotate(float pitch, float roll, float yaw);
+    void lookAt(const Vec3 &p);
+    void disableFocus(const Quaternion &q);
 
-    void setTarget();
-    void orienter(int xRel, int yRel);
+    void updateViewMatrix(App* app);
+
+    Vec3 getPosition();
+
     void moveForward(float speed);
     void moveBackward(float speed);
     void moveLeftSide(float speed);
     void moveRightSide(float speed);
+    void moveUp(float speed);
+    void moveDown(float speed);
+    void toggleFocus();
 
-    Vec3 getPosition() {return position;}
-    Vec3 getTarget(){return target; }
-    Vec3 getVaxe() {return Vaxe;}
-
-
+private:
+    Quaternion rot;
+    Vec3 pos;
+    Vec3 focus;
+    Vec3 up;
+    bool focusOn;
 };
+
 
 #endif

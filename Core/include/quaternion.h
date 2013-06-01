@@ -3,6 +3,9 @@
 
 #include <iostream>
 
+#include "Vectors.h"
+#include  "GlFramework.h"
+
 
 //using namespace std;
 
@@ -14,13 +17,14 @@ class Quaternion {
 public:
 
     Quaternion(float _s, float _x, float _y, float _z);
+    Quaternion( float pitch, float roll, float yaw );
 
 
 
 
     /* construit un quaternion de rotation d'angle angle et de vecteur v.
     Note : v doit être nomaliser */
-    //Quaternion(float angle, Vec3 v);
+    Quaternion(float angle, Vec3 v);
 
     //Quaternion& operator+(const Quaternion& toAdd) const;
     Quaternion& operator*(const Quaternion &toAdd) const;
@@ -47,7 +51,7 @@ public:
 
 
     /* retourne la matrice associée à ce quaternion */
-    //mat44 toMatrix() const;
+    GLMatrix toMatrix() const;
 
 
 

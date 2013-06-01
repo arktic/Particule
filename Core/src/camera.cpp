@@ -1,177 +1,151 @@
-#include "camera.h"
+#include "Camera.h"
+#include <cstdio>
+#include "Vectors.h"
 
-#include <iostream>
+#include "app.h"
+#include "GlFramework.h"
 
-using namespace std;
-
-
-Camera::Camera() : phi(0.0), theta(0.0), orientation(), Vaxe(0, 1, 0), deplacementLateral(), position(), target()
-{
-
+Camera::Camera( double x, double y, double z, App* app )
+    :pos(x, y, z), rot(1, 0, 0, 0),
+     focus(0, 0, 0), focusOn(true){
 }
 
-Camera::Camera(float positionX, float positionY, float positionZ, float targetX, float targetY, float targetZ, float axeX, float axeY, float axeZ) :
-               phi(0.0), theta(0.0), orientation(0,0,0), Vaxe(axeX, axeY, axeZ), deplacementLateral(),
-               position(positionX, positionY, positionZ), target(targetX, targetY, targetZ)
+Camera::~Camera(void)
+{}
+
+void Camera::rotate(float pitch, float roll, float yaw)
 {
-    setTarget();
-    deplacementLateral = Vaxe.crossProduct(orientation);
-    deplacementLateral.normalize();
+    rot = rot * Quaternion(pitch, roll, yaw);
 }
 
-Camera::~Camera()
+/* Focuses the camera to always be looking at the given point
+ * regardless of position */
+void Camera::lookAt(const Vec3 &p)
 {
-
+    focus = Vec3(p);
+    focusOn = true;
 }
 
-void Camera::orienter(int xRel, int yRel)
+void Camera::disableFocus( const Quaternion &q )
 {
-    // Récupération des angles
-
-    phi += -yRel * 0.5;
-    theta += -xRel * 0.5;
-
-
-    // Limitation de l'angle phi
-
-    if(phi > 89.0)
-        phi = 89.0;
-
-    else if(phi < -89.0)
-        phi = -89.0;
-
-
-    // Conversion des angles en radian
-
-    float phiRadian = phi * M_PI / 180;
-    float thetaRadian = theta * M_PI / 180;
-
-
-    // Si l'axe vertical est l'axe X
-
-    if(Vaxe.x == 1.0)
-    {
-        // Calcul des coordonnées sphériques
-
-        orientation.x = sin(phiRadian);
-        orientation.y = cos(phiRadian) * cos(thetaRadian);
-        orientation.z = cos(phiRadian) * sin(thetaRadian);
-    }
-
-
-    // Si c'est l'axe Y
-
-    else if(Vaxe.y == 1.0)
-    {
-        // Calcul des coordonnées sphériques
-
-         orientation.x = cos(phiRadian) * sin(thetaRadian);
-         orientation.y = sin(phiRadian);
-         orientation.z = cos(phiRadian) * cos(thetaRadian);
-    }
-
-
-    // Sinon c'est l'axe Z
-
-    else
-    {
-        // Calcul des coordonnées sphériques
-
-        orientation.x = cos(phiRadian) * cos(thetaRadian);
-        orientation.y = cos(phiRadian) * sin(thetaRadian);
-        orientation.z = sin(phiRadian);
-    }
-
-
-    // Calcul de la normale
-
-    deplacementLateral = Vaxe.crossProduct(orientation);
-    deplacementLateral.normalize();
-
-
-    // Calcul du point ciblé pour OpenGL
-
-    target = position + orientation;
+    rot = Quaternion(q);
+    focusOn = false;
 }
 
 
-void Camera::moveForward(float speed)
-{
-    position = position + orientation * speed;
-    target = position + orientation;
+
+void Camera::updateViewMatrix(App* app) {
+
+   // GLMatrix matrix = rot.toMatrix();
+    Vec3 forward(focus.x - pos.x, focus.y - pos.y, focus.z - pos.z);
+    forward.normalize();
+    //cout << "forwar" << forward.x << "  " << forward.y << " " << forward.z << endl;
+    Vec3 upWorld(0,1,0); // default up (world up)
+
+    /* get the side vector */
+    Vec3 right = forward.crossProduct(upWorld);
+    right.normalize();
+
+    /* get the camera up vector */
+    up = right.crossProduct(forward);
+    up.normalize();
+    GLMatrix matrixView;
+
+    matrixView.m[0][0] = right.x;
+    matrixView.m[0][1] = right.y;
+    matrixView.m[0][2] = right.z;
+    matrixView.m[0][3] = 0;
+
+    matrixView.m[1][0] = up.x;
+    matrixView.m[1][1] = up.y;
+    matrixView.m[1][2] = up.z;
+    matrixView.m[1][3] = 0;
+
+    matrixView.m[2][0] = -forward.x;
+    matrixView.m[2][1] = -forward.y;
+    matrixView.m[2][2] = -forward.z;
+    matrixView.m[2][3] = 0;
+
+    matrixView.m[3][0] = 0;
+    matrixView.m[3][1] = 0;
+    matrixView.m[3][2] = 0;
+    matrixView.m[3][3] = 1;
+
+
+    GLMatrix matrix;
+    matrix.m[0][0] = 1;
+    matrix.m[1][0] = 0;
+    matrix.m[2][0] = 0;
+    matrix.m[3][0] = 0;
+
+    matrix.m[0][1] = 0;
+    matrix.m[1][1] = 1;
+    matrix.m[2][1] = 0;
+    matrix.m[3][1] = 0;
+
+    matrix.m[0][2] = 0;
+    matrix.m[1][2] = 0;
+    matrix.m[2][2] = 1;
+    matrix.m[3][2] = 0;
+
+    matrix.m[0][3] = -pos.x;
+    matrix.m[1][3] = -pos.y;
+    matrix.m[2][3] = -pos.z;
+    matrix.m[3][3] = 1.0f;
+
+    app->setViewMatrix( matrixView * matrix * rot.toMatrix());
 }
 
-void Camera::moveBackward(float speed)
-{
-    position = position - orientation * speed;
-    target = position + orientation;
-}
+void Camera::moveForward(float speed) {
+    Vec3 orientation(focus.x - pos.x,focus.y - pos.y,focus.z - pos.z);
 
-void Camera::moveLeftSide(float speed)
-{
-    position = position + deplacementLateral * speed;
-    target = position + orientation;
-}
-
-void Camera::moveRightSide(float speed)
-{
-    position = position - deplacementLateral * speed;
-    target = position + orientation;
-}
-
-
-void Camera::setTarget()
-{
-    // Calcul du vecteur orientation
-
-    orientation = target - position;
     orientation.normalize();
+    orientation*=speed;
+
+    pos += orientation;
+    cout << "newpos:" << pos.x << " " << pos.y << " " << pos.z << endl;
+    focus += orientation;
+}
+
+void Camera::moveBackward(float speed) {
+    moveForward(-speed);
+}
 
 
-    // Si l'axe vertical est l'axe X
 
-    if(Vaxe.x == 1.0)
-    {
-        // Calcul des angles
+void Camera::moveRightSide(float speed) {
+    Vec3 orientation(focus.x - pos.x,focus.y - pos.y,focus.z - pos.z);
+    Vec3 lateral = orientation.crossProduct(up);
 
-        phi = asin(orientation.x);
-        theta = acos(orientation.y / cos(phi));
+    lateral.normalize();
+    lateral*=speed;
 
-        if(orientation.y <= 0)
-            theta *= -1;
-    }
+    pos += lateral;
+    cout << "newpos:" << pos.x << " " << pos.y << " " << pos.z << endl;
+    if(!focusOn)
+        focus += lateral;
+}
 
+void Camera::moveLeftSide(float speed) {
+    moveRightSide(-speed);
+}
 
-    // Si c'est l'axe Y
+Vec3 Camera::getPosition() {
+    return pos;
+}
 
-    else if(Vaxe.y == 1.0)
-    {
-        // Calcul des angles
+void Camera::moveUp(float speed) {
+    pos += (up*-speed);
+    if(!focusOn)
+        focus += (up*-speed);
+}
 
-        phi = asin(orientation.y);
-        theta = acos(orientation.z / cos(phi));
+void Camera::moveDown(float speed) {
+    pos += (up*speed);
+    if(!focusOn)
+        focus += (up*speed);
+}
 
-        if(orientation.z <= 0)
-            theta *= -1;
-    }
-
-
-    // Sinon c'est l'axe Z
-
-    else
-    {
-        // Calcul des angles
-
-        phi = asin(orientation.x);
-        theta = acos(orientation.z / cos(phi));
-
-        if(orientation.z <= 0)
-            theta *= -1;
-    }
-
-
-    // Conversion en degrés
-
-    phi = phi * 180 / M_PI;
-    theta = theta * 180 / M_PI;
+void Camera::toggleFocus() {
+    focusOn = !focusOn;
 }

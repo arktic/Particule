@@ -30,7 +30,8 @@ using namespace std;
 bool
 App::initializeObjects()
 {
-    cam = new Camera(20,20,0,0,0,0,0,1,0);
+    cam = new Camera(20,0,20, this);
+    cam->lookAt(Vec3(0,0,0));
     map = new HeightMap("Texture/heightmap.png","Shaders/map");
     map->load(this);
     enableTree = false;
@@ -82,22 +83,23 @@ void
 App::render()
 {
     // Initialisation de la caméra
-    lookAt( cam->getPosition().x, cam->getPosition().y, cam->getPosition().z,
+    /*lookAt( cam->getPosition().x, cam->getPosition().y, cam->getPosition().z,
             cam->getTarget().x, cam->getTarget().y, cam->getTarget().z,
             cam->getVaxe().x, cam->getVaxe().y, cam->getVaxe().z );
-
+*/
 
     // Rendu des objets
     pushMatrix();
     // rotate( angle1, 0, 1, 0 );
     // rotate( angle2, 1, 0, 0 );
+    cam->updateViewMatrix(this);
     computeAncillaryMatrices();
 
     //        /*------------- repere ------------*/
-    //        repere->render(this);
+            repere->render(this);
 
     //        /*-------------- plan ------------*/
-    plan->render(this);
+    //plan->render(this);
 
     /*-------------- trees ------------*/
     if(enableTree) {
@@ -141,7 +143,8 @@ App::render()
 
 void
 App::mouseMoveEvent(QMouseEvent *event){
-    cam->orienter(event->x()-oldMouse.x ,event->y()-oldMouse.y);
+    //cam->orienter(event->x()-oldMouse.x ,event->y()-oldMouse.y);
+    cam->rotate(0,0,(event->y()-oldMouse.y)*0.5);//event->x()-oldMouse.x
     oldMouse.x = event->x();
     oldMouse.y = event->y();
 }
@@ -154,7 +157,7 @@ void App::mousePressEvent(QMouseEvent * event) {
 void
 App::keyPressEvent( QKeyEvent* event )
 {
-    if(event->key() == Qt::Key_Z){
+    /*if(event->key() == Qt::Key_Z){
         cam->moveForward(CAM_SPEED);
     }
     if(event->key() == Qt::Key_S){
@@ -165,7 +168,32 @@ App::keyPressEvent( QKeyEvent* event )
     }
     if(event->key() == Qt::Key_D){
         cam->moveRightSide(CAM_SPEED);
+    }*/
+
+    if(event->key() == Qt::Key_Z){
+        cam->moveForward(CAM_SPEED);
     }
+    if(event->key() == Qt::Key_S){
+        cam->moveBackward(CAM_SPEED);
+    }
+    if(event->key() == Qt::Key_D){
+        cam->moveRightSide(CAM_SPEED);
+    }
+    if(event->key() == Qt::Key_Q){
+        cam->moveLeftSide(CAM_SPEED);
+    }
+    if(event->key() == Qt::Key_A) {
+        cam->moveUp(CAM_SPEED);
+    }
+    if(event->key() == Qt::Key_E) {
+        cam->moveDown(CAM_SPEED);
+    }
+
+    if(event->key() == Qt::Key_Space) {
+        cam->toggleFocus();
+    }
+
+
     switch( event->key())
     {
     case Qt::Key_Escape:

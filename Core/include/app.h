@@ -23,6 +23,7 @@ class Repere;
 class Plan;
 class HeightMap;
 class Tree;
+class Camera;
 
 class App : public GlWindow
 {
@@ -49,7 +50,6 @@ class App : public GlWindow
     void printFps();
 
 	public:
-        //App();
         App(QWidget* parent);
 
         Camera* getCamera() { return cam; }
