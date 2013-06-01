@@ -7,6 +7,7 @@
 #include "Vectors.h"
 #include "App.h"
 
+#define FOUNTAIN_TEXTURE "Texture/tex2d_radial_blur.png"
 #define FOUNTAIN_FRAMETIME 33
 #define FOUNTAIN_ITEMPERFRAME 100
 #define FOUNTAIN_NBPARTICLE 20000
@@ -63,7 +64,7 @@ public:
     float   getRotOffset    () { return rotOffset       ; }
     bool    getRot          () { return rot             ; }
 
-    void    setDirection    (Vec3 dir       ) { direction = dir     ; }
+    void    setDirection    (Vec3 dir       ) ;//{ direction = dir     ; }
     void    setRotSpeed     (float speed    ) { rotSpeed = speed    ; }
     void    setRotOffset    (float off      ) { rotOffset = off     ; }
     void    setRot          (bool v         ) { rot = v             ; }

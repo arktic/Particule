@@ -8,6 +8,7 @@
 #include "Vectors.h"
 
 #include <QSpinBox>
+#include <QPushbutton>
 #include <QLabel>
 #include <iostream>
 
@@ -109,10 +110,27 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->coefSizeSliderSmoke, SIGNAL(valueChanged(int)), this,SLOT(onSizeChanged(int)));
 
+
+    /* init values button */
     connect(ui->setValuesButton, SIGNAL(clicked()), this, SLOT(setCurrentValues()));
     connect(ui->setValuesButtonSmoke, SIGNAL(clicked()), this, SLOT(setCurrentValues()));
     connect(ui->setValuesButtonFountain, SIGNAL(clicked()), this, SLOT(setCurrentValues()));
 
+
+    /* start buttons */
+    connect(ui->startButtonFire, SIGNAL(clicked()), this, SLOT(startAndPauseGeneration()));
+    connect(ui->startButtonSmoke, SIGNAL(clicked()), this, SLOT(startAndPauseGeneration()));
+    connect(ui->startButtonFountain, SIGNAL(clicked()), this, SLOT(startAndPauseGeneration()));
+
+
+    /* stop buttons */
+    connect(ui->stopButtonFire, SIGNAL(clicked()), this, SLOT(stopGeneration()));
+    connect(ui->stopButtonSmoke, SIGNAL(clicked()), this, SLOT(stopGeneration()));
+    connect(ui->stopButtonFountain, SIGNAL(clicked()), this, SLOT(stopGeneration()));
+
+    connect(ui->enableTree, SIGNAL(stateChanged(int)), this, SLOT(enableTree()));
+
+    /* fps */
     connect(ui->app, SIGNAL(onFpsChanged(int)), ui->fpsValue, SLOT(setNum(int)));
 
 }
@@ -127,7 +145,7 @@ void MainWindow::onCenterChanged(int) {
         QString centerS = QString("(%1 %2 %3)").arg(QString::number(x->value()),QString::number(y->value()) ,QString::number(z->value()));
         ui->centerFireValue->setText(centerS);
         Fire * fire =  ui->app->getFire();
-        if(fire)
+        if(fire != NULL)
             fire->setCenter(Vec3(x->value(),y->value(),z->value()));
 
     } else if (tab == 1){
@@ -191,7 +209,7 @@ void MainWindow::onLifetimeChanged(int) {
         labMax->setText(maxS);
 
         Fire * fire =  ui->app->getFire();
-        if(fire) {
+        if(fire != NULL) {
             fire->setLifeTimeMin(minValue);
             fire->setLifeTimeMax(maxValue);
         }
@@ -497,7 +515,7 @@ void MainWindow::setCurrentValues() {
     int tab = ui->controlSelector->currentIndex();
     if(tab == 0) {
         Fire * fire =  ui->app->getFire();
-        if(fire) {
+        if(fire != NULL) {
             ui->ageAttenuationFactorSliderFire->setValue(fire->getAgeAtenuationFactor() * 100);
             ui->ageAttenuationLimitSliderFire->setValue(fire->getAgeAtenuationLimit() * 100);
             ui->radiusSliderFire->setValue(fire->getRadius());
@@ -570,13 +588,20 @@ void MainWindow::setCurrentValues() {
             ui->centerZFountainSpinbox->setValue(center.z);
 
             Vec3 dir = fountain->getDirection();
-            ui->directionXFountainSpinbox->setValue(dir.x);
-            ui->directionYFountainSpinbox->setValue(dir.y);
-            ui->directionZFountainSpinbox->setValue(dir.z);
+
+//            ui->directionXFountainSpinbox->setValue(dir.x);
+//            ui->directionYFountainSpinbox->setValue(dir.y);
+//            ui->directionZFountainSpinbox->setValue(dir.z);
 
             ui->rotEnableFountain->setChecked(fountain->getRot());
-            ui->rotOffsetAngleFountainSlider->setValue(fountain->getRotOffset()*1000);
+            ui->rotOffsetAngleFountainSlider->setValue(fountain->getRotOffset()*10000);
             ui->rotSpeedSliderFountain->setValue(fountain->getRotSpeed());
+
+            ui->directionXFountainSpinbox->setValue(dir.x*10);
+            ui->directionYFountainSpinbox->setValue(dir.y*10);
+            ui->directionZFountainSpinbox->setValue(dir.z*10);
+
+            ui->enableTree->setChecked(ui->app->getEnableTree());
         }
     }
 }
@@ -623,7 +648,7 @@ void MainWindow::onRotSpeedChange(int speed) {
 void MainWindow::onRotOffsetChange(int off) {
     Fountain * fountain =  ui->app->getFountain();
     if(fountain){
-        fountain->setRotOffset((float)off/1000.f);
+        fountain->setRotOffset((float)off/10000.f);
     }
 }
 
@@ -633,6 +658,96 @@ void MainWindow::onRotEnableChange(int status) {
         std::cout << "checked ?" << ui->rotEnableFountain->isChecked() << std::endl;
         fountain->setRot(ui->rotEnableFountain->isChecked());
     }
+}
+
+
+
+
+void MainWindow::startAndPauseGeneration() {
+    int tab = ui->controlSelector->currentIndex();
+    if(tab == 0) {
+        QPushButton * start = ui->startButtonFire;
+        if((start->text()).compare("Start") == 0) {
+            ui->app->createFire();
+            setCurrentValues();
+            Fire * fire =  ui->app->getFire();
+            if(fire && ui->stopButtonFire->isEnabled() == true) {
+                fire->play();
+            }
+            start->setText("Pause");
+            ui->stopButtonFire->setEnabled(true);
+        }
+        else {
+           start->setText("Start");
+           Fire * fire =  ui->app->getFire();
+           if(fire && ui->stopButtonFire->isEnabled() == true) {
+               fire->pause();
+           }
+        }
+    } else if (tab == 1){
+        QPushButton * start = ui->startButtonSmoke;
+        if((start->text()).compare("Start") == 0) {
+            ui->app->createSmoke();
+            setCurrentValues();
+            Smoke * smoke =  ui->app->getSmoke();
+            if(smoke && ui->stopButtonSmoke->isEnabled() == true) {
+                smoke->play();
+            }
+            start->setText("Pause");
+            ui->stopButtonSmoke->setEnabled(true);
+        }
+        else {
+           start->setText("Start");
+           Smoke * smoke =  ui->app->getSmoke();
+           if(smoke && ui->stopButtonSmoke->isEnabled() == true) {
+               smoke->pause();
+           }
+        }
+
+    } else if (tab == 2) {
+        QPushButton * start = ui->startButtonFountain;
+        if((start->text()).compare("Start") == 0) {
+            ui->app->createFountain();
+            setCurrentValues();
+            Fountain * fountain =  ui->app->getFountain();
+            if(fountain && ui->stopButtonFountain->isEnabled() == true) {
+                fountain->play();
+            }
+            start->setText("Pause");
+            ui->stopButtonFountain->setEnabled(true);
+        }
+        else {
+           start->setText("Start");
+           Fountain * fountain =  ui->app->getFountain();
+           if(fountain && ui->stopButtonFountain->isEnabled() == true) {
+               fountain->pause();
+           }
+        }
+    }
+}
+
+
+
+
+void MainWindow::stopGeneration() {
+    int tab = ui->controlSelector->currentIndex();
+    if(tab == 0) {
+        ui->app->deleteFire();
+        ui->stopButtonFire->setEnabled(false);
+        ui->startButtonFire->setText("Start");
+    } else if (tab == 1){
+        ui->app->deleteSmoke();
+        ui->stopButtonSmoke->setEnabled(false);
+        ui->startButtonSmoke->setText("Start");
+    } else if (tab == 2) {
+        ui->app->deleteFountain();
+        ui->stopButtonFountain->setEnabled(false);
+        ui->startButtonFountain->setText("Start");
+    }
+}
+
+void MainWindow::enableTree() {
+    ui->app->setEnableTree(ui->enableTree->isChecked());
 }
 
 MainWindow::~MainWindow()

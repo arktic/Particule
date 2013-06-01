@@ -36,6 +36,7 @@ class App : public GlWindow
     Fountain* fountain;
     std::vector<Tree *> trees;
 
+    bool enableTree;
     float fps;
     int64_t lastTimeFps;
 
@@ -56,6 +57,19 @@ class App : public GlWindow
         Smoke * getSmoke() { return smoke;}
         Fountain * getFountain() { return fountain;}
 
+        void createFire();
+        void deleteFire();
+        void deleteAndCreateFire();
+
+        void createFountain();
+        void deleteFountain();
+        void deleteAndCreateFountain();
+
+
+        void createSmoke();
+        void deleteSmoke();
+        void deleteAndCreateSmoke();
+
 
 		/*!
 		*\brief Initialization des objets.
@@ -73,6 +87,8 @@ class App : public GlWindow
 		void keyPressEvent(QKeyEvent *);
 
         int getFps() { return fps;}
+        bool getEnableTree() { return enableTree; }
+        void setEnableTree(bool value) {enableTree = value; }
 
         void notifyFpsChanged(int fps);
 

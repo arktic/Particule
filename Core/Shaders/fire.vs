@@ -21,6 +21,8 @@ in float ageRatio;
 out int alive;
 
 //out vec4 fColor;  // interpol et transmis au fragment shader
+//out float redMul;
+out float alpha;
 
 void main() {
 	vec3 np; // nouvelle position
@@ -39,4 +41,19 @@ void main() {
 	
 	// cette nouvelle position est la position de notre particule
 	gl_Position = MVP * vec4( np, 1.0f );
+	//float d = length(center-position);
+//	if(d > radius*0.8) {
+//		redMul = 1.2;
+//	}
+	
+	float start = 0.2;
+	float end = 0.8;
+	if(ageRatio < start) {
+		alpha = ageRatio * 1/start;
+	}
+	else if (ageRatio > end) {
+		alpha = 1-((ageRatio-end) * 1/(1-end));
+	}
+	else
+		alpha = 1;
 }

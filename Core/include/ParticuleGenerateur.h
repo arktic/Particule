@@ -3,9 +3,12 @@
 
 
 #include <vector>
+#include <GL/glew.h>
+
+
 #include "Vectors.h"
 #include "Particule.h"
-#include <GL/glew.h>
+#include "utils.h"
 
 #define DEFAULT_RADIUS 100
 #define DEFAULT_CENTER Vec3i(0,0,0)
@@ -46,7 +49,7 @@ protected:
     int         nbItem;
 
 	/* nombre de particules vivante actuellement. */
-    int         nbAlive;
+    //int         nbAlive;
 
 	/* durée de vie minium des particules générées */
     float       lifeTimeMin;
@@ -68,6 +71,8 @@ protected:
 
 	/* taille maximum des particules générées */
     float       sizeMax;
+
+    bool playing;
 
     virtual void addParticle(void);
     void updateParticle(int &elapsedTime);
@@ -115,9 +120,9 @@ public:
     GLfloat     getRadius()           { return radius             ;}
     Vec3        getCenter()           { return center             ;}
     char*       getShaderName()       { return shaderName         ;}
-    char*       getTextureName()       { return textureName         ;}
+    char*       getTextureName()       { return textureName       ;}
     int         getNbItemPerFrame()   { return nbItemPerFrame     ;}
-    int         getNbAlive()          { return nbAlive            ;}
+    int         getNbAlive()          { return alive.size()       ;}
     int         getNbItem()           { return nbItem             ;}
     float       getFrameTime()        { return frameTime          ;}
     float       getLifeTimeMin()      { return lifeTimeMin        ;}
@@ -140,6 +145,10 @@ public:
     void        setSizeMax(float sizeMax_)              {  sizeMax = sizeMax_               ;}
 
 
+    void play() { playing = true; time_ms(&lastFrameTime);}
+    void pause() { playing = false;}
+
+    bool isPlaying() {return playing;}
 };
 
 

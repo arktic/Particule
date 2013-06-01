@@ -17,23 +17,24 @@ using namespace std;
 
 ParticuleGenerateur::ParticuleGenerateur
 ( char* _shaderName, char* _textureName, int64_t _frameTime, int _nbItemPerFrame, float _radius     ,  Vec3 _center , int _nbItem  , float _lifeTimeMin,
-   float _lifeTimeMax,  float _sizeMin, float _sizeMax, float _velocityMin, float _velocityMax
- ):
-        lastFrameTime(0),
-        frameTime(_frameTime),
-        nbItemPerFrame(_nbItemPerFrame),
-        radius(_radius),
-        center(_center),
-        nbItem(_nbItem),
-        nbAlive(0),
-        lifeTimeMin(_lifeTimeMin),
-        lifeTimeMax(_lifeTimeMax),
-        velocityMin(_velocityMin),
-        velocityMax(_velocityMax),
-        sizeMin(_sizeMin),
-        sizeMax(_sizeMax),
-        alive(),
-        dead()
+  float _lifeTimeMax,  float _sizeMin, float _sizeMax, float _velocityMin, float _velocityMax
+  ):
+    lastFrameTime(0),
+    frameTime(_frameTime),
+    nbItemPerFrame(_nbItemPerFrame),
+    radius(_radius),
+    center(_center),
+    nbItem(_nbItem),
+    //nbAlive(0),
+    lifeTimeMin(_lifeTimeMin),
+    lifeTimeMax(_lifeTimeMax),
+    velocityMin(_velocityMin),
+    velocityMax(_velocityMax),
+    sizeMin(_sizeMin),
+    sizeMax(_sizeMax),
+    alive(),
+    dead(),
+    playing(true)
 {
     loaded = false;
     shaderName = _shaderName;
@@ -85,12 +86,13 @@ void ParticuleGenerateur::update() {
     time_ms(&tMs);
     elapsedTime = tMs - lastFrameTime;
 
-    if( elapsedTime >  frameTime) {
+    if( elapsedTime >  frameTime && isPlaying()) {
         updateParticle(elapsedTime);
         addParticle();
 
         lastFrameTime = tMs;
     }
+
 }
 
 
@@ -148,23 +150,23 @@ void ParticuleGenerateur::addParticle(){
         dead.pop_back();
         fillRandomParticule(pt);
         alive.push_back(pt);
-        nbAlive++;
         nbPtcBroughtBackToLife++;
     }
 }
 
 void ParticuleGenerateur::updateParticle(int &elapsedTime){
     int i=0;
-    for(vector<Particule*>::iterator it = alive.begin(); it  < alive.end(); ++it) {
-        (*it)->live(elapsedTime);
+    if(isPlaying()) {
+        for(vector<Particule*>::iterator it = alive.begin(); it  < alive.end(); ++it) {
+            (*it)->live(elapsedTime);
 
-        if(!(*it)->isAlive()) {
-            dead.push_back(*it);
-            alive.erase(it);
-            nbAlive--;
-        }
-        else {
-            fillCGA(i,it);
+            if(!(*it)->isAlive()) {
+                dead.push_back(*it);
+                alive.erase(it);
+            }
+            else {
+                fillCGA(i,it);
+            }
             i++;
         }
     }

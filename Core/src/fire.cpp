@@ -52,7 +52,7 @@ void Fire::render(App *app)
     glBindTexture(GL_TEXTURE_2D,textureID);
 
     // textureID initialization
-    glUniform1i(glGetUniformLocation(0, "texId"),0);
+    glUniform1i(glGetUniformLocation(0, "texId"),textureID);
 
     // setting de la position de la caméra dans le shader et du viewport width
     camPos = app->getCamera()->getPosition();
@@ -89,7 +89,7 @@ void Fire::render(App *app)
     glVertexAttribPointer( size, 1, GL_FLOAT, GL_FALSE, 0, sizes );
     glVertexAttribPointer( ageRatio, 1, GL_FLOAT, GL_FALSE, 0, agesRatio );
 
-    glDrawArrays( GL_POINTS, 0, nbAlive );
+    glDrawArrays( GL_POINTS, 0, getNbAlive() );
 
     glDisableVertexAttribArray( position );
     glDisableVertexAttribArray( ivelocity );
@@ -125,4 +125,22 @@ void Fire::unload(App *app) {
 }
 
 Fire::~Fire(){
+}
+
+void Fire::fillCGA(int &i, vector<Particule*>::iterator &it)
+{
+    Vec3 pos = (*it)->getPosition();
+    vertices[3*i  ]   = pos.x;
+    vertices[3*i+1] = pos.y;
+    vertices[3*i+2] = pos.z;
+
+    pos = (*it)->getVelocity();
+
+    velocity[3*i]   = pos.x;
+    velocity[3*i+1] = pos.y;
+    velocity[3*i+2] = pos.z;
+
+    agesRatio[i] = (*it)->getAge()/((*it)->getLifeTime());
+    ages[i] = (*it)->getAge();
+    sizes[i] = (float)(*it)->getSize();
 }

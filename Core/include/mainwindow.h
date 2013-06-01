@@ -26,9 +26,11 @@ private:
     //void setUpCurrentValues();
 
     void keyPressEvent(QKeyEvent *);
+
 public:
     MainWindow(QWidget * parent);
     ~MainWindow();
+
 
 
 public slots:
@@ -49,7 +51,10 @@ public slots:
     void onDirectionChanged(int);
     void onRotSpeedChange(int);
     void onRotOffsetChange(int);
+    void startAndPauseGeneration();
+    void stopGeneration();
     void onRotEnableChange(int);
+    void enableTree();
 };
 
 #endif // MAINWINDOW_H
