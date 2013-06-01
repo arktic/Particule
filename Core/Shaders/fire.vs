@@ -18,6 +18,7 @@ in float size;
 // temps depuis le dut de la simulation
 in float t;
 in float ageRatio;
+out int alive;
 
 //out vec4 fColor;  // interpol et transmis au fragment shader
 //out float redMul;
@@ -25,6 +26,14 @@ out float alpha;
 
 void main() {
 	vec3 np; // nouvelle position
+	alive = 1;
+	vec3 d;
+	d.x = position.x - center.x;
+	d.y = position.y - center.y;
+	d.z = position.z - center.z;
+	float h = position.y - center.y;
+	if(length(d) > (radius) && h < radius  )
+		alive = 0;
 	gl_PointSize = size *0.2* viewportWidth / length(eyePosition);
 	
 	// calcul de la nouvelle position

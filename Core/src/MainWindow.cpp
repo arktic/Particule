@@ -3,6 +3,8 @@
 #include "ui_mainwindow.h"
 #include "App.h"
 #include "fire.h"
+#include "smoke.h"
+#include "fountain.h"
 #include "Vectors.h"
 
 #include <QSpinBox>
@@ -28,6 +30,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    /* rot */
+    connect(ui->rotSpeedSliderFountain, SIGNAL(valueChanged(int)), this, SLOT(onRotSpeedChange(int)));
+    connect(ui->rotOffsetAngleFountainSlider, SIGNAL(valueChanged(int)), this, SLOT(onRotOffsetChange(int)));
+    connect(ui->rotEnableFountain, SIGNAL(stateChanged(int)), this, SLOT(onRotEnableChange(int)));
 
     /* radius */
     connect(ui->radiusSliderFire, SIGNAL(valueChanged(int)), this,SLOT(onRadiusChanged(int)));
@@ -121,6 +128,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->stopButtonSmoke, SIGNAL(clicked()), this, SLOT(stopGeneration()));
     connect(ui->stopButtonFountain, SIGNAL(clicked()), this, SLOT(stopGeneration()));
 
+    connect(ui->enableTree, SIGNAL(stateChanged(int)), this, SLOT(enableTree()));
 
     /* fps */
     connect(ui->app, SIGNAL(onFpsChanged(int)), ui->fpsValue, SLOT(setNum(int)));
@@ -580,9 +588,20 @@ void MainWindow::setCurrentValues() {
             ui->centerZFountainSpinbox->setValue(center.z);
 
             Vec3 dir = fountain->getDirection();
+
+//            ui->directionXFountainSpinbox->setValue(dir.x);
+//            ui->directionYFountainSpinbox->setValue(dir.y);
+//            ui->directionZFountainSpinbox->setValue(dir.z);
+
+            ui->rotEnableFountain->setChecked(fountain->getRot());
+            ui->rotOffsetAngleFountainSlider->setValue(fountain->getRotOffset()*10000);
+            ui->rotSpeedSliderFountain->setValue(fountain->getRotSpeed());
+
             ui->directionXFountainSpinbox->setValue(dir.x*10);
             ui->directionYFountainSpinbox->setValue(dir.y*10);
             ui->directionZFountainSpinbox->setValue(dir.z*10);
+
+            ui->enableTree->setChecked(ui->app->getEnableTree());
         }
     }
 }
@@ -619,6 +638,27 @@ void MainWindow::onUpdateTimerChanged(int newValue) {
     }
 }
 
+void MainWindow::onRotSpeedChange(int speed) {
+    Fountain * fountain =  ui->app->getFountain();
+    if(fountain){
+        fountain->setRotSpeed(speed);
+    }
+}
+
+void MainWindow::onRotOffsetChange(int off) {
+    Fountain * fountain =  ui->app->getFountain();
+    if(fountain){
+        fountain->setRotOffset((float)off/10000.f);
+    }
+}
+
+void MainWindow::onRotEnableChange(int status) {
+    Fountain * fountain =  ui->app->getFountain();
+    if(fountain){
+        std::cout << "checked ?" << ui->rotEnableFountain->isChecked() << std::endl;
+        fountain->setRot(ui->rotEnableFountain->isChecked());
+    }
+}
 
 
 
@@ -629,6 +669,7 @@ void MainWindow::startAndPauseGeneration() {
         QPushButton * start = ui->startButtonFire;
         if((start->text()).compare("Start") == 0) {
             ui->app->createFire();
+            setCurrentValues();
             Fire * fire =  ui->app->getFire();
             if(fire && ui->stopButtonFire->isEnabled() == true) {
                 fire->play();
@@ -647,6 +688,7 @@ void MainWindow::startAndPauseGeneration() {
         QPushButton * start = ui->startButtonSmoke;
         if((start->text()).compare("Start") == 0) {
             ui->app->createSmoke();
+            setCurrentValues();
             Smoke * smoke =  ui->app->getSmoke();
             if(smoke && ui->stopButtonSmoke->isEnabled() == true) {
                 smoke->play();
@@ -666,6 +708,7 @@ void MainWindow::startAndPauseGeneration() {
         QPushButton * start = ui->startButtonFountain;
         if((start->text()).compare("Start") == 0) {
             ui->app->createFountain();
+            setCurrentValues();
             Fountain * fountain =  ui->app->getFountain();
             if(fountain && ui->stopButtonFountain->isEnabled() == true) {
                 fountain->play();
@@ -703,8 +746,9 @@ void MainWindow::stopGeneration() {
     }
 }
 
-
-
+void MainWindow::enableTree() {
+    ui->app->setEnableTree(ui->enableTree->isChecked());
+}
 
 MainWindow::~MainWindow()
 {

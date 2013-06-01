@@ -8,7 +8,7 @@
 #include <QImage>
 #include <vector>
 #include <string>
-
+#include "Vectors.h"
 
 struct GLMatrix
 {
@@ -23,6 +23,7 @@ struct GLMatrix
 
 GLMatrix operator*(const GLMatrix &, const GLMatrix &);
 GLMatrix inverse( const GLMatrix & );
+Vec4 operator*(const GLMatrix &, const Vec4 &);
 
 
 class GlFramework : public AbstractFramework

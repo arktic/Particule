@@ -67,7 +67,7 @@ void Fire::render(App *app)
     app->transmitMVP( mvp );
     glUniform3f(eyePosition, camPos.x, camPos.y, camPos.z);
     glUniform1f(viewportWidth,viewport[2] );
-    glUniform1f( radius, radius);
+    glUniform1f( radius, getRadius());
     glUniform3f(c, center.x, center.y, center.z );
 
     t        = glGetAttribLocation( shaderID, "t" );

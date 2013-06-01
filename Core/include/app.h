@@ -36,6 +36,7 @@ class App : public GlWindow
     Fountain* fountain;
     std::vector<Tree *> trees;
 
+    bool enableTree;
     float fps;
     int64_t lastTimeFps;
 
@@ -86,6 +87,8 @@ class App : public GlWindow
 		void keyPressEvent(QKeyEvent *);
 
         int getFps() { return fps;}
+        bool getEnableTree() { return enableTree; }
+        void setEnableTree(bool value) {enableTree = value; }
 
         void notifyFpsChanged(int fps);
 

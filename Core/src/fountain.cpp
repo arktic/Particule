@@ -1,7 +1,10 @@
 #include "fountain.h"
 #include "utils.h"
 #include "App.h"
+#include "Particule.h"
+#include <cmath>
 
+#include <iostream>
 Fountain::Fountain(
         char* _shaderName   , char* _textureName, int64_t _frameTime  , int _nbItemPerFrame   , float _radius,
         Vec3 _center        , int _nbItem       , float _lifeTimeMin    , float _lifeTimeMax,
@@ -12,7 +15,7 @@ Fountain::Fountain(
         _shaderName     , _textureName, _frameTime     , _nbItemPerFrame       , _radius,
         _center         ,_nbItem        , _lifeTimeMin          , _lifeTimeMax,
         _sizeMin        ,_sizeMax       , _velocityMin          , _velocityMax
-        )
+        ), direction(_direction), rotOffset(0.1), rotSpeed(800), rotLastTimer(0)
 {
     if(_direction.length() !=0){
         _direction.normalize();
@@ -129,5 +132,37 @@ void Fountain::setDirection(Vec3 dir) {
     }
     else {
         direction = Vec3(0,1,0);
+    }
+}
+
+Vec3 Fountain::getTurnVelocity(){
+    rotLastTimer += elapsedTime;
+    //std::cout << "rotTimer: " << (int)rotLastTimer << std::endl;
+    if(rotLastTimer > rotSpeed){
+        rotLastTimer = 0;
+        angle += rotOffset;
+        if(angle > M_PI*2)
+            angle = 0;
+        direction = rotate(direction, angle, center.x, 1, center.z);
+        //std::cout << "CHANGE a"<< angle << std::endl;
+    }
+    return direction* getBoundedRandom(velocityMin, velocityMax);
+}
+
+void Fountain::fillParticle(Particule* pt){
+    pt->set(getRandomLifeTime(),getRandomSize(),getRandomPosition(),getTurnVelocity());
+}
+
+void Fountain::addParticle(){
+    int nbPtcBroughtBackToLife = 0;
+    while(dead.size() > 0 && nbPtcBroughtBackToLife < nbItemPerFrame) {
+        Particule* pt = dead.back();
+        dead.pop_back();
+        if(rot)
+            fillParticle(pt);
+        else
+            fillRandomParticule(pt);
+        alive.push_back(pt);
+        nbPtcBroughtBackToLife++;
     }
 }

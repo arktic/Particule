@@ -8,7 +8,6 @@
 #include "App.h"
 
 #define FOUNTAIN_TEXTURE "Texture/tex2d_radial_blur.png"
-
 #define FOUNTAIN_FRAMETIME 33
 #define FOUNTAIN_ITEMPERFRAME 100
 #define FOUNTAIN_NBPARTICLE 20000
@@ -33,7 +32,7 @@ class Fountain : public ParticuleGenerateur {
 private:
     GLuint shaderID;
     GLuint textureID;
-
+    bool rot;
     /* variables shader uniformes */
     GLint mvp           ;
     GLint eyePosition   ;
@@ -48,17 +47,30 @@ private:
     GLint size          ;
 
     Vec3 direction;
+    int64_t rotSpeed;
+    int64_t rotLastTimer;
+    float angle;
+    float rotOffset;
 
     Vec3 getRandomVelocity();
-
+    Vec3 getTurnVelocity();
 public:
     Fountain( char* _shaderName, char* _textureName, int64_t _frameTime, int _nbItemPerFrame, float _radius     ,  Vec3 _center , int _nbItem  , float _lifeTimeMin,
        float _lifeTimeMax,  float _sizeMin, float _sizeMax, float _velocityMin, float _velocityMax,
      Vec3 _direction);
 
-    Vec3 getDirection() { return direction; }
-    void setDirection(Vec3 dir);
+    Vec3    getDirection    () { return direction       ; }
+    float   getRotSpeed     () { return rotSpeed        ; }
+    float   getRotOffset    () { return rotOffset       ; }
+    bool    getRot          () { return rot             ; }
 
+    void    setDirection    (Vec3 dir       ) ;//{ direction = dir     ; }
+    void    setRotSpeed     (float speed    ) { rotSpeed = speed    ; }
+    void    setRotOffset    (float off      ) { rotOffset = off     ; }
+    void    setRot          (bool v         ) { rot = v             ; }
+
+    void fillParticle(Particule* pt);
+    void addParticle();
     void load(App* app);
     void unload(App* app);
     void render(App *app);

@@ -33,6 +33,7 @@ App::initializeObjects()
     cam = new Camera(20,20,0,0,0,0,0,1,0);
     map = new HeightMap("Texture/heightmap.png","Shaders/map");
     map->load(this);
+    enableTree = false;
     oldMouse.x = 0;
     oldMouse.y = 0;
     glClearColor( 0.0f, 0.635294f, 0.90980f, 1.0f );
@@ -48,7 +49,6 @@ App::initializeObjects()
     fire = NULL;
     fountain = NULL;
     smoke = NULL;
-
 
 
     trees.push_back(new Tree("Shaders/tree",Vec3(-10,0,10),10,5,10,10));
@@ -100,10 +100,12 @@ App::render()
     plan->render(this);
 
     /*-------------- trees ------------*/
-    std::vector<Tree*>::iterator tree = trees.begin();
-    while(tree != trees.end()) {
-        (*tree)->render(this);
-        ++tree;
+    if(enableTree) {
+        std::vector<Tree*>::iterator tree = trees.begin();
+        while(tree != trees.end()) {
+            (*tree)->render(this);
+            ++tree;
+        }
     }
 
     //        /*--------------- Smoke ---------- */

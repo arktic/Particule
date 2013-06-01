@@ -22,7 +22,7 @@ const float g = 4;
 
 void main() {
 	vec3 np; // nouvelle position
-	gl_PointSize = size *0.02* viewportWidth / length(eyePosition);
+	gl_PointSize = size *0.2* viewportWidth / length(eyePosition);
 	
 	// calcul de la nouvelle position
 	np = position + 0.001*t * velocity;
