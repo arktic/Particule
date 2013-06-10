@@ -82,9 +82,7 @@ class App : public GlWindow
 		void render();
 
         virtual ~App();
-        void mouseMoveEvent(QMouseEvent *);
-        void mousePressEvent(QMouseEvent *);
-		void keyPressEvent(QKeyEvent *);
+        void keyPressEvent(QKeyEvent *);
 
         int getFps() { return fps;}
         bool getEnableTree() { return enableTree; }

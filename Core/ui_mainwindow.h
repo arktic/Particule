@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Sat 1. Jun 12:03:35 2013
+** Created: Wed 5. Jun 21:39:34 2013
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -904,7 +904,7 @@ public:
         label_61->setFont(font1);
         enableTree = new QCheckBox(centralwidget);
         enableTree->setObjectName(QString::fromUtf8("enableTree"));
-        enableTree->setGeometry(QRect(780, 10, 70, 17));
+        enableTree->setGeometry(QRect(780, 10, 91, 17));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -941,7 +941,7 @@ public:
         QObject::connect(rotOffsetAngleFountainSlider, SIGNAL(valueChanged(int)), rotOffsetAngleFountainValue, SLOT(setNum(int)));
         QObject::connect(rotSpeedSliderFountain, SIGNAL(valueChanged(int)), rotSpeedFountainValue, SLOT(setNum(int)));
 
-        controlSelector->setCurrentIndex(2);
+        controlSelector->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);

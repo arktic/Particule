@@ -55,7 +55,7 @@
      </sizepolicy>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="fireTab">
      <property name="mouseTracking">
@@ -2498,7 +2498,7 @@
      <rect>
       <x>780</x>
       <y>10</y>
-      <width>70</width>
+      <width>91</width>
       <height>17</height>
      </rect>
     </property>

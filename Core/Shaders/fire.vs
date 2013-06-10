@@ -41,10 +41,6 @@ void main() {
 	
 	// cette nouvelle position est la position de notre particule
 	gl_Position = MVP * vec4( np, 1.0f );
-	//float d = length(center-position);
-//	if(d > radius*0.8) {
-//		redMul = 1.2;
-//	}
 	
 	float start = 0.2;
 	float end = 0.8;

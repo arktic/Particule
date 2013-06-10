@@ -121,7 +121,7 @@ void Camera::moveRightSide(float speed) {
     lateral*=speed;
 
     pos += lateral;
-    cout << "newpos:" << pos.x << " " << pos.y << " " << pos.z << endl;
+    //cout << "newpos:" << pos.x << " " << pos.y << " " << pos.z << endl;
     if(!focusOn)
         focus += lateral;
 }

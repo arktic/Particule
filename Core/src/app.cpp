@@ -56,14 +56,6 @@ App::initializeObjects()
     trees.push_back(new Tree("Shaders/tree",Vec3(-10,0,30),10,5,10,10));
     trees.push_back(new Tree("Shaders/tree",Vec3(-10,0,-10),10,5,10,10));
 
-    trees.push_back(new Tree("Shaders/tree",Vec3(-30,0,10),10,5,10,10));
-    trees.push_back(new Tree("Shaders/tree",Vec3(-30,0,30),10,5,10,10));
-    trees.push_back(new Tree("Shaders/tree",Vec3(-30,0,-10),10,5,10,10));
-
-
-    trees.push_back(new Tree("Shaders/tree",Vec3(20,0,30),10,5,10,10));
-    trees.push_back(new Tree("Shaders/tree",Vec3(20,0,60),10,5,10,10));
-    trees.push_back(new Tree("Shaders/tree",Vec3(20,0,-20),10,5,10,10));
 
     std::vector<Tree*>::iterator tree = trees.begin();
     while(tree != trees.end()) {
@@ -99,7 +91,7 @@ App::render()
             repere->render(this);
 
     //        /*-------------- plan ------------*/
-    //plan->render(this);
+    plan->render(this);
 
     /*-------------- trees ------------*/
     if(enableTree) {
@@ -141,18 +133,7 @@ App::render()
 }
 
 
-void
-App::mouseMoveEvent(QMouseEvent *event){
-    //cam->orienter(event->x()-oldMouse.x ,event->y()-oldMouse.y);
-    cam->rotate(0,0,(event->y()-oldMouse.y)*0.5);//event->x()-oldMouse.x
-    oldMouse.x = event->x();
-    oldMouse.y = event->y();
-}
 
-void App::mousePressEvent(QMouseEvent * event) {
-    oldMouse.x = event->x();
-    oldMouse.y = event->y();
-}
 
 void
 App::keyPressEvent( QKeyEvent* event )
